@@ -9,4 +9,5 @@ npm install jsonwebtoken --save --no-audit
 npm install mongoose --save --no-audit
 npm install multer --save --no-audit
 npm install swagger-ui-express --save --no-audit
+npm install express-validator --save --no-audit
 npm install --global nodemon --save --no-audit
