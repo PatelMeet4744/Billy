@@ -1,0 +1,13 @@
+Backend Packages Installs
+--------------------------
+npm install bcryptjs --save --no-audit
+npm install cors --save --no-audit
+npm install express --save --no-audit
+npm install express-unless --save --no-audit
+npm install ip --save --no-audit
+npm install jsonwebtoken --save --no-audit
+npm install mongoose --save --no-audit
+npm install multer --save --no-audit
+npm install swagger-ui-express --save --no-audit
+npm install express-validator --save --no-audit
+npm install --global nodemon --save --no-audit
