@@ -47,23 +47,23 @@ const restaurant = mongoose.model(
             documents: {
                 gstCertificate: {
                     type: String,
-                    require: true
+                    default: ''
                 },
                 fssaiCertificate: {
                     type: String,
-                    require: true
+                    default: ''
                 },
                 sampleBill: {
                     type: String,
-                    require: true
+                    default: ''
                 },
                 sampleMenu: {
                     type: String,
-                    require: true
+                    default: ''
                 },
                 ownerPan: {
                     type: String,
-                    require: true
+                    default: ''
                 }
             },
             restaurantTiming: [
@@ -94,6 +94,7 @@ const restaurant = mongoose.model(
             }
         },
         {
+            timestamps: true,
             toJSON: {
                 transform: function (doc, ret) {
                     ret.restaurantId = ret._id.toString();

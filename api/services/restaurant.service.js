@@ -23,6 +23,40 @@ async function createRestaurant(params, callback) {
         });
 }
 
+async function attachDocumentRestaurant(params, callback) {
+    if (!params.gstCertificate || !params.fssaiCertificate || !params.sampleBill || !params.sampleMenu || !params.ownerPan) {
+        return callback({
+            message: "Some Fields are Required"
+        }, "");
+    }
+    const restaurantId = params.restaurantId;
+    const { gstCertificate, fssaiCertificate, sampleBill, sampleMenu, ownerPan, cuisines } = params;
+
+    // Build Restaurant object
+    const restaurantFields = {};
+    restaurantFields.cuisines = cuisines.split(',')
+        .map((item) => item.trim());
+
+    // Build Documet object
+    restaurantFields.documents = {};
+    restaurantFields.documents.gstCertificate = gstCertificate;
+    restaurantFields.documents.fssaiCertificate = fssaiCertificate;
+    restaurantFields.documents.sampleBill = sampleBill;
+    restaurantFields.documents.sampleMenu = sampleMenu;
+    restaurantFields.documents.ownerPan = ownerPan;
+
+    // return console.log(restaurantFields);
+    restaurant.findOneAndUpdate({ restaurantId: restaurantId }, { $set: restaurantFields }, { new: true })
+        .then((response) => {
+            if (!response) callback(`Cannot update Restaurant with ID ${productId}`);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
-    createRestaurant
+    createRestaurant,
+    attachDocumentRestaurant
 };
