@@ -22,6 +22,7 @@ async function createRestaurant(params, callback) {
             return callback(error);
         });
 }
+
 async function attachDocumentRestaurant(params, callback) {
     if (!params.gstCertificate || !params.fssaiCertificate || !params.sampleBill || !params.sampleMenu || !params.ownerPan) {
         return callback({
@@ -29,10 +30,13 @@ async function attachDocumentRestaurant(params, callback) {
         }, "");
     }
     const restaurantId = params.restaurantId;
-    const { gstCertificate, fssaiCertificate, sampleBill, sampleMenu, ownerPan } = params;
+    const { gstCertificate, fssaiCertificate, sampleBill, sampleMenu, ownerPan, cuisines } = params;
 
     // Build Restaurant object
     const restaurantFields = {};
+    restaurantFields.cuisines = cuisines.split(',')
+        .map((item) => item.trim());
+
     // Build Documet object
     restaurantFields.documents = {};
     restaurantFields.documents.gstCertificate = gstCertificate;

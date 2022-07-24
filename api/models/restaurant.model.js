@@ -94,6 +94,7 @@ const restaurant = mongoose.model(
             }
         },
         {
+            timestamps: true,
             toJSON: {
                 transform: function (doc, ret) {
                     ret.restaurantId = ret._id.toString();

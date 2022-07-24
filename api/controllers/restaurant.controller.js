@@ -56,8 +56,8 @@ exports.attachDocument = (req, res, next) => {
                 sampleBill: sampleBillpath != "" ? "/" + sampleBillpath : "",
                 sampleMenu: sampleMenupath != "" ? "/" + sampleMenupath : "",
                 ownerPan: ownerPanpath != "" ? "/" + ownerPanpath : "",
+                cuisines: req.body.cuisines
             };
-
 
             restaurantService.attachDocumentRestaurant(model, (error, results) => {
                 if (error) {
