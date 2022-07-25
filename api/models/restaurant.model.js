@@ -66,18 +66,44 @@ const restaurant = mongoose.model(
                     default: ''
                 }
             },
-            restaurantTiming: [
-                {
-                    startTime: {
-                        type: Date,
-                        required: true
-                    },
-                    endTime: {
-                        type: Date,
-                        required: true
+            restaurantTiming:
+            {
+                monday: {
+                    time: {
+                        type: [Date]
+                    }
+                },
+                tuesday: {
+                    time: {
+                        type: [Date]
+                    }
+                },
+                wednesday: {
+                    time: {
+                        type: [Date]
+                    }
+                },
+                thursday: {
+                    time: {
+                        type: [Date]
+                    }
+                },
+                friday: {
+                    time: {
+                        type: [Date]
+                    }
+                },
+                saturday: {
+                    time: {
+                        type: [Date]
+                    }
+                },
+                sunday: {
+                    time: {
+                        type: [Date]
                     }
                 }
-            ],
+            },
             cuisines: [
                 {
                     type: mongoose.Schema.Types.ObjectId,
@@ -87,10 +113,6 @@ const restaurant = mongoose.model(
             restaurantStatus: {
                 type: Boolean,
                 default: true // true -> Active & false -> DeActive
-            },
-            restaurantAddedOn: {
-                type: Date,
-                default: Date.now
             }
         },
         {
