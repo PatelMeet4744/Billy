@@ -30,12 +30,45 @@ async function attachDocumentRestaurant(params, callback) {
         }, "");
     }
     const restaurantId = params.restaurantId;
-    const { gstCertificate, fssaiCertificate, sampleBill, sampleMenu, ownerPan, cuisines } = params;
+    const { gstCertificate, fssaiCertificate, sampleBill, sampleMenu, ownerPan, cuisines, monday, tuesday, wednesday, thursday, friday, saturday, sunday } = params;
+
+    // return console.log(monday.split(','));
 
     // Build Restaurant object
     const restaurantFields = {};
     restaurantFields.cuisines = cuisines.split(',')
         .map((item) => item.trim());
+
+    // Build Restaurant Timing object
+    restaurantFields.restaurantTiming = {};
+    if (monday) {
+        restaurantFields.restaurantTiming.monday = monday.split(',')
+            .map((item) => item.trim());
+    }
+    if (tuesday) {
+        restaurantFields.restaurantTiming.tuesday = tuesday.split(',')
+            .map((item) => item.trim());
+    }
+    if (wednesday) {
+        restaurantFields.restaurantTiming.wednesday = wednesday.split(',')
+            .map((item) => item.trim());
+    }
+    if (thursday) {
+        restaurantFields.restaurantTiming.thursday = thursday.split(',')
+            .map((item) => item.trim());
+    }
+    if (friday) {
+        restaurantFields.restaurantTiming.friday = friday.split(',')
+            .map((item) => item.trim());
+    }
+    if (saturday) {
+        restaurantFields.restaurantTiming.saturday = saturday.split(',')
+            .map((item) => item.trim());
+    }
+    if (sunday) {
+        restaurantFields.restaurantTiming.sunday = sunday.split(',')
+            .map((item) => item.trim());
+    }
 
     // Build Documet object
     restaurantFields.documents = {};
@@ -46,6 +79,7 @@ async function attachDocumentRestaurant(params, callback) {
     restaurantFields.documents.ownerPan = ownerPan;
 
     // return console.log(restaurantFields);
+
     restaurant.findOneAndUpdate({ restaurantId: restaurantId }, { $set: restaurantFields }, { new: true })
         .then((response) => {
             if (!response) callback(`Cannot update Restaurant with ID ${productId}`);
