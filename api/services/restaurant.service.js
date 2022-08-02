@@ -90,7 +90,26 @@ async function attachDocumentRestaurant(params, callback) {
         });
 }
 
+async function updateRestaurantBasicDetailsByPartner(params, callback) {
+    if (!params.restaurantName || !params.restaurantContact) {
+        return callback({
+            message: "Some Fields are Required"
+        }, "");
+    }
+    const restaurantId = params.restaurantId;
+    restaurant.findByIdAndUpdate(restaurantId, params, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Restaurant with ID " + restaurantId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
+
 module.exports = {
     createRestaurant,
-    attachDocumentRestaurant
+    attachDocumentRestaurant,
+    updateRestaurantBasicDetailsByPartner
 };
