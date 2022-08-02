@@ -18,5 +18,7 @@ router.put("/restaurant/updatedocument/:restaurantId", [authenticateToken], rest
 
 /* Cuisines Route */
 // Create a new Cuisines
-router.post("/cuisines", cuisinesController.create);
+router.post("/cuisines", [authenticateToken], cuisinesController.create);
+// Update Cuisines
+router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.update);
 module.exports = router;

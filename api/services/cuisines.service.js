@@ -17,6 +17,20 @@ async function createCuisines(params, callback) {
         });
 }
 
+async function updateCuisines(params, callback) {
+    const cuisinesId = params.cuisinesId;
+
+    cuisines.findByIdAndUpdate(cuisinesId, params, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Cuisines with ID " + cuisinesId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
-    createCuisines
+    createCuisines,
+    updateCuisines
 };
