@@ -82,6 +82,23 @@ exports.attachDocument = (req, res, next) => {
     });
 }
 
+// Login Restaurant
+exports.login = (req, res, next) => {
+    const { ownerEmailID, ownerPassword } = req.body;
+    // return console.log(req.body);
+    // return console.log({ ownerEmailID, ownerPassword });
+    restaurantService.loginRestaurant({ ownerEmailID, ownerPassword }, (error, results) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            message: "Success",
+            data: results
+        });
+    });
+}
+
 // Update Restaurant Basic Details By Partner
 exports.updateBasicDetailsByPartner = (req, res, next) => {
     uploadImage(req, res, function (err) {

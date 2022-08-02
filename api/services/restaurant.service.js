@@ -1,5 +1,6 @@
 const { restaurant } = require("../models/restaurant.model");
 const bcrypt = require('bcryptjs');
+const auth = require("../middleware/auth");
 
 async function createRestaurant(params, callback) {
     if (!params.restaurantName || !params.restaurantAddress || !params.restaurantContact || !params.ownerName || !params.ownerContact || !params.ownerEmailID || !params.ownerPassword) {
@@ -90,6 +91,28 @@ async function attachDocumentRestaurant(params, callback) {
         });
 }
 
+async function loginRestaurant({ ownerEmailID, ownerPassword }, callback) {
+    const restaurantModel = await restaurant.findOne({ ownerEmailID }, { restaurantName: 1, ownerName: 1, ownerPassword: 1 });
+    if (restaurantModel != null) {
+        if (bcrypt.compareSync(ownerPassword, restaurantModel.ownerPassword)) {
+            const token = auth.generateAccessToken(restaurantModel.toJSON());
+            let restaurant = { ...restaurantModel.toJSON() }
+            delete restaurant.ownerPassword;
+            delete restaurant.restaurantId;
+            return callback(null, { restaurant, token });
+        } else {
+            return callback({
+                message: "Invalid Email/Password"
+            });
+        }
+    }
+    else {
+        return callback({
+            message: "Invalid Email/Password"
+        });
+    }
+}
+
 async function updateRestaurantBasicDetailsByPartner(params, callback) {
     if (!params.restaurantName || !params.restaurantContact) {
         return callback({
@@ -107,9 +130,9 @@ async function updateRestaurantBasicDetailsByPartner(params, callback) {
         });
 }
 
-
 module.exports = {
     createRestaurant,
     attachDocumentRestaurant,
+    loginRestaurant,
     updateRestaurantBasicDetailsByPartner
 };
