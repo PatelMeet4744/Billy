@@ -1,6 +1,7 @@
 const restaurantService = require("../services/restaurant.service");
 const uploadImage = require("../middleware/restaurantImage.upload");
 const uploadPDF = require("../middleware/restaurantPDF.upload");
+const fs = require("fs");
 
 // Create and Save a new Restaurant
 exports.create = (req, res, next) => {
@@ -68,6 +69,49 @@ exports.attachDocument = (req, res, next) => {
 
             // return console.log(model);
             restaurantService.attachDocumentRestaurant(model, (error, results) => {
+                if (error) {
+                    return next(error);
+                } else {
+                    return res.status(200).send({
+                        message: "Success",
+                        data: results,
+                    });
+                }
+            });
+        }
+    });
+}
+
+// Update Restaurant Basic Details By Partner
+exports.updateBasicDetailsByPartner = (req, res, next) => {
+    uploadImage(req, res, function (err) {
+        let restaurantImage = "";
+
+        if (err) {
+            next(err);
+        } else {
+            if (req.file != undefined) {
+                const path = req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
+                restaurantImage = "/" + path;
+
+                try {
+                    fs.unlinkSync("." + req.body.old_image);
+                } catch (error) {
+                    next(error);
+                }
+
+            } else {
+                restaurantImage = req.body.old_image;
+            }
+
+            var model = {
+                restaurantId: req.params.restaurantId,
+                restaurantName: req.body.restaurantName,
+                restaurantContact: req.body.restaurantContact,
+                restaurantImage: restaurantImage
+            };
+            // return console.log(model);
+            restaurantService.updateRestaurantBasicDetailsByPartner(model, (error, results) => {
                 if (error) {
                     return next(error);
                 } else {
