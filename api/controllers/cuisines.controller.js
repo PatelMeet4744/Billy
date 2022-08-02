@@ -90,3 +90,35 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+// Delete a Cuisines with the specified id in the request
+exports.delete = (req, res, next) => {
+    // return console.log(req.body.cuisinesImage);
+    if (!req.body.cuisinesImage) {
+        return res.status(500).json({
+            message: "Cuisines Image is Required!"
+        });
+    }
+    else {
+        try {
+            fs.unlinkSync("." + req.body.cuisinesImage);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    var model = {
+        cuisinesId: req.params.cuisinesId,
+    };
+
+    cuisinesService.deleteCuisines(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

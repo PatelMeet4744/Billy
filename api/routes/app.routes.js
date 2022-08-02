@@ -23,4 +23,7 @@ router.post("/cuisines", [authenticateToken], cuisinesController.create);
 router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.update);
 // Retrieve all Cuisines
 router.get("/cuisines", [authenticateToken], cuisinesController.findAll);
+// Delete a Cuisines with id
+router.delete("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.delete);
+
 module.exports = router;

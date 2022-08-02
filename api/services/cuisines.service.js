@@ -30,6 +30,7 @@ async function updateCuisines(params, callback) {
             return callback(error);
         });
 }
+
 async function getCuisines(params, callback) {
     const cuisinesName = params.cuisinesName;
     var condition = cuisinesName ? { cuisinesName: { $regex: new RegExp(cuisinesName), $options: "i" } } : {};
@@ -49,8 +50,22 @@ async function getCuisines(params, callback) {
 
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
+
+async function deleteCuisines(params, callback) {
+    const cuisinesId = params.cuisinesId;
+
+    cuisines.findByIdAndDelete(cuisinesId)
+        .then((response) => {
+            if (!response) callback("Not Found Cuisines with ID " + cuisinesId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
 module.exports = {
     createCuisines,
     updateCuisines,
-    getCuisines
+    getCuisines,
+    deleteCuisines
 };
