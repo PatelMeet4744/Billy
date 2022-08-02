@@ -141,3 +141,45 @@ exports.updateBasicDetailsByPartner = (req, res, next) => {
         }
     });
 }
+
+// Update Restaurant Document by Admin
+exports.udpdateDocumentByAdmin = (req, res, next) => {
+    uploadPDF(req, res, function (err) {
+        let gstCertificatepath = "";
+        let fssaiCertificatepath = "";
+        let sampleBillpath = "";
+        let sampleMenupath = "";
+        let ownerPanpath = "";
+        if (err) {
+            next(err);
+        } else {
+            // return console.log(req.files);
+            gstCertificatepath = req.files['gstCertificate'] != undefined ? "/" + req.files['gstCertificate'][0].path.replace(/\\/g, "/") : req.body.old_gstCertificate;
+            fssaiCertificatepath = req.files['fssaiCertificate'] != undefined ? "/" + req.files['fssaiCertificate'][0].path.replace(/\\/g, "/") : req.body.old_fssaiCertificate;
+            sampleBillpath = req.files['sampleBill'] != undefined ? "/" + req.files['sampleBill'][0].path.replace(/\\/g, "/") : req.body.old_sampleBill;
+            sampleMenupath = req.files['sampleMenu'] != undefined ? "/" + req.files['sampleMenu'][0].path.replace(/\\/g, "/") : req.body.old_sampleMenu;
+            ownerPanpath = req.files['ownerPan'] != undefined ? "/" + req.files['ownerPan'][0].path.replace(/\\/g, "/") : req.body.old_ownerPan;
+
+            var model = {
+                restaurantId: req.params.id,
+                gstCertificate: gstCertificatepath,
+                fssaiCertificate: fssaiCertificatepath,
+                sampleBill: sampleBillpath,
+                sampleMenu: sampleMenupath,
+                ownerPan: ownerPanpath
+            };
+
+            // return console.log(model);
+            restaurantService.udpdateRestaurantDocumentByAdmin(model, (error, results) => {
+                if (error) {
+                    return next(error);
+                } else {
+                    return res.status(200).send({
+                        message: "Success",
+                        data: results,
+                    });
+                }
+            });
+        }
+    });
+}
