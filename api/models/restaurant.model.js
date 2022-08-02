@@ -112,7 +112,7 @@ const restaurant = mongoose.model(
             ],
             restaurantStatus: {
                 type: Boolean,
-                default: true // true -> Active & false -> DeActive
+                default: false // true -> Active & false -> DeActive
             }
         },
         {
