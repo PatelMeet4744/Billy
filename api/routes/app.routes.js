@@ -14,7 +14,7 @@ router.post("/restaurant/login", restaurantController.login);
 // Update Restaurant Basic Details by Partner
 router.put("/restaurant/:restaurantId", [authenticateToken], restaurantController.updateBasicDetailsByPartner);
 // Update Restaurant Document by Admin
-// router.put("/restaurant/updatedocument/:restaurantId", restaurantController.);
+router.put("/restaurant/updatedocument/:restaurantId", [authenticateToken], restaurantController.udpdateDocumentByAdmin);
 
 /* Cuisines Route */
 // Create a new Cuisines

@@ -129,10 +129,40 @@ async function updateRestaurantBasicDetailsByPartner(params, callback) {
             return callback(error);
         });
 }
+async function udpdateRestaurantDocumentByAdmin(params, callback) {
+
+    const restaurantId = params.restaurantId;
+    const { gstCertificate, fssaiCertificate, sampleBill, sampleMenu, ownerPan } = params;
+
+    // return console.log(monday.split(','));
+
+    // Build Restaurant object
+    const restaurantFields = {};
+
+    // Build Documet object
+    restaurantFields.documents = {};
+    restaurantFields.documents.gstCertificate = gstCertificate;
+    restaurantFields.documents.fssaiCertificate = fssaiCertificate;
+    restaurantFields.documents.sampleBill = sampleBill;
+    restaurantFields.documents.sampleMenu = sampleMenu;
+    restaurantFields.documents.ownerPan = ownerPan;
+
+    // return console.log(restaurantFields);
+
+    restaurant.findOneAndUpdate({ restaurantId: restaurantId }, { $set: restaurantFields }, { new: true })
+        .then((response) => {
+            if (!response) callback(`Cannot update Restaurant with ID ${productId}`);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
 
 module.exports = {
     createRestaurant,
     attachDocumentRestaurant,
     loginRestaurant,
-    updateRestaurantBasicDetailsByPartner
+    updateRestaurantBasicDetailsByPartner,
+    udpdateRestaurantDocumentByAdmin
 };
