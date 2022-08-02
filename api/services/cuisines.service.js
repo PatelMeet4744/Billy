@@ -1,4 +1,5 @@
 const { cuisines } = require("../models/cuisines.model");
+const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createCuisines(params, callback) {
     if (!params.cuisinesName) {
@@ -29,8 +30,27 @@ async function updateCuisines(params, callback) {
             return callback(error);
         });
 }
+async function getCuisines(params, callback) {
+    const cuisinesName = params.cuisinesName;
+    var condition = cuisinesName ? { cuisinesName: { $regex: new RegExp(cuisinesName), $options: "i" } } : {};
 
+    let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
+    let page = (Math.abs(params.page) || 1) - 1;
+
+    cuisines.find(condition, "")
+        .limit(perPage)
+        .skip(perPage * page)
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+
+    // ex totalRecord = 20, pageSize = 10. Page 1 =>
+}
 module.exports = {
     createCuisines,
-    updateCuisines
+    updateCuisines,
+    getCuisines
 };

@@ -70,3 +70,23 @@ exports.update = (req, res, next) => {
         }
     });
 }
+
+// Retrieve all Cuisines from the database.
+exports.findAll = (req, res, next) => {
+    var model = {
+        cuisinesName: req.query.cuisinesName,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    cuisinesService.getCuisines(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

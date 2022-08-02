@@ -21,4 +21,6 @@ router.put("/restaurant/updatedocument/:restaurantId", [authenticateToken], rest
 router.post("/cuisines", [authenticateToken], cuisinesController.create);
 // Update Cuisines
 router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.update);
+// Retrieve all Cuisines
+router.get("/cuisines", [authenticateToken], cuisinesController.findAll);
 module.exports = router;
