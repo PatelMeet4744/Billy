@@ -18,5 +18,14 @@ router.put("/restaurant/updatedocument/:restaurantId", [authenticateToken], rest
 
 /* Cuisines Route */
 // Create a new Cuisines
-router.post("/cuisines", cuisinesController.create);
+router.post("/cuisines", [authenticateToken], cuisinesController.create);
+// Update Cuisines
+router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.update);
+// Update Cuisines Status
+router.put("/cuisines/:cuisinesId/:cuisinesStatus", [authenticateToken], cuisinesController.updateStatus);
+// Retrieve all Cuisines
+router.get("/cuisines", [authenticateToken], cuisinesController.findAll);
+// Delete a Cuisines with id
+router.delete("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.delete);
+
 module.exports = router;
