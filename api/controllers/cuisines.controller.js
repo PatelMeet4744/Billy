@@ -122,3 +122,19 @@ exports.delete = (req, res, next) => {
         }
     });
 }
+
+// Update a Cuisines status by the id in the request
+exports.updateStatus = (req, res, next) => {
+    const { cuisinesId, cuisinesStatus } = req.params;
+    // return console.log({ cuisinesId, cuisinesStatus });
+    cuisinesService.updateCuisinesStatus({ cuisinesId, cuisinesStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}

@@ -63,9 +63,24 @@ async function deleteCuisines(params, callback) {
             return callback(error);
         });
 }
+
+async function updateCuisinesStatus({ cuisinesId, cuisinesStatus }, callback) {
+    // Convert String to Boolean status
+    const status = cuisinesStatus === "true" ? true : false
+
+    cuisines.findByIdAndUpdate(cuisinesId, { cuisinesStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Cuisines with ID " + cuisinesId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
 module.exports = {
     createCuisines,
     updateCuisines,
     getCuisines,
-    deleteCuisines
+    deleteCuisines,
+    updateCuisinesStatus
 };
