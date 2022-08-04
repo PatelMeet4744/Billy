@@ -77,6 +77,7 @@ async function updateCuisinesStatus({ cuisinesId, cuisinesStatus }, callback) {
             return callback(error);
         });
 }
+
 module.exports = {
     createCuisines,
     updateCuisines,

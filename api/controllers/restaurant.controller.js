@@ -183,3 +183,19 @@ exports.udpdateDocumentByAdmin = (req, res, next) => {
         }
     });
 }
+
+// Update a Restaurant status by the id in the request
+exports.updateStatus = (req, res, next) => {
+    const { restaurantId, restaurantStatus } = req.params;
+    // return console.log({ restaurantId, restaurantStatus });
+    restaurantService.updateRestaurantStatus({ restaurantId, restaurantStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}

@@ -129,6 +129,7 @@ async function updateRestaurantBasicDetailsByPartner(params, callback) {
             return callback(error);
         });
 }
+
 async function udpdateRestaurantDocumentByAdmin(params, callback) {
 
     const restaurantId = params.restaurantId;
@@ -159,10 +160,25 @@ async function udpdateRestaurantDocumentByAdmin(params, callback) {
         });
 }
 
+async function updateRestaurantStatus({ restaurantId, restaurantStatus }, callback) {
+    // Convert String to Boolean status
+    const status = restaurantStatus === "true" ? true : false
+    // return console.log(status);
+    restaurant.findByIdAndUpdate(restaurantId, { restaurantStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Restaurant with ID " + restaurantId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createRestaurant,
     attachDocumentRestaurant,
     loginRestaurant,
     updateRestaurantBasicDetailsByPartner,
-    udpdateRestaurantDocumentByAdmin
+    udpdateRestaurantDocumentByAdmin,
+    updateRestaurantStatus
 };
