@@ -1,5 +1,6 @@
 const restaurantController = require("../controllers/restaurant.controller");
 const cuisinesController = require("../controllers/cuisines.controller");
+const categoryController = require("../controllers/category.controller");
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
@@ -29,5 +30,17 @@ router.get("/cuisines", [authenticateToken], cuisinesController.findAll);
 router.delete("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.delete);
 // Update Cuisines Status
 router.put("/cuisines/:cuisinesId/:cuisinesStatus", [authenticateToken], cuisinesController.updateStatus);
+
+/* Category Route */
+// Create a new Category
+router.post("/category", [authenticateToken], categoryController.create);
+// Retrieve a single Category with id
+router.get("/category/:id", categoryController.findOne);
+// Update Category
+router.put("/category/:categoryId", [authenticateToken], categoryController.update);
+// Retrieve all Category
+router.get("/category", [authenticateToken], categoryController.findAll);
+// Delete a Category with id
+router.delete("/category/:categoryId", [authenticateToken], categoryController.delete);
 
 module.exports = router;
