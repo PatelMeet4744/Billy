@@ -18,8 +18,7 @@ async function creatCategory({ restaurant, categoryName }, callback) {
         });
 }
 
-async function getCategoryById(params, callback) {
-    const categoryId = params.categoryId;
+async function getCategoryById({ categoryId }, callback) {
 
     category.findById(categoryId).populate("restaurant", "restaurantName")
         .then((response) => {
