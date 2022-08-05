@@ -98,7 +98,6 @@ async function loginRestaurant({ ownerEmailID, ownerPassword }, callback) {
             const token = auth.generateAccessToken(restaurantModel.toJSON());
             let restaurant = { ...restaurantModel.toJSON() }
             delete restaurant.ownerPassword;
-            delete restaurant.restaurantId;
             return callback(null, { restaurant, token });
         } else {
             return callback({
