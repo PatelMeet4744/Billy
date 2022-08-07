@@ -3,7 +3,7 @@ const Path = require("path");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "./uploads/cuisines/image");
+        cb(null, "./uploads/cuisines/images");
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + "-" + file.originalname);
@@ -18,7 +18,7 @@ const fileFilter = (req, file, callback) => {
 
     const filesize = parseInt(req.headers["content-length"]);
 
-    if (filesize > 1048576) {
+    if (filesize > 2097152) {
         return callback(new Error("File Size Big!"));
     }
 
@@ -28,7 +28,7 @@ const fileFilter = (req, file, callback) => {
 let upload = multer({
     storage: storage,
     fileFilter: fileFilter,
-    filesize: 1048576
+    filesize: 2097152
 });
 
-module.exports = upload.single("cuisinesImage");
+module.exports = upload.fields([{ name: 'cuisinesImage' }, { name: 'cuisinesBanner' }]);

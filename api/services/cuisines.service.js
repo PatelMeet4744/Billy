@@ -51,9 +51,7 @@ async function getCuisines(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
-async function deleteCuisines(params, callback) {
-    const cuisinesId = params.cuisinesId;
-
+async function deleteCuisines({ cuisinesId }, callback) {
     cuisines.findByIdAndDelete(cuisinesId)
         .then((response) => {
             if (!response) callback("Not Found Cuisines with ID " + cuisinesId);

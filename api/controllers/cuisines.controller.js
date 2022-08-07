@@ -8,11 +8,16 @@ exports.create = (req, res, next) => {
         if (err) {
             next(err);
         } else {
-            const path = req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
+            // console.log(req.files);
+            const cuisinesImage = req.files['cuisinesImage'] != undefined ? req.files['cuisinesImage'][0].path.replace(/\\/g, "/") : "";
+            const cuisinesBanner = req.files['cuisinesBanner'] != undefined ? req.files['cuisinesBanner'][0].path.replace(/\\/g, "/") : "";
+
 
             var model = {
                 cuisinesName: req.body.cuisinesName,
-                cuisinesImage: path != "" ? "/" + path : ""
+                cuisinesImage: cuisinesImage != "" ? "/" + cuisinesImage : "",
+                cuisinesDescription: req.body.cuisinesDescription,
+                cuisinesBanner: cuisinesBanner != "" ? "/" + cuisinesBanner : ""
             };
 
             cuisinesService.createCuisines(model, (error, results) => {
@@ -33,13 +38,14 @@ exports.create = (req, res, next) => {
 exports.update = (req, res, next) => {
     uploadImage(req, res, function (err) {
         let cuisinesImage = "";
+        let cuisinesBanner = "";
 
         if (err) {
             next(err);
         } else {
-            if (req.file != undefined) {
-                const path = req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
-                cuisinesImage = "/" + path;
+            if (req.files['cuisinesImage'] != undefined) {
+                const cuisinesImagepath = req.files['cuisinesImage'] != undefined ? req.files['cuisinesImage'][0].path.replace(/\\/g, "/") : "";
+                cuisinesImage = "/" + cuisinesImagepath;
 
                 try {
                     fs.unlinkSync("." + req.body.old_cuisinesImage);
@@ -51,10 +57,25 @@ exports.update = (req, res, next) => {
                 cuisinesImage = req.body.old_cuisinesImage;
             }
 
+            if (req.files['cuisinesBanner'] != undefined) {
+                const cuisinesBannerpath = req.files['cuisinesBanner'] != undefined ? req.files['cuisinesBanner'][0].path.replace(/\\/g, "/") : "";
+                cuisinesBanner = "/" + cuisinesBannerpath;
+
+                try {
+                    fs.unlinkSync("." + req.body.old_cuisinesBanner);
+                } catch (error) {
+                    next(error);
+                }
+            } else {
+                cuisinesBanner = req.body.old_cuisinesBanner;
+            }
+
             var model = {
                 cuisinesId: req.params.cuisinesId,
                 cuisinesName: req.body.cuisinesName,
-                cuisinesImage: cuisinesImage
+                cuisinesImage: cuisinesImage,
+                cuisinesDescription: req.body.cuisinesDescription,
+                cuisinesBanner: cuisinesBanner
             };
 
             cuisinesService.updateCuisines(model, (error, results) => {
@@ -94,24 +115,24 @@ exports.findAll = (req, res, next) => {
 // Delete a Cuisines with the specified id in the request
 exports.delete = (req, res, next) => {
     // return console.log(req.body.cuisinesImage);
-    if (!req.body.cuisinesImage) {
+    // return console.log(req.body.cuisinesBanner);
+    if (!req.body.cuisinesImage && !req.body.cuisinesBanner) {
         return res.status(500).json({
-            message: "Cuisines Image is Required!"
+            message: "Cuisines Image OR Banner is Required!"
         });
     }
     else {
         try {
             fs.unlinkSync("." + req.body.cuisinesImage);
+            fs.unlinkSync("." + req.body.cuisinesBanner);
         } catch (error) {
             next(error);
         }
     }
 
-    var model = {
-        cuisinesId: req.params.cuisinesId,
-    };
+    const cuisinesId = req.params.cuisinesId;
 
-    cuisinesService.deleteCuisines(model, (error, results) => {
+    cuisinesService.deleteCuisines({ cuisinesId }, (error, results) => {
         if (error) {
             return next(error);
         } else {
