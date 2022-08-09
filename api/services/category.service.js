@@ -47,7 +47,6 @@ async function updateCategory({ categoryId, categoryName }, callback) {
         });
 }
 
-
 async function getCategory(params, callback) {
     const categoryName = params.categoryName;
     var condition = categoryName ? { categoryName: { $regex: new RegExp(categoryName), $options: "i" } } : {};
