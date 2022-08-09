@@ -59,6 +59,7 @@ exports.attachDocument = (req, res, next) => {
                 ownerPan: ownerPanpath != "" ? "/" + ownerPanpath : "",
                 cuisines: req.body.cuisines
             };
+
             if (req.body.monday) model['monday'] = req.body.monday;
             if (req.body.tuesday) model['tuesday'] = req.body.tuesday;
             if (req.body.wednesday) model['wednesday'] = req.body.wednesday;

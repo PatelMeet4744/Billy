@@ -1,6 +1,7 @@
 const restaurantController = require("../controllers/restaurant.controller");
 const cuisinesController = require("../controllers/cuisines.controller");
 const categoryController = require("../controllers/category.controller");
+const addonController = require("../controllers/addon.controller");
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
@@ -42,5 +43,15 @@ router.put("/category/:categoryId", [authenticateToken], categoryController.upda
 router.get("/category", [authenticateToken], categoryController.findAll);
 // Delete a Category with id
 router.delete("/category/:categoryId", [authenticateToken], categoryController.delete);
+
+/* Add-On */
+// Create a new Add-On
+router.post("/addon", [authenticateToken], addonController.create);
+// Retrieve a single Add-On with id
+router.get("/addon/:id", addonController.findOne);
+// Retrieve all Add-On
+router.get("/addon", [authenticateToken], addonController.findAll);
+// Delete a Add-On with id
+router.delete("/addon/:addonId", [authenticateToken], addonController.delete);
 
 module.exports = router;
