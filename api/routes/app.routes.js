@@ -13,6 +13,8 @@ router.post("/restaurant", restaurantController.create);
 router.put("/restaurant/attachdocument/:id", restaurantController.attachDocument);
 // Restaurant Login
 router.post("/restaurant/login", restaurantController.login);
+// Retrieve a single Restaurant Basic Details by Partner
+router.get("/restaurant/:id", [authenticateToken], restaurantController.findOneBasicDetailsByPartner);
 // Update Restaurant Basic Details by Partner
 router.put("/restaurant/:restaurantId", [authenticateToken], restaurantController.updateBasicDetailsByPartner);
 // Update Restaurant Document by Admin

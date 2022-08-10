@@ -112,6 +112,18 @@ async function loginRestaurant({ ownerEmailID, ownerPassword }, callback) {
     }
 }
 
+async function getSingleRestaurantBasicDetailsByPartner({ restaurantId }, callback) {
+
+    restaurant.findById(restaurantId, "restaurantName restaurantContact restaurantImage")
+        .then((response) => {
+            if (!response) callback("Not Found Restaurant with ID " + restaurantId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 async function updateRestaurantBasicDetailsByPartner(params, callback) {
     if (!params.restaurantName || !params.restaurantContact) {
         return callback({
@@ -177,6 +189,7 @@ module.exports = {
     createRestaurant,
     attachDocumentRestaurant,
     loginRestaurant,
+    getSingleRestaurantBasicDetailsByPartner,
     updateRestaurantBasicDetailsByPartner,
     udpdateRestaurantDocumentByAdmin,
     updateRestaurantStatus
