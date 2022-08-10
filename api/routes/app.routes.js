@@ -49,6 +49,8 @@ router.delete("/category/:categoryId", [authenticateToken], categoryController.d
 router.post("/addon", [authenticateToken], addonController.create);
 // Retrieve a single Add-On with id
 router.get("/addon/:id", addonController.findOne);
+// Update Add-On
+router.put("/addon/:addonId", [authenticateToken], addonController.update);
 // Retrieve all Add-On
 router.get("/addon", [authenticateToken], addonController.findAll);
 // Delete a Add-On with id

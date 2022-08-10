@@ -1,3 +1,4 @@
+const { model } = require("mongoose");
 const addonService = require("../services/addon.service");
 
 // Create and Save a new Add-On
@@ -24,7 +25,7 @@ exports.create = (req, res, next) => {
     });
 }
 
-// Find a single category with an id
+// Find a single Add-On with an id
 exports.findOne = (req, res, next) => {
     const addonId = req.params.id;
 
@@ -35,6 +36,30 @@ exports.findOne = (req, res, next) => {
             return res.status(200).send({
                 message: "Success",
                 data: results
+            });
+        }
+    });
+}
+
+// Update a Add-On status by the id in the request
+exports.update = (req, res, next) => {
+
+    var model = {
+        addonId: req.params.addonId,
+        addonName: req.body.addonName,
+        addonType: req.body.addonType,
+        addonPrice: req.body.addonPrice,
+        addonAdditionalPrice: req.body.addonAdditionalPrice,
+        addonFinalPrice: req.body.addonFinalPrice
+    };
+
+    addonService.updateAddOn(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
             });
         }
     });
