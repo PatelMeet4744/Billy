@@ -23,6 +23,8 @@ router.put("/restaurant/:restaurantId/:restaurantStatus", [authenticateToken], r
 /* Cuisines Route */
 // Create a new Cuisines
 router.post("/cuisines", [authenticateToken], cuisinesController.create);
+// Retrieve a single Cuisines with id
+router.get("/cuisines/:id", [authenticateToken], cuisinesController.findOne);
 // Update Cuisines
 router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.update);
 // Retrieve all Cuisines

@@ -34,6 +34,22 @@ exports.create = (req, res, next) => {
     });
 }
 
+// Find a single Cuisines with an id
+exports.findOne = (req, res, next) => {
+    const cuisinesId = req.params.id;
+
+    cuisinesService.getCuisinesById({ cuisinesId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
+
 // Update a Cuisines by the id in the request
 exports.update = (req, res, next) => {
     uploadImage(req, res, function (err) {
