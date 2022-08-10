@@ -100,6 +100,22 @@ exports.login = (req, res, next) => {
     });
 }
 
+// Retrieve a single  Restaurant Basic Details By Partner
+exports.findOneBasicDetailsByPartner = (req, res, next) => {
+    const restaurantId = req.params.id;
+
+    restaurantService.getSingleRestaurantBasicDetailsByPartner({ restaurantId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
+
 // Update Restaurant Basic Details By Partner
 exports.updateBasicDetailsByPartner = (req, res, next) => {
     uploadImage(req, res, function (err) {

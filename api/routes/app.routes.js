@@ -13,6 +13,8 @@ router.post("/restaurant", restaurantController.create);
 router.put("/restaurant/attachdocument/:id", restaurantController.attachDocument);
 // Restaurant Login
 router.post("/restaurant/login", restaurantController.login);
+// Retrieve a single Restaurant Basic Details by Partner
+router.get("/restaurant/:id", [authenticateToken], restaurantController.findOneBasicDetailsByPartner);
 // Update Restaurant Basic Details by Partner
 router.put("/restaurant/:restaurantId", [authenticateToken], restaurantController.updateBasicDetailsByPartner);
 // Update Restaurant Document by Admin
@@ -23,6 +25,8 @@ router.put("/restaurant/:restaurantId/:restaurantStatus", [authenticateToken], r
 /* Cuisines Route */
 // Create a new Cuisines
 router.post("/cuisines", [authenticateToken], cuisinesController.create);
+// Retrieve a single Cuisines with id
+router.get("/cuisines/:id", [authenticateToken], cuisinesController.findOne);
 // Update Cuisines
 router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.update);
 // Retrieve all Cuisines
