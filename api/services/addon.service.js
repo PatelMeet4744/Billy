@@ -20,6 +20,31 @@ async function creatAddOn(params, callback) {
         });
 }
 
+async function getAddOnById({ addonId }, callback) {
+
+    addon.findById(addonId).populate("restaurant", "restaurantName")
+        .then((response) => {
+            if (!response) callback("Not Found Add-On with ID " + addonId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
+async function updateAddOn(params, callback) {
+    const addonId = params.addonId;
+
+    addon.findByIdAndUpdate(addonId, params, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Add-On with ID " + addonId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 async function getAddOn(params, callback) {
     const addonName = params.addonName;
     var condition = addonName ? { addonName: { $regex: new RegExp(addonName), $options: "i" } } : {};
@@ -40,18 +65,6 @@ async function getAddOn(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
-async function getAddOnById({ addonId }, callback) {
-
-    addon.findById(addonId).populate("restaurant", "restaurantName")
-        .then((response) => {
-            if (!response) callback("Not Found Add-On with ID " + addonId);
-            else callback(null, response);
-        })
-        .catch((error) => {
-            return callback(error);
-        });
-}
-
 async function deleteAddOn(params, callback) {
     const addonId = params.addonId;
 
@@ -68,6 +81,7 @@ async function deleteAddOn(params, callback) {
 module.exports = {
     creatAddOn,
     getAddOnById,
+    updateAddOn,
     getAddOn,
     deleteAddOn
 };
