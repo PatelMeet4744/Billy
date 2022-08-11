@@ -49,6 +49,8 @@ router.put("/category/:categoryId", [authenticateToken], categoryController.upda
 router.get("/category", [authenticateToken], categoryController.findAll);
 // Delete a Category with id
 router.delete("/category/:categoryId", [authenticateToken], categoryController.delete);
+// Update Category Status
+router.put("/category/:categoryId/:categoryStatus", [authenticateToken], categoryController.updateStatus);
 
 /* Add-On */
 // Create a new Add-On

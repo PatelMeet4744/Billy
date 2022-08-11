@@ -86,3 +86,19 @@ exports.delete = (req, res, next) => {
         }
     });
 }
+
+// Update a Category status by the id in the request
+exports.updateStatus = (req, res, next) => {
+    const { categoryId, categoryStatus } = req.params;
+    // return console.log({ categoryId, categoryStatus });
+    categoryService.updateCategoryStatus({ categoryId, categoryStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}

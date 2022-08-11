@@ -80,10 +80,25 @@ async function deleteCategory(params, callback) {
         });
 }
 
+async function updateCategoryStatus({ categoryId, categoryStatus }, callback) {
+    // Convert String to Boolean status
+    const status = categoryStatus === "true" ? true : false
+
+    category.findByIdAndUpdate(categoryId, { categoryStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Category with ID " + categoryId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatCategory,
     getCategoryById,
     updateCategory,
     getCategory,
-    deleteCategory
+    deleteCategory,
+    updateCategoryStatus
 };
