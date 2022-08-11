@@ -141,6 +141,18 @@ async function updateRestaurantBasicDetailsByPartner(params, callback) {
         });
 }
 
+async function getRestaurantDocumentByAdmin({ restaurantId }, callback) {
+
+    restaurant.findById(restaurantId, "documents")
+        .then((response) => {
+            if (!response) callback("Not Found Restaurant with ID " + restaurantId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 async function udpdateRestaurantDocumentByAdmin(params, callback) {
 
     const restaurantId = params.restaurantId;
@@ -191,6 +203,7 @@ module.exports = {
     loginRestaurant,
     getSingleRestaurantBasicDetailsByPartner,
     updateRestaurantBasicDetailsByPartner,
+    getRestaurantDocumentByAdmin,
     udpdateRestaurantDocumentByAdmin,
     updateRestaurantStatus
 };
