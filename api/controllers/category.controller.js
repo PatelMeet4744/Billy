@@ -102,3 +102,19 @@ exports.updateStatus = (req, res, next) => {
         }
     });
 }
+
+// Update a Category Approval status by the id in the request
+exports.updateApprovalStatus = (req, res, next) => {
+    const { categoryId, approvalStatus } = req.params;
+    // return console.log({ categoryId, approvalStatus });
+    categoryService.updateCategoryApprovalStatus({ categoryId, approvalStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
