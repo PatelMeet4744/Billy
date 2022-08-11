@@ -94,11 +94,25 @@ async function updateCategoryStatus({ categoryId, categoryStatus }, callback) {
         });
 }
 
+async function updateCategoryApprovalStatus({ categoryId, approvalStatus }, callback) {
+    // Convert String to Number status
+    const status = Number(approvalStatus);
+    category.findByIdAndUpdate(categoryId, { approvalStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Category with ID " + categoryId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatCategory,
     getCategoryById,
     updateCategory,
     getCategory,
     deleteCategory,
-    updateCategoryStatus
+    updateCategoryStatus,
+    updateCategoryApprovalStatus
 };

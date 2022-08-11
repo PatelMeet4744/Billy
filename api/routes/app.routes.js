@@ -51,6 +51,8 @@ router.get("/category", [authenticateToken], categoryController.findAll);
 router.delete("/category/:categoryId", [authenticateToken], categoryController.delete);
 // Update Category Status
 router.put("/category/:categoryId/:categoryStatus", [authenticateToken], categoryController.updateStatus);
+// Update Category Approval Status
+router.put("/category/approval/:categoryId/:approvalStatus", [authenticateToken], categoryController.updateApprovalStatus);
 
 /* Add-On */
 // Create a new Add-On
