@@ -100,3 +100,19 @@ exports.delete = (req, res, next) => {
         }
     });
 }
+
+// Update a Add-On Approval status by the id in the request
+exports.updateApprovalStatus = (req, res, next) => {
+    const { addonId, approvalStatus } = req.params;
+    // return console.log({ addonId, approvalStatus });
+    addonService.updateAddOnApprovalStatus({ addonId, approvalStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
