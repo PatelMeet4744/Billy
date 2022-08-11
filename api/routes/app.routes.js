@@ -65,5 +65,7 @@ router.put("/addon/:addonId", [authenticateToken], addonController.update);
 router.get("/addon", [authenticateToken], addonController.findAll);
 // Delete a Add-On with id
 router.delete("/addon/:addonId", [authenticateToken], addonController.delete);
+// Update Add-On Approval Status
+router.put("/addon/:addonId/:approvalStatus", [authenticateToken], addonController.updateApprovalStatus);
 
 module.exports = router;

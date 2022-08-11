@@ -78,10 +78,25 @@ async function deleteAddOn(params, callback) {
         });
 }
 
+async function updateAddOnApprovalStatus({ addonId, approvalStatus }, callback) {
+    // Convert String to Number status
+    const status = Number(approvalStatus);
+
+    addon.findByIdAndUpdate(addonId, { approvalStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Add-On with ID " + addonId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatAddOn,
     getAddOnById,
     updateAddOn,
     getAddOn,
-    deleteAddOn
+    deleteAddOn,
+    updateAddOnApprovalStatus
 };
