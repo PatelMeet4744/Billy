@@ -17,6 +17,8 @@ router.post("/restaurant/login", restaurantController.login);
 router.get("/restaurant/:id", [authenticateToken], restaurantController.findOneBasicDetailsByPartner);
 // Update Restaurant Basic Details by Partner
 router.put("/restaurant/:restaurantId", [authenticateToken], restaurantController.updateBasicDetailsByPartner);
+// Retrieve a single Restaurant Document by Admin
+router.get("/restaurant/getdocument/:id", [authenticateToken], restaurantController.findOneDocumentByAdmin);
 // Update Restaurant Document by Admin
 router.put("/restaurant/updatedocument/:restaurantId", [authenticateToken], restaurantController.udpdateDocumentByAdmin);
 // Update Restaurant Status

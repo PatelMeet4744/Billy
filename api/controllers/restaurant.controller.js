@@ -159,6 +159,22 @@ exports.updateBasicDetailsByPartner = (req, res, next) => {
     });
 }
 
+// Retrieve a single Restaurant Document by Admin
+exports.findOneDocumentByAdmin = (req, res, next) => {
+    const restaurantId = req.params.id;
+
+    restaurantService.getRestaurantDocumentByAdmin({ restaurantId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
+
 // Update Restaurant Document by Admin
 exports.udpdateDocumentByAdmin = (req, res, next) => {
     uploadPDF(req, res, function (err) {
