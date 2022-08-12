@@ -47,7 +47,6 @@ async function updateCategory({ categoryId, categoryName }, callback) {
         });
 }
 
-
 async function getCategory(params, callback) {
     const categoryName = params.categoryName;
     var condition = categoryName ? { categoryName: { $regex: new RegExp(categoryName), $options: "i" } } : {};
@@ -81,10 +80,39 @@ async function deleteCategory(params, callback) {
         });
 }
 
+async function updateCategoryStatus({ categoryId, categoryStatus }, callback) {
+    // Convert String to Boolean status
+    const status = categoryStatus === "true" ? true : false
+
+    category.findByIdAndUpdate(categoryId, { categoryStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Category with ID " + categoryId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
+async function updateCategoryApprovalStatus({ categoryId, approvalStatus }, callback) {
+    // Convert String to Number status
+    const status = Number(approvalStatus);
+    category.findByIdAndUpdate(categoryId, { approvalStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Category with ID " + categoryId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatCategory,
     getCategoryById,
     updateCategory,
     getCategory,
-    deleteCategory
+    deleteCategory,
+    updateCategoryStatus,
+    updateCategoryApprovalStatus
 };

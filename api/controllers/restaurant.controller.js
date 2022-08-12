@@ -59,6 +59,7 @@ exports.attachDocument = (req, res, next) => {
                 ownerPan: ownerPanpath != "" ? "/" + ownerPanpath : "",
                 cuisines: req.body.cuisines
             };
+
             if (req.body.monday) model['monday'] = req.body.monday;
             if (req.body.tuesday) model['tuesday'] = req.body.tuesday;
             if (req.body.wednesday) model['wednesday'] = req.body.wednesday;
@@ -96,6 +97,22 @@ exports.login = (req, res, next) => {
             message: "Success",
             data: results
         });
+    });
+}
+
+// Retrieve a single  Restaurant Basic Details By Partner
+exports.findOneBasicDetailsByPartner = (req, res, next) => {
+    const restaurantId = req.params.id;
+
+    restaurantService.getSingleRestaurantBasicDetailsByPartner({ restaurantId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
     });
 }
 
@@ -137,6 +154,22 @@ exports.updateBasicDetailsByPartner = (req, res, next) => {
                         data: results,
                     });
                 }
+            });
+        }
+    });
+}
+
+// Retrieve a single Restaurant Document by Admin
+exports.findOneDocumentByAdmin = (req, res, next) => {
+    const restaurantId = req.params.id;
+
+    restaurantService.getRestaurantDocumentByAdmin({ restaurantId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
             });
         }
     });

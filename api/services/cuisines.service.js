@@ -18,6 +18,18 @@ async function createCuisines(params, callback) {
         });
 }
 
+async function getCuisinesById({ cuisinesId }, callback) {
+
+    cuisines.findById(cuisinesId)
+        .then((response) => {
+            if (!response) callback("Not Found Cuisines with ID " + cuisinesId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 async function updateCuisines(params, callback) {
     const cuisinesId = params.cuisinesId;
 
@@ -51,9 +63,7 @@ async function getCuisines(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
-async function deleteCuisines(params, callback) {
-    const cuisinesId = params.cuisinesId;
-
+async function deleteCuisines({ cuisinesId }, callback) {
     cuisines.findByIdAndDelete(cuisinesId)
         .then((response) => {
             if (!response) callback("Not Found Cuisines with ID " + cuisinesId);
@@ -80,6 +90,7 @@ async function updateCuisinesStatus({ cuisinesId, cuisinesStatus }, callback) {
 
 module.exports = {
     createCuisines,
+    getCuisinesById,
     updateCuisines,
     getCuisines,
     deleteCuisines,

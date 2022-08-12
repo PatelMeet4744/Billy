@@ -13,6 +13,14 @@ const cuisines = mongoose.model(
                 type: String,
                 require: true
             },
+            cuisinesDescription: {
+                type: String,
+                require: true
+            },
+            cuisinesBanner: {
+                type: String,
+                require: true
+            },
             cuisinesStatus: {
                 type: Boolean,
                 default: true // true -> Active & false -> DeActive
