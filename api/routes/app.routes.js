@@ -2,6 +2,7 @@ const restaurantController = require("../controllers/restaurant.controller");
 const cuisinesController = require("../controllers/cuisines.controller");
 const categoryController = require("../controllers/category.controller");
 const addonController = require("../controllers/addon.controller");
+const addextraController = require("../controllers/addextra.controller");
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
@@ -42,7 +43,7 @@ router.put("/cuisines/:cuisinesId/:cuisinesStatus", [authenticateToken], cuisine
 // Create a new Category
 router.post("/category", [authenticateToken], categoryController.create);
 // Retrieve a single Category with id
-router.get("/category/:id", categoryController.findOne);
+router.get("/category/:id", [authenticateToken], categoryController.findOne);
 // Update Category
 router.put("/category/:categoryId", [authenticateToken], categoryController.update);
 // Retrieve all Category
@@ -58,7 +59,7 @@ router.put("/category/approval/:categoryId/:approvalStatus", [authenticateToken]
 // Create a new Add-On
 router.post("/addon", [authenticateToken], addonController.create);
 // Retrieve a single Add-On with id
-router.get("/addon/:id", addonController.findOne);
+router.get("/addon/:id", [authenticateToken], addonController.findOne);
 // Update Add-On
 router.put("/addon/:addonId", [authenticateToken], addonController.update);
 // Retrieve all Add-On
@@ -67,5 +68,20 @@ router.get("/addon", [authenticateToken], addonController.findAll);
 router.delete("/addon/:addonId", [authenticateToken], addonController.delete);
 // Update Add-On Approval Status
 router.put("/addon/:addonId/:approvalStatus", [authenticateToken], addonController.updateApprovalStatus);
+
+/* Add-Extra */
+// Create a new Add-Extra
+router.post("/addextra", [authenticateToken], addextraController.create);
+// Retrieve a single Add-Extra with id
+router.get("/addextra/:id", [authenticateToken], addextraController.findOne);
+// Update Add-Extra
+router.put("/addextra/:addextraId", [authenticateToken], addextraController.update);
+// Retrieve all Add-Extra
+router.get("/addextra", [authenticateToken], addextraController.findAll);
+// Delete a Add-Extra with id
+router.delete("/addextra/:addextraId", [authenticateToken], addextraController.delete);
+// Update Add-Extra Approval Status
+router.put("/addextra/:addextraId/:approvalStatus", [authenticateToken], addextraController.updateApprovalStatus);
+
 
 module.exports = router;
