@@ -87,4 +87,6 @@ router.put("/addextra/:addextraId/:approvalStatus", [authenticateToken], addextr
 /* Item Add-On */
 // Create a new Item Add-On
 router.post("/itemaddon", [authenticateToken], itemaddonController.create);
+// Retrieve all Item Add-On
+router.get("/itemaddon", [authenticateToken], itemaddonController.findAll);
 module.exports = router;
