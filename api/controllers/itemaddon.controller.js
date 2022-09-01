@@ -39,3 +39,20 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+
+// Delete a Item Add-On with the specified id in the request
+exports.delete = (req, res, next) => {
+    const itemAddonId = req.params.itemAddonId;
+
+    itemaddonService.deleteItemAddon({ itemAddonId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

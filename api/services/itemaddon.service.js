@@ -47,7 +47,22 @@ async function getItemAddon(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+
+async function deleteItemAddon(params, callback) {
+    const itemAddonId = params.itemAddonId;
+
+    itemAddon.findByIdAndDelete(itemAddonId)
+        .then((response) => {
+            if (!response) callback("Not Found Item Add-On with ID " + itemAddonId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatItemAddon,
-    getItemAddon
+    getItemAddon,
+    deleteItemAddon
 };
