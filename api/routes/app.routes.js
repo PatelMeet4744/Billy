@@ -3,6 +3,7 @@ const cuisinesController = require("../controllers/cuisines.controller");
 const categoryController = require("../controllers/category.controller");
 const addonController = require("../controllers/addon.controller");
 const addextraController = require("../controllers/addextra.controller");
+const itemaddonController = require("../controllers/itemaddon.controller");
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
@@ -83,5 +84,11 @@ router.delete("/addextra/:addextraId", [authenticateToken], addextraController.d
 // Update Add-Extra Approval Status
 router.put("/addextra/:addextraId/:approvalStatus", [authenticateToken], addextraController.updateApprovalStatus);
 
-
+/* Item Add-On */
+// Create a new Item Add-On
+router.post("/itemaddon", [authenticateToken], itemaddonController.create);
+// Retrieve all Item Add-On
+router.get("/itemaddon", [authenticateToken], itemaddonController.findAll);
+// Delete a Item Add-On with id
+router.delete("/itemaddon/:itemAddonId", [authenticateToken], itemaddonController.delete);
 module.exports = router;
