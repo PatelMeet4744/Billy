@@ -40,6 +40,44 @@ exports.findAll = (req, res, next) => {
     });
 }
 
+// Find a single Item Add-On with an id
+exports.findOne = (req, res, next) => {
+    const itemAddonId = req.params.id;
+
+    itemaddonService.getItemAddOnById({ itemAddonId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
+
+// Update a Item Add-On by the id in the request
+exports.update = (req, res, next) => {
+
+    var model = {
+        itemAddonId: req.params.itemAddonId,
+        title: req.body.title,
+        customerSelection: req.body.customerSelection,
+        addon: req.body.addon
+    };
+    // console.log(model);
+
+    itemaddonService.updateItemAddon(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
 
 // Delete a Item Add-On with the specified id in the request
 exports.delete = (req, res, next) => {
