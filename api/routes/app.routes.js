@@ -89,6 +89,10 @@ router.put("/addextra/:addextraId/:approvalStatus", [authenticateToken], addextr
 router.post("/itemaddon", [authenticateToken], itemaddonController.create);
 // Retrieve all Item Add-On
 router.get("/itemaddon", [authenticateToken], itemaddonController.findAll);
+// Retrieve a single Item Add-On with id
+router.get("/itemaddon/:id", [authenticateToken], itemaddonController.findOne);
+// Update Item Add-On
+router.put("/itemaddon/:itemAddonId", [authenticateToken], itemaddonController.update);
 // Delete a Item Add-On with id
 router.delete("/itemaddon/:itemAddonId", [authenticateToken], itemaddonController.delete);
 module.exports = router;

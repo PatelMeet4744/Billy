@@ -47,6 +47,43 @@ async function getItemAddon(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+async function getItemAddOnById({ itemAddonId }, callback) {
+    itemAddon.findById(itemAddonId).populate("addon")
+        .then((response) => {
+            if (!response) callback("Not Found Item Add-On with ID " + itemAddonId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
+async function updateItemAddon(params, callback) {
+    if (!params.title || !params.customerSelection || !params.addon) {
+        return callback({
+            message: "Some Fields are Required!"
+        }, "");
+    }
+    const itemAddonId = params.itemAddonId;
+
+    const { title, customerSelection, addon } = params;
+    // Build Item Added-On object
+    const itemAddonFields = {};
+    itemAddonFields.title = title;
+    itemAddonFields.customerSelection = customerSelection;
+    itemAddonFields.addon = addon.split(',')
+        .map((item) => item.trim());
+    // return console.log(itemAddonFields);
+
+    itemAddon.findOneAndUpdate({ itemAddonId: itemAddonId }, { $set: itemAddonFields }, { new: true })
+        .then((response) => {
+            if (!response) callback("Not Found Item Add-On with ID " + itemAddonId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
 
 async function deleteItemAddon(params, callback) {
     const itemAddonId = params.itemAddonId;
@@ -64,5 +101,7 @@ async function deleteItemAddon(params, callback) {
 module.exports = {
     creatItemAddon,
     getItemAddon,
+    getItemAddOnById,
+    updateItemAddon,
     deleteItemAddon
 };
