@@ -4,6 +4,10 @@ const item = mongoose.model(
     "Item",
     mongoose.Schema(
         {
+            restaurant: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Restaurant'
+            },
             category: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Category'
