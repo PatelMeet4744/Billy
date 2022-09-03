@@ -2,7 +2,7 @@ const { item } = require("../models/item.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function creatItem(params, callback) {
-    if (!params.category || !params.itemName || !params.itemDescription || !params.itemImage) {
+    if (!params.restaurant || !params.category || !params.itemName || !params.itemDescription || !params.itemImage) {
         return callback({
             message: "Some Fields are Required"
         }, "");
