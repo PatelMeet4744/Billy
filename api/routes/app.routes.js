@@ -5,6 +5,7 @@ const addonController = require("../controllers/addon.controller");
 const addextraController = require("../controllers/addextra.controller");
 const itemaddonController = require("../controllers/itemaddon.controller");
 const itemaddextraController = require("../controllers/itemaddextra.controller");
+const itemController = require("../controllers/item.controller");
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
@@ -108,5 +109,10 @@ router.get("/itemaddextra/:id", [authenticateToken], itemaddextraController.find
 router.put("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraController.update);
 // Delete a Item Add-Extra with id
 router.delete("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraController.delete);
+
+
+/* Item*/
+// Create a new Item
+router.post("/item", [authenticateToken], itemController.create);
 
 module.exports = router;
