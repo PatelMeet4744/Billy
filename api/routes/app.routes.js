@@ -122,6 +122,8 @@ router.get("/item/:id", [authenticateToken], itemController.findOne);
 router.put("/item/:itemId", [authenticateToken], itemController.update);
 // Delete a Item with id
 router.delete("/item/:itemId", [authenticateToken], itemController.delete);
+// Update Item Status
+router.put("/item/:itemId/:itemStatus", [authenticateToken], itemController.updateStatus);
 // Update Item Approval Status
 router.put("/item/:itemId/:approvalStatus", [authenticateToken], itemController.updateApprovalStatus);
 

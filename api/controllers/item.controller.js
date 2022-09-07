@@ -150,6 +150,22 @@ exports.delete = (req, res, next) => {
     });
 }
 
+// Update a Item status by the id in the request
+exports.updateStatus = (req, res, next) => {
+    const { itemId, itemStatus } = req.params;
+    // return console.log({ itemId, itemStatus });
+    itemService.updateItemStatus({ itemId, itemStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
+
 // Update a Item  Approval status by the id in the request
 exports.updateApprovalStatus = (req, res, next) => {
     const { itemId, approvalStatus } = req.params;
