@@ -35,3 +35,23 @@ exports.create = (req, res, next) => {
         }
     });
 }
+
+// Retrieve all Item from the database.
+exports.findAll = (req, res, next) => {
+    var model = {
+        itemName: req.query.itemName,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    itemService.getItem(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

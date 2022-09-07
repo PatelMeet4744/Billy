@@ -114,5 +114,7 @@ router.delete("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextra
 /* Item*/
 // Create a new Item
 router.post("/item", [authenticateToken], itemController.create);
+// Retrieve all Item
+router.get("/item", [authenticateToken], itemController.findAll);
 
 module.exports = router;
