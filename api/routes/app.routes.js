@@ -118,5 +118,7 @@ router.post("/item", [authenticateToken], itemController.create);
 router.get("/item", [authenticateToken], itemController.findAll);
 // Retrieve a single Item with id
 router.get("/item/:id", [authenticateToken], itemController.findOne);
+// Update Item
+router.put("/item/:itemId", [authenticateToken], itemController.update);
 
 module.exports = router;

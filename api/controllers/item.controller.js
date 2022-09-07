@@ -19,7 +19,7 @@ exports.create = (req, res, next) => {
                 itemDescription: req.body.itemDescription,
                 itemAddon: req.body.itemAddon,
                 itemAddExtra: req.body.itemAddExtra,
-                itemImage: path != "" ? "/" + path : "",
+                itemImage: path != "" ? "/" + path : ""
             };
 
             itemService.creatItem(model, (error, results) => {
@@ -67,6 +67,54 @@ exports.findOne = (req, res, next) => {
             return res.status(200).send({
                 message: "Success",
                 data: results
+            });
+        }
+    });
+}
+
+
+// Update a Cuisines by the id in the request
+exports.update = (req, res, next) => {
+    uploadImage(req, res, function (err) {
+        let itemImage = "";
+
+        if (err) {
+            next(err);
+        } else {
+            if (req.file != undefined) {
+                const path = req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
+                itemImage = "/" + path;
+
+                try {
+                    fs.unlinkSync("." + req.body.old_image);
+                } catch (error) {
+                    next(error);
+                }
+
+            } else {
+                itemImage = req.body.old_image;
+            }
+
+            var model = {
+                itemId: req.params.itemId,
+                category: req.body.category,
+                itemName: req.body.itemName,
+                itemType: req.body.itemType,
+                itemDescription: req.body.itemDescription,
+                itemAddon: req.body.itemAddon,
+                itemAddExtra: req.body.itemAddExtra,
+                itemImage: itemImage
+            };
+
+            itemService.updateItem(model, (error, results) => {
+                if (error) {
+                    return next(error);
+                } else {
+                    return res.status(200).send({
+                        message: "Success",
+                        data: results,
+                    });
+                }
             });
         }
     });

@@ -39,8 +39,20 @@ async function getItem(params, callback) {
 }
 
 async function getItemById({ itemId }, callback) {
-
     item.findById(itemId).populate("category", "categoryName").populate("itemAddon").populate("itemAddExtra")
+        .then((response) => {
+            if (!response) callback("Not Found Item with ID " + itemId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
+async function updateItem(params, callback) {
+    const itemId = params.itemId;
+    // return console.log(params);
+    item.findByIdAndUpdate(itemId, params, { useFindAndModify: false })
         .then((response) => {
             if (!response) callback("Not Found Item with ID " + itemId);
             else callback(null, response);
@@ -53,5 +65,6 @@ async function getItemById({ itemId }, callback) {
 module.exports = {
     creatItem,
     getItem,
-    getItemById
+    getItemById,
+    updateItem
 };
