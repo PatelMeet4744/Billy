@@ -114,5 +114,17 @@ router.delete("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextra
 /* Item*/
 // Create a new Item
 router.post("/item", [authenticateToken], itemController.create);
+// Retrieve all Item
+router.get("/item", [authenticateToken], itemController.findAll);
+// Retrieve a single Item with id
+router.get("/item/:id", [authenticateToken], itemController.findOne);
+// Update Item
+router.put("/item/:itemId", [authenticateToken], itemController.update);
+// Delete a Item with id
+router.delete("/item/:itemId", [authenticateToken], itemController.delete);
+// Update Item Status
+router.put("/item/:itemId/:itemStatus", [authenticateToken], itemController.updateStatus);
+// Update Item Approval Status
+router.put("/item/:itemId/:approvalStatus", [authenticateToken], itemController.updateApprovalStatus);
 
 module.exports = router;
