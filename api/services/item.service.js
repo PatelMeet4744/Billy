@@ -73,10 +73,25 @@ async function deleteItem({ itemId }, callback) {
         });
 }
 
+async function updateItemApprovalStatus({ itemId, approvalStatus }, callback) {
+    // Convert String to Number status
+    const status = Number(approvalStatus);
+
+    item.findByIdAndUpdate(itemId, { approvalStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Item with ID " + itemId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatItem,
     getItem,
     getItemById,
     updateItem,
-    deleteItem
+    deleteItem,
+    updateItemApprovalStatus
 };
