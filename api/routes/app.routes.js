@@ -120,5 +120,7 @@ router.get("/item", [authenticateToken], itemController.findAll);
 router.get("/item/:id", [authenticateToken], itemController.findOne);
 // Update Item
 router.put("/item/:itemId", [authenticateToken], itemController.update);
+// Delete a Item with id
+router.delete("/item/:itemId", [authenticateToken], itemController.delete);
 
 module.exports = router;

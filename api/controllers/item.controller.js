@@ -119,3 +119,33 @@ exports.update = (req, res, next) => {
         }
     });
 }
+
+// Delete a Item with the specified id in the request
+exports.delete = (req, res, next) => {
+    // return console.log(req.body.itemImage);
+    if (!req.body.itemImage) {
+        return res.status(500).json({
+            message: "Item Image is Required!"
+        });
+    }
+    else {
+        try {
+            fs.unlinkSync("." + req.body.itemImage);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    const itemId = req.params.itemId;
+
+    itemService.deleteItem({ itemId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

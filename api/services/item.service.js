@@ -62,9 +62,21 @@ async function updateItem(params, callback) {
         });
 }
 
+async function deleteItem({ itemId }, callback) {
+    item.findByIdAndDelete(itemId)
+        .then((response) => {
+            if (!response) callback("Not Found Item with ID " + itemId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatItem,
     getItem,
     getItemById,
-    updateItem
+    updateItem,
+    deleteItem
 };
