@@ -38,7 +38,20 @@ async function getItem(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+async function getItemById({ itemId }, callback) {
+
+    item.findById(itemId).populate("category", "categoryName").populate("itemAddon").populate("itemAddExtra")
+        .then((response) => {
+            if (!response) callback("Not Found Item with ID " + itemId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatItem,
-    getItem
+    getItem,
+    getItemById
 };

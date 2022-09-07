@@ -55,3 +55,19 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+// Find a single item with an id
+exports.findOne = (req, res, next) => {
+    const itemId = req.params.id;
+
+    itemService.getItemById({ itemId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
