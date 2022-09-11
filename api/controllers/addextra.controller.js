@@ -101,7 +101,7 @@ exports.delete = (req, res, next) => {
     });
 }
 
-// Update a Category status by the id in the request
+// Update a Add-Extra status by the id in the request
 exports.updateStatus = (req, res, next) => {
     const { addextraId, addextraStatus } = req.params;
     // return console.log({ addextraId, addextraStatus });
