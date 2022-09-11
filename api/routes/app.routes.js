@@ -6,6 +6,7 @@ const addextraController = require("../controllers/addextra.controller");
 const itemaddonController = require("../controllers/itemaddon.controller");
 const itemaddextraController = require("../controllers/itemaddextra.controller");
 const itemController = require("../controllers/item.controller");
+const variantController = require("../controllers/variant.controller");
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
@@ -114,7 +115,7 @@ router.put("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraCon
 // Delete a Item Add-Extra with id
 router.delete("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraController.delete);
 
-/* Item*/
+/* Item */
 // Create a new Item
 router.post("/item", [authenticateToken], itemController.create);
 // Retrieve all Item
@@ -129,5 +130,9 @@ router.delete("/item/:itemId", [authenticateToken], itemController.delete);
 router.put("/item/:itemId/:itemStatus", [authenticateToken], itemController.updateStatus);
 // Update Item Approval Status
 router.put("/item/:itemId/:approvalStatus", [authenticateToken], itemController.updateApprovalStatus);
+
+/* Variant */
+// Create a new Variant
+router.post("/variant", [authenticateToken], variantController.create);
 
 module.exports = router;
