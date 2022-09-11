@@ -49,3 +49,17 @@ exports.findOne = (req, res, next) => {
         }
     });
 }
+
+// Find a single Variant with an itemid
+exports.findItem = (req, res, next) => {
+    variantService.getVariantByItemId(req.params.itemId, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

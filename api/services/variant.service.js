@@ -48,8 +48,20 @@ async function getVariantById({ variantId }, callback) {
         });
 }
 
+async function getVariantByItemId(itemId, callback) {
+    variant.find({ item: itemId }).populate("item")
+        .then((response) => {
+            if (!response) callback("Not Found Variant with ID " + variantId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatVariant,
     getVariant,
-    getVariantById
+    getVariantById,
+    getVariantByItemId
 };
