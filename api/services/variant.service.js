@@ -37,7 +37,19 @@ async function getVariant(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+async function getVariantById({ variantId }, callback) {
+    variant.findById(variantId).populate("item")
+        .then((response) => {
+            if (!response) callback("Not Found Variant with ID " + variantId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatVariant,
-    getVariant
+    getVariant,
+    getVariantById
 };

@@ -33,3 +33,19 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+// Find a single Variant with an id
+exports.findOne = (req, res, next) => {
+    const variantId = req.params.id;
+
+    variantService.getVariantById({ variantId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
