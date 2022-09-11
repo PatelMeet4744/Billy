@@ -78,6 +78,20 @@ async function deleteAddOn(params, callback) {
         });
 }
 
+async function updateAddonStatus({ addonId, addonStatus }, callback) {
+    // Convert String to Boolean status
+    const status = addonStatus === "true" ? true : false
+
+    addon.findByIdAndUpdate(addonId, { addonStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Add-On with ID " + addonId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 async function updateAddOnApprovalStatus({ addonId, approvalStatus }, callback) {
     // Convert String to Number status
     const status = Number(approvalStatus);
@@ -98,5 +112,6 @@ module.exports = {
     updateAddOn,
     getAddOn,
     deleteAddOn,
+    updateAddonStatus,
     updateAddOnApprovalStatus
 };

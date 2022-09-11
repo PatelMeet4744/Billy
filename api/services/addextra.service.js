@@ -78,6 +78,20 @@ async function deleteAddExtra(params, callback) {
         });
 }
 
+async function updateAddextraStatus({ addextraId, addextraStatus }, callback) {
+    // Convert String to Boolean status
+    const status = addextraStatus === "true" ? true : false
+
+    addextra.findByIdAndUpdate(addextraId, { addextraStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Add-Extra with ID " + addextraId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 async function updateAddExtraApprovalStatus({ addextraId, approvalStatus }, callback) {
     // Convert String to Number status
     const status = Number(approvalStatus);
@@ -98,5 +112,6 @@ module.exports = {
     updateAddExtra,
     getAddExtra,
     deleteAddExtra,
+    updateAddextraStatus,
     updateAddExtraApprovalStatus
 };
