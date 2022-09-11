@@ -134,5 +134,7 @@ router.put("/item/:itemId/:approvalStatus", [authenticateToken], itemController.
 /* Variant */
 // Create a new Variant
 router.post("/variant", [authenticateToken], variantController.create);
+// Retrieve all Variant
+router.get("/variant", [authenticateToken], variantController.findAll);
 
 module.exports = router;

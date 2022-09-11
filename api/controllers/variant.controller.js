@@ -12,5 +12,24 @@ exports.create = (req, res, next) => {
             });
         }
     });
+}
 
+// Retrieve all Variant from the database.
+exports.findAll = (req, res, next) => {
+    var model = {
+        variantName: req.query.variantName,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    variantService.getVariant(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
 }
