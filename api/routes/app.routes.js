@@ -83,6 +83,8 @@ router.put("/addextra/:addextraId", [authenticateToken], addextraController.upda
 router.get("/addextra", [authenticateToken], addextraController.findAll);
 // Delete a Add-Extra with id
 router.delete("/addextra/:addextraId", [authenticateToken], addextraController.delete);
+// Update Add-Extra Status
+router.put("/addextra/:addextraId/:addextraStatus", [authenticateToken], addextraController.updateStatus);
 // Update Add-Extra Approval Status
 router.put("/addextra/:addextraId/:approvalStatus", [authenticateToken], addextraController.updateApprovalStatus);
 
