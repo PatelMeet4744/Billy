@@ -140,6 +140,8 @@ router.get("/variant", [authenticateToken], variantController.findAll);
 router.get("/variant/:id", [authenticateToken], variantController.findOne);
 // Retrieve a Variant with itemid
 router.get("/variant/item/:itemId", [authenticateToken], variantController.findItem);
+// Update a Variant
+router.put("/variant/:variantId", [authenticateToken], variantController.update);
 // Delete a Variant with id
 router.delete("/variant/:variantId", [authenticateToken], variantController.delete);
 

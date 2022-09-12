@@ -64,6 +64,23 @@ exports.findItem = (req, res, next) => {
     });
 }
 
+// Update a Variant by the id in the request
+exports.update = (req, res, next) => {
+    const variantId = req.params.variantId;
+    var model = req.body;
+    // return console.log(model);
+    variantService.updateVariant(variantId, model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
+
 // Delete a Variant with the specified id in the request
 exports.delete = (req, res, next) => {
     const variantId = req.params.variantId;

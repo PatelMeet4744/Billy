@@ -59,6 +59,18 @@ async function getVariantByItemId(itemId, callback) {
         });
 }
 
+async function updateVariant(variantId, params, callback) {
+    // return console.log(params);
+    variant.findByIdAndUpdate(variantId, params, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Variant with ID " + variantId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 async function deleteVariant({ variantId }, callback) {
     variant.findByIdAndDelete(variantId)
         .then((response) => {
@@ -75,5 +87,6 @@ module.exports = {
     getVariant,
     getVariantById,
     getVariantByItemId,
+    updateVariant,
     deleteVariant
 };
