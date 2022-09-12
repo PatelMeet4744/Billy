@@ -96,3 +96,19 @@ exports.delete = (req, res, next) => {
         }
     });
 }
+
+// Update a variant status by the id in the request
+exports.updateStatus = (req, res, next) => {
+    const { variantId, variantStatus } = req.params;
+    // return console.log({ variantId, variantStatus });
+    variantService.updateVariantStatus({ variantId, variantStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}

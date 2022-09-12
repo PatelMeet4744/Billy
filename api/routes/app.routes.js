@@ -144,5 +144,7 @@ router.get("/variant/item/:itemId", [authenticateToken], variantController.findI
 router.put("/variant/:variantId", [authenticateToken], variantController.update);
 // Delete a Variant with id
 router.delete("/variant/:variantId", [authenticateToken], variantController.delete);
+// Update Variant Status
+router.put("/variant/:variantId/:variantStatus", [authenticateToken], variantController.updateStatus);
 
 module.exports = router;

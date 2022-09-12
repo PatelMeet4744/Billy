@@ -82,11 +82,26 @@ async function deleteVariant({ variantId }, callback) {
         });
 }
 
+async function updateVariantStatus({ variantId, variantStatus }, callback) {
+    // Convert String to Boolean status
+    const status = variantStatus === "true" ? true : false
+
+    variant.findByIdAndUpdate(variantId, { variantStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Variant with ID " + variantId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     creatVariant,
     getVariant,
     getVariantById,
     getVariantByItemId,
     updateVariant,
-    deleteVariant
+    deleteVariant,
+    updateVariantStatus
 };
