@@ -51,6 +51,17 @@ async function getVariantById({ variantId }, callback) {
 async function getVariantByItemId(itemId, callback) {
     variant.find({ item: itemId }).populate("item")
         .then((response) => {
+            if (!response) callback("Not Found Variant with Item ID " + itemId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
+async function deleteVariant({ variantId }, callback) {
+    variant.findByIdAndDelete(variantId)
+        .then((response) => {
             if (!response) callback("Not Found Variant with ID " + variantId);
             else callback(null, response);
         })
@@ -63,5 +74,6 @@ module.exports = {
     creatVariant,
     getVariant,
     getVariantById,
-    getVariantByItemId
+    getVariantByItemId,
+    deleteVariant
 };

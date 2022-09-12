@@ -63,3 +63,19 @@ exports.findItem = (req, res, next) => {
         }
     });
 }
+
+// Delete a Variant with the specified id in the request
+exports.delete = (req, res, next) => {
+    const variantId = req.params.variantId;
+
+    variantService.deleteVariant({ variantId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
