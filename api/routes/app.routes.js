@@ -6,6 +6,7 @@ const addextraController = require("../controllers/addextra.controller");
 const itemaddonController = require("../controllers/itemaddon.controller");
 const itemaddextraController = require("../controllers/itemaddextra.controller");
 const itemController = require("../controllers/item.controller");
+const variantController = require("../controllers/variant.controller");
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
@@ -114,7 +115,7 @@ router.put("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraCon
 // Delete a Item Add-Extra with id
 router.delete("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraController.delete);
 
-/* Item*/
+/* Item */
 // Create a new Item
 router.post("/item", [authenticateToken], itemController.create);
 // Retrieve all Item
@@ -129,5 +130,21 @@ router.delete("/item/:itemId", [authenticateToken], itemController.delete);
 router.put("/item/:itemId/:itemStatus", [authenticateToken], itemController.updateStatus);
 // Update Item Approval Status
 router.put("/item/:itemId/:approvalStatus", [authenticateToken], itemController.updateApprovalStatus);
+
+/* Variant */
+// Create a new Variant
+router.post("/variant", [authenticateToken], variantController.create);
+// Retrieve all Variant
+router.get("/variant", [authenticateToken], variantController.findAll);
+// Retrieve a Variant with id
+router.get("/variant/:id", [authenticateToken], variantController.findOne);
+// Retrieve a Variant with itemid
+router.get("/variant/item/:itemId", [authenticateToken], variantController.findItem);
+// Update a Variant
+router.put("/variant/:variantId", [authenticateToken], variantController.update);
+// Delete a Variant with id
+router.delete("/variant/:variantId", [authenticateToken], variantController.delete);
+// Update Variant Status
+router.put("/variant/:variantId/:variantStatus", [authenticateToken], variantController.updateStatus);
 
 module.exports = router;

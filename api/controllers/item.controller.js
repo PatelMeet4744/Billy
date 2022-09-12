@@ -72,7 +72,6 @@ exports.findOne = (req, res, next) => {
     });
 }
 
-
 // Update a Cuisines by the id in the request
 exports.update = (req, res, next) => {
     uploadImage(req, res, function (err) {
