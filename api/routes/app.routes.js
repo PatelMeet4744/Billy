@@ -69,6 +69,8 @@ router.put("/addon/:addonId", [authenticateToken], addonController.update);
 router.get("/addon", [authenticateToken], addonController.findAll);
 // Delete a Add-On with id
 router.delete("/addon/:addonId", [authenticateToken], addonController.delete);
+// Update Add-On Status
+router.put("/addon/:addonId/:addonStatus", [authenticateToken], addonController.updateStatus);
 // Update Add-On Approval Status
 router.put("/addon/:addonId/:approvalStatus", [authenticateToken], addonController.updateApprovalStatus);
 
@@ -83,6 +85,8 @@ router.put("/addextra/:addextraId", [authenticateToken], addextraController.upda
 router.get("/addextra", [authenticateToken], addextraController.findAll);
 // Delete a Add-Extra with id
 router.delete("/addextra/:addextraId", [authenticateToken], addextraController.delete);
+// Update Add-Extra Status
+router.put("/addextra/:addextraId/:addextraStatus", [authenticateToken], addextraController.updateStatus);
 // Update Add-Extra Approval Status
 router.put("/addextra/:addextraId/:approvalStatus", [authenticateToken], addextraController.updateApprovalStatus);
 
@@ -109,7 +113,6 @@ router.get("/itemaddextra/:id", [authenticateToken], itemaddextraController.find
 router.put("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraController.update);
 // Delete a Item Add-Extra with id
 router.delete("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraController.delete);
-
 
 /* Item*/
 // Create a new Item
