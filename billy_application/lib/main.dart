@@ -1,9 +1,10 @@
-import 'package:billy_application/onboarding.dart';
+import 'package:billy_application/pages/onboard/onboarding.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: Onboarding(),
+      home: const Onboarding(),
     );
   }
 }

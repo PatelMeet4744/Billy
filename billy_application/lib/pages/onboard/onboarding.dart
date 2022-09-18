@@ -1,9 +1,11 @@
-import 'package:billy_application/content_model.dart';
+import 'package:billy_application/pages/onboard/content_model.dart';
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+import 'package:billy_application/home.dart';
 
 class Onboarding extends StatefulWidget {
+  const Onboarding({super.key});
+
   @override
   State<Onboarding> createState() => _OnboardingState();
 }
@@ -49,16 +51,17 @@ class _OnboardingState extends State<Onboarding> {
                       ),
                       Text(
                         contents[i].title,
+                        // ignore: prefer_const_constructors
                         style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text(
                         contents[i].discription,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Colors.grey,
                         ),
@@ -69,20 +72,19 @@ class _OnboardingState extends State<Onboarding> {
               },
             ),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                contents.length,
-                (index) => buildDot(index, context),
-              ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              contents.length,
+              (index) => buildDot(index, context),
             ),
           ),
           Container(
             height: 60,
-            margin: EdgeInsets.all(40),
+            margin: const EdgeInsets.all(40),
             width: double.infinity,
             child: TextButton(
+              // ignore: sort_child_properties_last
               child: Text(
                   currentIndex == contents.length - 1 ? "Continue" : "Next"),
               onPressed: () {
@@ -90,12 +92,12 @@ class _OnboardingState extends State<Onboarding> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => Home(),
+                      builder: (_) => const Home(),
                     ),
                   );
                 }
                 _controller.nextPage(
-                  duration: Duration(milliseconds: 100),
+                  duration: const Duration(milliseconds: 100),
                   curve: Curves.bounceIn,
                 );
               },
@@ -117,7 +119,7 @@ class _OnboardingState extends State<Onboarding> {
     return Container(
       height: 10,
       width: currentIndex == index ? 25 : 10,
-      margin: EdgeInsets.only(right: 5),
+      margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Theme.of(context).primaryColor,
