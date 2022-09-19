@@ -1,4 +1,5 @@
 import 'package:billy_application/pages/onboard/content_model.dart';
+import 'package:billy_application/pages/layout/navbar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:billy_application/home.dart';
@@ -92,7 +93,7 @@ class _OnboardingState extends State<Onboarding> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const Home(),
+                      builder: (_) => const Navbar(),
                     ),
                   );
                 }
