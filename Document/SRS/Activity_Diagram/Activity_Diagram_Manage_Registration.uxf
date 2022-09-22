@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>540</x>
-      <y>30</y>
-      <w>40</w>
-      <h>40</h>
+      <x>513</x>
+      <y>108</y>
+      <w>36</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -15,10 +15,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
-      <y>60</y>
-      <w>30</w>
-      <h>80</h>
+      <x>522</x>
+      <y>135</y>
+      <w>27</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
@@ -26,10 +26,10 @@
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>470</x>
-      <y>120</y>
-      <w>190</w>
-      <h>40</h>
+      <x>450</x>
+      <y>189</y>
+      <w>171</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>
 Open Registration From
@@ -39,10 +39,10 @@ Open Registration From
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
-      <y>150</y>
-      <w>30</w>
-      <h>70</h>
+      <x>522</x>
+      <y>216</y>
+      <w>27</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
@@ -50,10 +50,10 @@ Open Registration From
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
-      <y>230</y>
-      <w>30</w>
-      <h>70</h>
+      <x>522</x>
+      <y>288</y>
+      <w>27</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -62,10 +62,10 @@ Open Registration From
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>490</x>
-      <y>200</y>
-      <w>140</w>
-      <h>40</h>
+      <x>468</x>
+      <y>261</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Fill the details in
 registration form </panel_attributes>
@@ -74,10 +74,10 @@ registration form </panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>480</x>
-      <y>280</y>
-      <w>160</w>
-      <h>40</h>
+      <x>459</x>
+      <y>333</y>
+      <w>144</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Click to submit</panel_attributes>
     <additional_attributes/>
@@ -85,10 +85,10 @@ registration form </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
-      <y>310</y>
-      <w>30</w>
-      <h>70</h>
+      <x>522</x>
+      <y>360</y>
+      <w>27</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
@@ -96,10 +96,10 @@ registration form </panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>540</x>
-      <y>360</y>
-      <w>40</w>
-      <h>40</h>
+      <x>513</x>
+      <y>405</y>
+      <w>36</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>type=decision</panel_attributes>
     <additional_attributes/>
@@ -107,22 +107,22 @@ registration form </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
-      <y>170</y>
-      <w>350</w>
-      <h>230</h>
+      <x>522</x>
+      <y>234</y>
+      <w>279</w>
+      <h>207</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 [Emailid not verify]</panel_attributes>
-    <additional_attributes>10.0;10.0;220.0;10.0;220.0;210.0;30.0;210.0</additional_attributes>
+    <additional_attributes>10.0;10.0;180.0;10.0;180.0;210.0;30.0;210.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
-      <y>390</y>
-      <w>120</w>
-      <h>90</h>
+      <x>522</x>
+      <y>432</y>
+      <w>108</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 [Verify emailid]</panel_attributes>
@@ -131,10 +131,10 @@ registration form </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
-      <y>490</y>
-      <w>30</w>
-      <h>70</h>
+      <x>522</x>
+      <y>522</y>
+      <w>27</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
@@ -142,10 +142,10 @@ registration form </panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>490</x>
-      <y>540</y>
-      <w>140</w>
-      <h>40</h>
+      <x>468</x>
+      <y>567</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Redirect to login</panel_attributes>
     <additional_attributes/>
@@ -153,10 +153,10 @@ registration form </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
-      <y>570</y>
-      <w>30</w>
-      <h>70</h>
+      <x>522</x>
+      <y>594</y>
+      <w>27</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
@@ -164,10 +164,10 @@ registration form </panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>540</x>
-      <y>620</y>
-      <w>40</w>
-      <h>40</h>
+      <x>513</x>
+      <y>639</y>
+      <w>36</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>type=final</panel_attributes>
     <additional_attributes/>
@@ -175,12 +175,24 @@ registration form </panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>500</x>
-      <y>460</y>
-      <w>130</w>
-      <h>40</h>
+      <x>477</x>
+      <y>495</y>
+      <w>117</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Account registered</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>396</x>
+      <y>81</y>
+      <w>414</w>
+      <h>603</h>
+    </coordinates>
+    <panel_attributes>Manage Registration
+valign=top</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
