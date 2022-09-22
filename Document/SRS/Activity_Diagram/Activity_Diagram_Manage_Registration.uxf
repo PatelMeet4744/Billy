@@ -42,16 +42,16 @@ Open Registration From
       <x>522</x>
       <y>216</y>
       <w>27</w>
-      <h>63</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>522</x>
-      <y>288</y>
+      <y>297</y>
       <w>27</w>
       <h>63</h>
     </coordinates>
@@ -63,7 +63,7 @@ Open Registration From
     <id>UMLState</id>
     <coordinates>
       <x>468</x>
-      <y>261</y>
+      <y>270</y>
       <w>126</w>
       <h>36</h>
     </coordinates>
@@ -75,7 +75,7 @@ registration form </panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>459</x>
-      <y>333</y>
+      <y>342</y>
       <w>144</w>
       <h>36</h>
     </coordinates>
@@ -86,7 +86,7 @@ registration form </panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>522</x>
-      <y>360</y>
+      <y>369</y>
       <w>27</w>
       <h>63</h>
     </coordinates>
@@ -97,7 +97,7 @@ registration form </panel_attributes>
     <id>UMLSpecialState</id>
     <coordinates>
       <x>513</x>
-      <y>405</y>
+      <y>414</y>
       <w>36</w>
       <h>36</h>
     </coordinates>
@@ -110,23 +110,23 @@ registration form </panel_attributes>
       <x>522</x>
       <y>234</y>
       <w>279</w>
-      <h>207</h>
+      <h>216</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 [Emailid not verify]</panel_attributes>
-    <additional_attributes>10.0;10.0;180.0;10.0;180.0;210.0;30.0;210.0</additional_attributes>
+    <additional_attributes>10.0;10.0;180.0;10.0;180.0;220.0;30.0;220.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>522</x>
-      <y>432</y>
+      <y>441</y>
       <w>108</w>
-      <h>81</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 [Verify emailid]</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -187,12 +187,15 @@ registration form </panel_attributes>
     <id>UMLObject</id>
     <coordinates>
       <x>396</x>
-      <y>81</y>
+      <y>63</y>
       <w>414</w>
-      <h>603</h>
+      <h>630</h>
     </coordinates>
-    <panel_attributes>Manage Registration
-valign=top</panel_attributes>
+    <panel_attributes>*User Registration*
+halign=CENTER
+fontsize=20
+valign=top
+</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

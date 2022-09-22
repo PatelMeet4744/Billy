@@ -242,11 +242,13 @@ m2=[Not Added]</panel_attributes>
     <id>UMLObject</id>
     <coordinates>
       <x>440</x>
-      <y>88</y>
+      <y>80</y>
       <w>336</w>
       <h>544</h>
     </coordinates>
-    <panel_attributes>Manage Menu
+    <panel_attributes>*Menu*
+halign=CENTER
+fontsize=20
 valign=top</panel_attributes>
     <additional_attributes/>
   </element>
