@@ -9,6 +9,9 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Dashboard"),
       ),
+      body: const Center(
+        child: Text('Dashboard'),
+      ),
     );
   }
 }

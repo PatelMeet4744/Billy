@@ -1,3 +1,5 @@
+import 'package:billy_application/home.dart';
+import 'package:billy_application/pages/setting/account.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -15,10 +17,7 @@ class _NavbarState extends State<Navbar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Home',
-      style: optionStyle,
-    ),
+    Home(),
     Text(
       'Likes',
       style: optionStyle,
@@ -27,20 +26,21 @@ class _NavbarState extends State<Navbar> {
       'Cart',
       style: optionStyle,
     ),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
+    Account()
+    // Text(
+    //   'Profile',
+    //   style: optionStyle,
+    // ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 20,
-        title: const Text('Billy'),
-      ),
+      // appBar: AppBar(
+      //   elevation: 20,
+      //   title: const Text('Billy'),
+      // ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
