@@ -10,7 +10,7 @@
       <w>126</w>
       <h>28</h>
     </coordinates>
-    <panel_attributes>Enter Partner
+    <panel_attributes>Enter Customer
 EmailId and Password</panel_attributes>
     <additional_attributes/>
   </element>
@@ -261,7 +261,7 @@ m2=[Invalid]</panel_attributes>
       <w>98</w>
       <h>28</h>
     </coordinates>
-    <panel_attributes>Place Order</panel_attributes>
+    <panel_attributes>Order Successfully</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -279,7 +279,7 @@ m2=[Invalid]</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>455</x>
-      <y>574</y>
+      <y>525</y>
       <w>21</w>
       <h>49</h>
     </coordinates>
@@ -290,33 +290,11 @@ m2=[Invalid]</panel_attributes>
     <id>UMLSpecialState</id>
     <coordinates>
       <x>448</x>
-      <y>609</y>
+      <y>560</y>
       <w>28</w>
       <h>28</h>
     </coordinates>
     <panel_attributes>type=final</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>455</x>
-      <y>525</y>
-      <w>21</w>
-      <h>42</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>420</x>
-      <y>553</y>
-      <w>84</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes>Display Message</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -325,7 +303,7 @@ m2=[Invalid]</panel_attributes>
       <x>350</x>
       <y>0</y>
       <w>357</w>
-      <h>651</h>
+      <h>602</h>
     </coordinates>
     <panel_attributes>*Checkout*
 halign=CENTER

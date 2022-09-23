@@ -91,12 +91,11 @@ group=2</panel_attributes>
     <id>UMLGeneric</id>
     <coordinates>
       <x>540</x>
-      <y>0</y>
+      <y>4</y>
       <w>224</w>
       <h>668</h>
     </coordinates>
     <panel_attributes>*Billy*
-Partner Usecase
 halign=CENTER
 fontsize=20</panel_attributes>
     <additional_attributes/>
