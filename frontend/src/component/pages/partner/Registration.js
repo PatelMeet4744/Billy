@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import axios from 'axios'
 const Registration = () => {
 
     const [restaurant, setRestaurant] = useState({
@@ -20,6 +20,26 @@ const Registration = () => {
         setRestaurant({ ...restaurant, [e.target.name]: e.target.value });
     }
 
+    const saveFile = (e) => {
+        setRestaurant({ ...restaurant, restaurantImage: e.target.files[0] });
+        alert(e.target.files[0].name)
+      };
+
+    const Insertion = async (e) => {
+        alert(JSON.stringify(restaurant))
+
+        try {
+          const res = await axios.post(
+            "http://localhost:4000/api/restaurant",
+            restaurant
+          );
+          console.log(res);
+        } catch (ex) {
+          console.log(ex);
+        }
+      };
+
+
     return (
         <div className="container-scroller">
             <div className="container-fluid page-body-wrapper full-page-wrapper">
@@ -34,7 +54,7 @@ const Registration = () => {
                                     <h4 className="font-weight-light" style={{ textAlign: 'center' }}>Partner</h4>
                                     <h6 className="font-weight-light" style={{ marginTop: 10 }}>Sign up to continue.</h6>
                                 </div>
-                                <form className="pt-3" onSubmit={(e) => alert(JSON.stringify(restaurant))}>
+                                <form className="pt-3" onSubmit={Insertion}>
                                     <div className="row">
                                         <div className="col-lg-6 mx-auto">
                                             <div className="form-group">
@@ -65,8 +85,10 @@ const Registration = () => {
                                                     name="ownerPassword" value={ownerPassword} onChange={(e) => onInputChange(e)} required />
                                             </div>
                                             <div className="form-group">
-                                                <input type="file" className="form-control form-control-lg" placeholder="Restaurant Image"
-                                                    name="restaurantImage" accept="image/*" value={restaurantImage} onChange={(e) => onInputChange(e)} required />
+                                                {/* <input type="file" className="form-control form-control-lg" placeholder="Restaurant Image"
+                                                    name="restaurantImage" accept="image/*" value={restaurantImage} onChange={(e) => onInputFileChange(e)} required />
+                                                     */}
+                                                     <input type="file" onChange={saveFile} />
                                             </div>
                                         </div>
                                         <div className="mt-3">
