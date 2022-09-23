@@ -25,7 +25,8 @@ async function getItem(params, callback) {
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
 
-    item.find(condition, "").populate("category", "categoryName").populate("itemAddon").populate("itemAddExtra")
+    // item.find(condition, "").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra", select: "addextraName addextraPrice" } })
+    item.find(condition, "").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra" } })
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
