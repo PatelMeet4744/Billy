@@ -166,10 +166,10 @@ m2=[Already Added]</panel_attributes>
       <x>552</x>
       <y>408</y>
       <w>184</w>
-      <h>112</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;120.0;210.0;120.0;210.0;10.0</additional_attributes>
+    <additional_attributes>10.0;130.0;210.0;130.0;210.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -200,38 +200,16 @@ m2=[Not Added]</panel_attributes>
       <x>552</x>
       <y>480</y>
       <w>24</w>
-      <h>64</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>512</x>
-      <y>528</y>
-      <w>96</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>Display Message</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>552</x>
-      <y>552</y>
-      <w>24</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
       <x>544</x>
-      <y>584</y>
+      <y>544</y>
       <w>32</w>
       <h>32</h>
     </coordinates>
@@ -244,7 +222,7 @@ m2=[Not Added]</panel_attributes>
       <x>440</x>
       <y>80</y>
       <w>336</w>
-      <h>544</h>
+      <h>512</h>
     </coordinates>
     <panel_attributes>*Menu*
 halign=CENTER
