@@ -2,7 +2,7 @@ const { variant } = require("../models/variant.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function creatVariant(params, callback) {
-    if (!params.item || !params.variantName || !params.variantuom || !params.variantPrice || !params.variantSalesPrice) {
+    if (!params.variantName || !params.variantuom || !params.variantPrice || !params.variantSalesPrice) {
         return callback({
             message: "Some Fields are Required"
         }, "");
@@ -24,7 +24,7 @@ async function getVariant(params, callback) {
 
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
-    variant.find(condition, "").populate("item")
+    variant.find(condition, "")
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
@@ -38,20 +38,9 @@ async function getVariant(params, callback) {
 }
 
 async function getVariantById({ variantId }, callback) {
-    variant.findById(variantId).populate("item")
+    variant.findById(variantId)
         .then((response) => {
             if (!response) callback("Not Found Variant with ID " + variantId);
-            else callback(null, response);
-        })
-        .catch((error) => {
-            return callback(error);
-        });
-}
-
-async function getVariantByItemId(itemId, callback) {
-    variant.find({ item: itemId }).populate("item")
-        .then((response) => {
-            if (!response) callback("Not Found Variant with Item ID " + itemId);
             else callback(null, response);
         })
         .catch((error) => {
@@ -100,7 +89,6 @@ module.exports = {
     creatVariant,
     getVariant,
     getVariantById,
-    getVariantByItemId,
     updateVariant,
     deleteVariant,
     updateVariantStatus
