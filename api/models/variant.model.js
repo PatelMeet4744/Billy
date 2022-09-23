@@ -4,10 +4,6 @@ const variant = mongoose.model(
     "Variant",
     mongoose.Schema(
         {
-            item: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Item'
-            },
             variantName: {
                 type: String,
                 require: true,

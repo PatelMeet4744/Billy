@@ -2,13 +2,27 @@ const { item } = require("../models/item.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function creatItem(params, callback) {
-    if (!params.restaurant || !params.category || !params.itemName || !params.itemDescription || !params.itemImage) {
+    if (!params.restaurant || !params.category || !params.itemName || !params.itemDescription || !params.variant || !params.itemImage) {
         return callback({
             message: "Some Fields are Required"
         }, "");
     }
+    const { restaurant, category, itemName, itemType, itemDescription, itemAddon, itemAddExtra, variant, itemImage } = params;
+    // Build Item object
+    const itemFields = {};
+    itemFields.variant = variant.split(',')
+        .map((item) => item.trim());
 
-    const model = new item(params);
+    itemFields.restaurant = restaurant;
+    itemFields.category = category;
+    itemFields.itemName = itemName;
+    itemFields.itemType = itemType;
+    itemFields.itemDescription = itemDescription;
+    itemFields.itemAddon = itemAddon;
+    itemFields.itemAddExtra = itemAddExtra;
+    itemFields.itemImage = itemImage;
+
+    const model = new item(itemFields);
     model.save()
         .then((response) => {
             return callback(null, response);
@@ -26,7 +40,7 @@ async function getItem(params, callback) {
     let page = (Math.abs(params.page) || 1) - 1;
 
     // item.find(condition, "").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra", select: "addextraName addextraPrice" } })
-    item.find(condition, "").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra" } })
+    item.find(condition, "").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra" } }).populate("variant")
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
@@ -40,7 +54,7 @@ async function getItem(params, callback) {
 }
 
 async function getItemById({ itemId }, callback) {
-    item.findById(itemId).populate("category", "categoryName").populate("itemAddon").populate("itemAddExtra")
+    item.findById(itemId).populate("category", "categoryName").populate("itemAddon").populate("itemAddExtra").populate("variant")
         .then((response) => {
             if (!response) callback("Not Found Item with ID " + itemId);
             else callback(null, response);
@@ -52,8 +66,22 @@ async function getItemById({ itemId }, callback) {
 
 async function updateItem(params, callback) {
     const itemId = params.itemId;
-    // return console.log(params);
-    item.findByIdAndUpdate(itemId, params, { useFindAndModify: false })
+
+    const { category, itemName, itemType, itemDescription, itemAddon, itemAddExtra, variant, itemImage } = params;
+    // Build Item object
+    const itemFields = {};
+    itemFields.variant = variant.split(',')
+        .map((item) => item.trim());
+
+    itemFields.category = category;
+    itemFields.itemName = itemName;
+    itemFields.itemType = itemType;
+    itemFields.itemDescription = itemDescription;
+    itemFields.itemAddon = itemAddon;
+    itemFields.itemAddExtra = itemAddExtra;
+    itemFields.itemImage = itemImage;
+
+    item.findByIdAndUpdate(itemId, itemFields, { useFindAndModify: false })
         .then((response) => {
             if (!response) callback("Not Found Item with ID " + itemId);
             else callback(null, response);
