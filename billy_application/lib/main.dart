@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:billy_application/pages/layout/navbar.dart';
 import 'package:billy_application/pages/onboard/onboarding.dart';
 import 'package:billy_application/providers/providers.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 bool? info;
 
@@ -10,7 +11,7 @@ void main() {
   Providers().getOnboardState().then((value) {
     info = value;
   });
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
