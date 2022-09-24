@@ -50,20 +50,6 @@ exports.findOne = (req, res, next) => {
     });
 }
 
-// Find a single Variant with an itemid
-exports.findItem = (req, res, next) => {
-    variantService.getVariantByItemId(req.params.itemId, (error, results) => {
-        if (error) {
-            return next(error);
-        } else {
-            return res.status(200).send({
-                message: "Success",
-                data: results
-            });
-        }
-    });
-}
-
 // Update a Variant by the id in the request
 exports.update = (req, res, next) => {
     const variantId = req.params.variantId;
