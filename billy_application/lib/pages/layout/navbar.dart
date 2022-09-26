@@ -1,4 +1,4 @@
-import 'package:billy_application/home.dart';
+import 'package:billy_application/pages/home/home_page.dart';
 import 'package:billy_application/pages/setting/account.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -17,7 +17,7 @@ class _NavbarState extends State<Navbar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
-    Home(),
+    HomePage(),
     Text(
       'Likes',
       style: optionStyle,

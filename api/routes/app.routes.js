@@ -37,7 +37,8 @@ router.get("/cuisines/:id", [authenticateToken], cuisinesController.findOne);
 // Update Cuisines
 router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.update);
 // Retrieve all Cuisines
-router.get("/cuisines", [authenticateToken], cuisinesController.findAll);
+//router.get("/cuisines", [authenticateToken], cuisinesController.findAll);
+router.get("/cuisines",  cuisinesController.findAll);
 // Delete a Cuisines with id
 router.delete("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.delete);
 // Update Cuisines Status
