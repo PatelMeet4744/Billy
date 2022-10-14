@@ -41,6 +41,12 @@ const item = mongoose.model(
                 type: Boolean,
                 default: false // true -> Active & false -> DeActive
             },
+            variant: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Variant'
+                }
+            ],
             approvalStatus: {
                 type: Number,
                 default: 1 // 1->Submission Pending, 2->In Review, 3->Approved, 4->Rejected by Billy

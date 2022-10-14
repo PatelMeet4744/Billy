@@ -19,6 +19,7 @@ exports.create = (req, res, next) => {
                 itemDescription: req.body.itemDescription,
                 itemAddon: req.body.itemAddon,
                 itemAddExtra: req.body.itemAddExtra,
+                variant: req.body.variant,
                 itemImage: path != "" ? "/" + path : ""
             };
 
@@ -102,6 +103,7 @@ exports.update = (req, res, next) => {
                 itemDescription: req.body.itemDescription,
                 itemAddon: req.body.itemAddon,
                 itemAddExtra: req.body.itemAddExtra,
+                variant: req.body.variant,
                 itemImage: itemImage
             };
 
