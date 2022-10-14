@@ -7,7 +7,7 @@ const itemaddonController = require("../controllers/itemaddon.controller");
 const itemaddextraController = require("../controllers/itemaddextra.controller");
 const itemController = require("../controllers/item.controller");
 const variantController = require("../controllers/variant.controller");
-
+const customerController = require("../controllers/customer.controller");
 const mailController = require("../controllers/mail.controller");
 
 const { authenticateToken } = require("../middleware/auth");
@@ -148,6 +148,10 @@ router.delete("/variant/:variantId", [authenticateToken], variantController.dele
 // Update Variant Status
 router.put("/variant/:variantId/:variantStatus", [authenticateToken], variantController.updateStatus);
 
+
+/* Customer Route */
+// Create a new Customer
+router.post("/customer", customerController.create);
 
 // Send mail
 router.post("/send", mailController.create);
