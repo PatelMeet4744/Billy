@@ -101,6 +101,22 @@ exports.delete = (req, res, next) => {
     });
 }
 
+// Update a Add-On status by the id in the request
+exports.updateStatus = (req, res, next) => {
+    const { addonId, addonStatus } = req.params;
+    // return console.log({ addonId, addonStatus });
+    addonService.updateAddonStatus({ addonId, addonStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
+
 // Update a Add-On Approval status by the id in the request
 exports.updateApprovalStatus = (req, res, next) => {
     const { addonId, approvalStatus } = req.params;

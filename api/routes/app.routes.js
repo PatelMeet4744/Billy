@@ -6,6 +6,7 @@ const addextraController = require("../controllers/addextra.controller");
 const itemaddonController = require("../controllers/itemaddon.controller");
 const itemaddextraController = require("../controllers/itemaddextra.controller");
 const itemController = require("../controllers/item.controller");
+const variantController = require("../controllers/variant.controller");
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
@@ -36,7 +37,8 @@ router.get("/cuisines/:id", [authenticateToken], cuisinesController.findOne);
 // Update Cuisines
 router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.update);
 // Retrieve all Cuisines
-router.get("/cuisines", [authenticateToken], cuisinesController.findAll);
+//router.get("/cuisines", [authenticateToken], cuisinesController.findAll);
+router.get("/cuisines",  cuisinesController.findAll);
 // Delete a Cuisines with id
 router.delete("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.delete);
 // Update Cuisines Status
@@ -69,6 +71,8 @@ router.put("/addon/:addonId", [authenticateToken], addonController.update);
 router.get("/addon", [authenticateToken], addonController.findAll);
 // Delete a Add-On with id
 router.delete("/addon/:addonId", [authenticateToken], addonController.delete);
+// Update Add-On Status
+router.put("/addon/:addonId/:addonStatus", [authenticateToken], addonController.updateStatus);
 // Update Add-On Approval Status
 router.put("/addon/:addonId/:approvalStatus", [authenticateToken], addonController.updateApprovalStatus);
 
@@ -83,6 +87,8 @@ router.put("/addextra/:addextraId", [authenticateToken], addextraController.upda
 router.get("/addextra", [authenticateToken], addextraController.findAll);
 // Delete a Add-Extra with id
 router.delete("/addextra/:addextraId", [authenticateToken], addextraController.delete);
+// Update Add-Extra Status
+router.put("/addextra/:addextraId/:addextraStatus", [authenticateToken], addextraController.updateStatus);
 // Update Add-Extra Approval Status
 router.put("/addextra/:addextraId/:approvalStatus", [authenticateToken], addextraController.updateApprovalStatus);
 
@@ -110,8 +116,7 @@ router.put("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraCon
 // Delete a Item Add-Extra with id
 router.delete("/itemaddextra/:itemAddExtraId", [authenticateToken], itemaddextraController.delete);
 
-
-/* Item*/
+/* Item */
 // Create a new Item
 router.post("/item", [authenticateToken], itemController.create);
 // Retrieve all Item
@@ -126,5 +131,19 @@ router.delete("/item/:itemId", [authenticateToken], itemController.delete);
 router.put("/item/:itemId/:itemStatus", [authenticateToken], itemController.updateStatus);
 // Update Item Approval Status
 router.put("/item/:itemId/:approvalStatus", [authenticateToken], itemController.updateApprovalStatus);
+
+/* Variant */
+// Create a new Variant
+router.post("/variant", [authenticateToken], variantController.create);
+// Retrieve all Variant
+router.get("/variant", [authenticateToken], variantController.findAll);
+// Retrieve a Variant with id
+router.get("/variant/:id", [authenticateToken], variantController.findOne);
+// Update a Variant
+router.put("/variant/:variantId", [authenticateToken], variantController.update);
+// Delete a Variant with id
+router.delete("/variant/:variantId", [authenticateToken], variantController.delete);
+// Update Variant Status
+router.put("/variant/:variantId/:variantStatus", [authenticateToken], variantController.updateStatus);
 
 module.exports = router;

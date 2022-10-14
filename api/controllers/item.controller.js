@@ -19,6 +19,7 @@ exports.create = (req, res, next) => {
                 itemDescription: req.body.itemDescription,
                 itemAddon: req.body.itemAddon,
                 itemAddExtra: req.body.itemAddExtra,
+                variant: req.body.variant,
                 itemImage: path != "" ? "/" + path : ""
             };
 
@@ -72,7 +73,6 @@ exports.findOne = (req, res, next) => {
     });
 }
 
-
 // Update a Cuisines by the id in the request
 exports.update = (req, res, next) => {
     uploadImage(req, res, function (err) {
@@ -103,6 +103,7 @@ exports.update = (req, res, next) => {
                 itemDescription: req.body.itemDescription,
                 itemAddon: req.body.itemAddon,
                 itemAddExtra: req.body.itemAddExtra,
+                variant: req.body.variant,
                 itemImage: itemImage
             };
 

@@ -11,3 +11,8 @@ npm install multer --save --no-audit
 npm install swagger-ui-express --save --no-audit
 npm install express-validator --save --no-audit
 npm install --global nodemon --save --no-audit
+
+
+Flutter Command
+---------------
+flutter pub run build_runner build --delete-conflicting-outputs

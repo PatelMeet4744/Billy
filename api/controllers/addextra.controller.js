@@ -101,6 +101,22 @@ exports.delete = (req, res, next) => {
     });
 }
 
+// Update a Add-Extra status by the id in the request
+exports.updateStatus = (req, res, next) => {
+    const { addextraId, addextraStatus } = req.params;
+    // return console.log({ addextraId, addextraStatus });
+    addExtraService.updateAddextraStatus({ addextraId, addextraStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
+
 // Update a Add-Extra Approval status by the id in the request
 exports.updateApprovalStatus = (req, res, next) => {
     const { addextraId, approvalStatus } = req.params;
