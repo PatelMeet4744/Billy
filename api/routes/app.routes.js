@@ -7,6 +7,9 @@ const itemaddonController = require("../controllers/itemaddon.controller");
 const itemaddextraController = require("../controllers/itemaddextra.controller");
 const itemController = require("../controllers/item.controller");
 const variantController = require("../controllers/variant.controller");
+
+const mailController = require("../controllers/mail.controller");
+
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
 const router = express.Router();
@@ -31,14 +34,13 @@ router.put("/restaurant/:restaurantId/:restaurantStatus", [authenticateToken], r
 
 /* Cuisines Route */
 // Create a new Cuisines
-router.post("/cuisines", [authenticateToken], cuisinesController.create);
+router.post("/cuisines",  cuisinesController.create);
 // Retrieve a single Cuisines with id
 router.get("/cuisines/:id", [authenticateToken], cuisinesController.findOne);
 // Update Cuisines
 router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.update);
 // Retrieve all Cuisines
-//router.get("/cuisines", [authenticateToken], cuisinesController.findAll);
-router.get("/cuisines",  cuisinesController.findAll);
+router.get("/cuisines", cuisinesController.findAll);
 // Delete a Cuisines with id
 router.delete("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.delete);
 // Update Cuisines Status
@@ -145,5 +147,9 @@ router.put("/variant/:variantId", [authenticateToken], variantController.update)
 router.delete("/variant/:variantId", [authenticateToken], variantController.delete);
 // Update Variant Status
 router.put("/variant/:variantId/:variantStatus", [authenticateToken], variantController.updateStatus);
+
+
+// Send mail
+router.post("/send", mailController.create);
 
 module.exports = router;

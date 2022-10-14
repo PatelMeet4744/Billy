@@ -1,6 +1,7 @@
 const { restaurant } = require("../models/restaurant.model");
 const bcrypt = require('bcryptjs');
 const auth = require("../middleware/auth");
+const sendEmail = require("../middleware/sendEmail");
 
 async function createRestaurant(params, callback) {
     if (!params.restaurantName || !params.restaurantAddress || !params.restaurantContact || !params.ownerName || !params.ownerContact || !params.ownerEmailID || !params.ownerPassword) {
@@ -15,9 +16,13 @@ async function createRestaurant(params, callback) {
     const salt = await bcrypt.genSalt(10);
     model.ownerPassword = await bcrypt.hash(params.ownerPassword, salt);
 
-    model.save()
+    await model.save()
         .then((response) => {
-            return callback(null, response);
+            const email = params.ownerEmailID;
+            const subject = "Restaurant Registration";
+            const html = [];
+            sendEmail.send(email, subject, html)
+            return callback(null, { message: "Restaurant Registration is done successfully and check the Email..!" });
         })
         .catch((error) => {
             return callback(error);

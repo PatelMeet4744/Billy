@@ -28,7 +28,7 @@ exports.create = (req, res, next) => {
                     return next(error);
                 } else {
                     return res.status(200).send({
-                        message: "Success",
+                        status: true,
                         data: results,
                     });
                 }
@@ -43,7 +43,6 @@ exports.attachDocument = (req, res, next) => {
         if (err) {
             next(err);
         } else {
-            // return console.log(req.files);
             const gstCertificatepath = req.files['gstCertificate'] != undefined ? req.files['gstCertificate'][0].path.replace(/\\/g, "/") : "";
             const fssaiCertificatepath = req.files['fssaiCertificate'] != undefined ? req.files['fssaiCertificate'][0].path.replace(/\\/g, "/") : "";
             const sampleBillpath = req.files['sampleBill'] != undefined ? req.files['sampleBill'][0].path.replace(/\\/g, "/") : "";
@@ -68,7 +67,7 @@ exports.attachDocument = (req, res, next) => {
             if (req.body.saturday) model['saturday'] = req.body.saturday;
             if (req.body.sunday) model['sunday'] = req.body.sunday;
 
-            // return console.log(model);
+            // return console.log("The Model Value is",model);
             restaurantService.attachDocumentRestaurant(model, (error, results) => {
                 if (error) {
                     return next(error);
