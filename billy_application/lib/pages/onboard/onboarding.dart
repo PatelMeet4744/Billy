@@ -2,8 +2,6 @@ import 'package:billy_application/pages/onboard/content_model.dart';
 import 'package:billy_application/pages/layout/navbar.dart';
 import 'package:flutter/material.dart';
 
-import 'package:billy_application/home.dart';
-
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
 
