@@ -76,7 +76,7 @@ router.delete("/addon/:addonId", [authenticateToken], addonController.delete);
 // Update Add-On Status
 router.put("/addon/:addonId/:addonStatus", [authenticateToken], addonController.updateStatus);
 // Update Add-On Approval Status
-router.put("/addon/:addonId/:approvalStatus", [authenticateToken], addonController.updateApprovalStatus);
+router.put("/addon/approval/:addonId/:approvalStatus", [authenticateToken], addonController.updateApprovalStatus);
 
 /* Add-Extra */
 // Create a new Add-Extra
@@ -92,7 +92,7 @@ router.delete("/addextra/:addextraId", [authenticateToken], addextraController.d
 // Update Add-Extra Status
 router.put("/addextra/:addextraId/:addextraStatus", [authenticateToken], addextraController.updateStatus);
 // Update Add-Extra Approval Status
-router.put("/addextra/:addextraId/:approvalStatus", [authenticateToken], addextraController.updateApprovalStatus);
+router.put("/addextra/approval/:addextraId/:approvalStatus", [authenticateToken], addextraController.updateApprovalStatus);
 
 /* Item Add-On */
 // Create a new Item Add-On
@@ -132,7 +132,7 @@ router.delete("/item/:itemId", [authenticateToken], itemController.delete);
 // Update Item Status
 router.put("/item/:itemId/:itemStatus", [authenticateToken], itemController.updateStatus);
 // Update Item Approval Status
-router.put("/item/:itemId/:approvalStatus", [authenticateToken], itemController.updateApprovalStatus);
+router.put("/item/approval/:itemId/:approvalStatus", [authenticateToken], itemController.updateApprovalStatus);
 
 /* Variant */
 // Create a new Variant
