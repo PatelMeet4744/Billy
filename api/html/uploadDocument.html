@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+            background: transparent;
+        }
+        h1 {
+            font-family: Arial,Sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: #222;
+        }
+        #custombutton {
+            background: #ffffff;
+            border: 1px solid #a31f34;
+            font-size: 15px;
+            line-height: 15px;
+            text-decoration: none;
+            padding: 13px 28px;
+            color: #a31f34;
+            display: block;
+            border-radius: 4px;
+        }
+        #textbody {
+            padding-left: 20px;
+            font-size: 15px;
+            line-height: 20px;
+            color: #555555;
+        }
+        #buttonbody {
+            padding: 20px 0px 20px 20px;
+        }
+        #notworkbody {
+            padding: 0px 0px 20px 20px;
+            margin: 10px 0;
+            color:#222;
+        }
+        #notwork {
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+        }
+        #thank {
+            padding: 20px;
+            font-size: 12px;
+            line-height: 15px;
+            color: #b0b0b0;
+        }
+    </style>
+</head>
+<body>
+    <div id="textbody">
+        <h1><img src="https://i.ibb.co/6myys4W/logo-1.png"/></h1>
+        <h1>Verify your email</h1>
+        Thank you for creating an account with Billy.<br />
+        To complete the account creation process, please click on the below link:
+    </div>
+    <div id="buttonbody">
+        <button id="custombutton"><a href='{{redirecturl}}' style="text-decoration: none;color: #a31f34;">Verify Your Email</a></button>
+    </div>
+    <div id="notworkbody">
+        <p id="notwork" style="margin:10px 0">If the button doesn't work, copy and paste this link into your web browser:</p>
+        <p>
+            <a href='{{redirecturl}}'>Click Here</a>
+    </div>
+    <div id="textbody">
+        <p style="margin:0px 0px 10px">Welcome and thank you!<br />The Billy Team</p>
+    </div>
+    <div id="textbody">
+        --
+    </div>
+    <div id="thank">
+        Billy Team<br />© {{currentyear}} Billy, All Rights Reserved. <a>Terms of Service</a> and <a>Privacy Policy</a>
+    </div>    
+</body>
+</html>

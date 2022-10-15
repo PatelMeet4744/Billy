@@ -24,7 +24,6 @@ const restaurant = mongoose.model(
             restaurantContact: {
                 type: Number,
                 require: true,
-                unique: true
             },
             ownerName: {
                 type: String,

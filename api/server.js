@@ -33,7 +33,7 @@ mongoose.connect(MONGO_DB_CONFIG.DB, {
 app.use(express.json());
 app.use(cors());
 app.use("/uploads", express.static("uploads"));
-
+app.use("/html", express.static("html"));
 // initialize routes
 app.use("/api", require("./routes/app.routes"));
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
