@@ -6,8 +6,7 @@ const variant = mongoose.model(
         {
             variantName: {
                 type: String,
-                require: true,
-                unique: true
+                require: true
             },
             variantuom: {
                 type: String,

@@ -9,6 +9,7 @@ const itemController = require("../controllers/item.controller");
 const variantController = require("../controllers/variant.controller");
 const customerController = require("../controllers/customer.controller");
 const mailController = require("../controllers/mail.controller");
+const cartController = require("../controllers/cart.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -148,10 +149,21 @@ router.delete("/variant/:variantId", [authenticateToken], variantController.dele
 // Update Variant Status
 router.put("/variant/:variantId/:variantStatus", [authenticateToken], variantController.updateStatus);
 
-
 /* Customer Route */
 // Create a new Customer
 router.post("/customer", customerController.create);
+
+/* Cart Route */
+// Create a new Cart
+router.post("/cart", [authenticateToken], cartController.create);
+// Retrieve all Cart
+router.get("/cart", [authenticateToken], cartController.findAll);
+// Retrieve a Cart Customize with id
+router.get("/cart/customize/:id", [authenticateToken], cartController.findOneCustomize);
+// Update a Cart
+router.put("/cart/:cartId", [authenticateToken], cartController.update);
+// Delete a Cart with id
+router.delete("/cart/:cartId", [authenticateToken], cartController.delete);
 
 // Send mail
 router.post("/send", mailController.create);
