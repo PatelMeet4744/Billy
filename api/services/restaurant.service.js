@@ -88,7 +88,7 @@ async function attachDocumentRestaurant(params, callback) {
 
     restaurant.findOneAndUpdate({ restaurantId: restaurantId }, { $set: restaurantFields }, { new: true })
         .then((response) => {
-            if (!response) callback(`Cannot update Restaurant with ID ${productId}`);
+            if (!response) callback(`Cannot update Restaurant with ID ${restaurantId}`);
             else callback(null, response);
         })
         .catch((error) => {
@@ -180,7 +180,7 @@ async function udpdateRestaurantDocumentByAdmin(params, callback) {
 
     restaurant.findOneAndUpdate({ restaurantId: restaurantId }, { $set: restaurantFields }, { new: true })
         .then((response) => {
-            if (!response) callback(`Cannot update Restaurant with ID ${productId}`);
+            if (!response) callback(`Cannot update Restaurant with ID ${restaurantId}`);
             else callback(null, response);
         })
         .catch((error) => {
