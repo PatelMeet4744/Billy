@@ -10,6 +10,7 @@ const variantController = require("../controllers/variant.controller");
 const customerController = require("../controllers/customer.controller");
 const mailController = require("../controllers/mail.controller");
 const billingAddressController = require("../controllers/billingAddress.controller");
+const adminController = require("../controllers/admin.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -164,6 +165,12 @@ router.get("/billingaddress/:id", billingAddressController.findOne);
 router.put("/billingaddress/:billingAddressId", billingAddressController.update);
 // Delete a Billing Address with id
 router.delete("/billingaddress/:billingAddressId", billingAddressController.delete);
+
+/* Admin */
+//Create Or Save New Admin
+router.post("/admin", adminController.create);
+// Admin Login
+router.post("/admin/login", adminController.login);
 
 // Send mail
 router.post("/send", mailController.create);
