@@ -10,6 +10,9 @@ const variantController = require("../controllers/variant.controller");
 const customerController = require("../controllers/customer.controller");
 const mailController = require("../controllers/mail.controller");
 const billingAddressController = require("../controllers/billingAddress.controller");
+const cartController = require("../controllers/cart.controller");
+const orderMasterController = require("../controllers/orderMaster.controller");
+const orderDetailController = require("../controllers/orderDetail.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -35,7 +38,7 @@ router.put("/restaurant/:restaurantId/:restaurantStatus", [authenticateToken], r
 
 /* Cuisines Route */
 // Create a new Cuisines
-router.post("/cuisines",  cuisinesController.create);
+router.post("/cuisines", cuisinesController.create);
 // Retrieve a single Cuisines with id
 router.get("/cuisines/:id", [authenticateToken], cuisinesController.findOne);
 // Update Cuisines
@@ -77,7 +80,7 @@ router.delete("/addon/:addonId", [authenticateToken], addonController.delete);
 // Update Add-On Status
 router.put("/addon/:addonId/:addonStatus", [authenticateToken], addonController.updateStatus);
 // Update Add-On Approval Status
-router.put("/addon/:addonId/:approvalStatus", [authenticateToken], addonController.updateApprovalStatus);
+router.put("/addon/approval/:addonId/:approvalStatus", [authenticateToken], addonController.updateApprovalStatus);
 
 /* Add-Extra */
 // Create a new Add-Extra
@@ -93,7 +96,7 @@ router.delete("/addextra/:addextraId", [authenticateToken], addextraController.d
 // Update Add-Extra Status
 router.put("/addextra/:addextraId/:addextraStatus", [authenticateToken], addextraController.updateStatus);
 // Update Add-Extra Approval Status
-router.put("/addextra/:addextraId/:approvalStatus", [authenticateToken], addextraController.updateApprovalStatus);
+router.put("/addextra/approval/:addextraId/:approvalStatus", [authenticateToken], addextraController.updateApprovalStatus);
 
 /* Item Add-On */
 // Create a new Item Add-On
@@ -133,7 +136,7 @@ router.delete("/item/:itemId", [authenticateToken], itemController.delete);
 // Update Item Status
 router.put("/item/:itemId/:itemStatus", [authenticateToken], itemController.updateStatus);
 // Update Item Approval Status
-router.put("/item/:itemId/:approvalStatus", [authenticateToken], itemController.updateApprovalStatus);
+router.put("/item/approval/:itemId/:approvalStatus", [authenticateToken], itemController.updateApprovalStatus);
 
 /* Variant */
 // Create a new Variant
@@ -164,6 +167,28 @@ router.get("/billingaddress/:id", billingAddressController.findOne);
 router.put("/billingaddress/:billingAddressId", billingAddressController.update);
 // Delete a Billing Address with id
 router.delete("/billingaddress/:billingAddressId", billingAddressController.delete);
+
+/* Cart Route */
+// Create a new Cart
+router.post("/cart", [authenticateToken], cartController.create);
+// Retrieve all Cart
+router.get("/cart", [authenticateToken], cartController.findAll);
+// Retrieve a Cart Customize with id
+router.get("/cart/customize/:id", [authenticateToken], cartController.findOneCustomize);
+// Update a Cart
+router.put("/cart/:cartId", [authenticateToken], cartController.update);
+// Delete a Cart with id
+router.delete("/cart/:cartId", [authenticateToken], cartController.delete);
+
+/* Order Master Route */
+// Create a new Order Master
+router.post("/ordermaster", [authenticateToken], orderMasterController.create);
+
+/* Order Detail Route */
+// Create a new Order Detail
+router.post("/orderdetail", [authenticateToken], orderDetailController.create);
+// Retrieve all Order Detail
+router.get("/orderdetail", [authenticateToken], orderDetailController.findAll);
 
 // Send mail
 router.post("/send", mailController.create);
