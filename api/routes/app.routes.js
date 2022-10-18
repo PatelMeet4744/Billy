@@ -13,6 +13,7 @@ const billingAddressController = require("../controllers/billingAddress.controll
 const cartController = require("../controllers/cart.controller");
 const orderMasterController = require("../controllers/orderMaster.controller");
 const orderDetailController = require("../controllers/orderDetail.controller");
+const adminController = require("../controllers/admin.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -189,6 +190,12 @@ router.post("/ordermaster", [authenticateToken], orderMasterController.create);
 router.post("/orderdetail", [authenticateToken], orderDetailController.create);
 // Retrieve all Order Detail
 router.get("/orderdetail", [authenticateToken], orderDetailController.findAll);
+
+/* Admin */
+//Create Or Save New Admin
+router.post("/admin", adminController.create);
+// Admin Login
+router.post("/admin/login", adminController.login);
 
 // Send mail
 router.post("/send", mailController.create);
