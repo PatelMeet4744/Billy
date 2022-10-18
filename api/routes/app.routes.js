@@ -9,6 +9,7 @@ const itemController = require("../controllers/item.controller");
 const variantController = require("../controllers/variant.controller");
 const customerController = require("../controllers/customer.controller");
 const mailController = require("../controllers/mail.controller");
+const billingAddressController = require("../controllers/billingAddress.controller");
 const cartController = require("../controllers/cart.controller");
 const orderMasterController = require("../controllers/orderMaster.controller");
 const orderDetailController = require("../controllers/orderDetail.controller");
@@ -154,6 +155,18 @@ router.put("/variant/:variantId/:variantStatus", [authenticateToken], variantCon
 /* Customer Route */
 // Create a new Customer
 router.post("/customer", customerController.create);
+
+/* Billing Address */
+// Create a new Billing Address
+router.post("/billingaddress", billingAddressController.create);
+// Retrieve all Billing Address
+router.get("/billingaddress", billingAddressController.findAll);
+// Retrieve a single Billing Address with id
+router.get("/billingaddress/:id", billingAddressController.findOne);
+// Update Billing Address
+router.put("/billingaddress/:billingAddressId", billingAddressController.update);
+// Delete a Billing Address with id
+router.delete("/billingaddress/:billingAddressId", billingAddressController.delete);
 
 /* Cart Route */
 // Create a new Cart
