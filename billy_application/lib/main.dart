@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Billy',
+      darkTheme: ThemeData(brightness: Brightness.dark),
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
