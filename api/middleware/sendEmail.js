@@ -17,7 +17,7 @@ var readHTMLFile = function (path, callback) {
 };
 
 function send(email, subject, body) {
-    // return console.log(body);
+    // return console.log(email);
     let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -32,10 +32,10 @@ function send(email, subject, body) {
         var replacements = {
             MYDATA: body,
             redirecturl: "http://localhost:3000/Resturant/AttachDocument",
-            currentyear:  year
+            currentyear: year
         };
         var htmlToSend = template(replacements);
-        
+
         //Send Bulk mail Code
         /*var maillist = ['19bmiit0015@gmail.com','19bmiit032@gmail.com','a.p.choksi420@gmail.com'];
             const mailOptions = {

@@ -8,7 +8,7 @@ exports.create = (req, res, next) => {
         html: req.body.body
     };
 
-    console.log(model)
+    // console.log(model)
 
     mailService.testsendemail(model, (error, results) => {
         if (error) {
