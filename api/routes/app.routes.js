@@ -10,6 +10,8 @@ const variantController = require("../controllers/variant.controller");
 const customerController = require("../controllers/customer.controller");
 const mailController = require("../controllers/mail.controller");
 const cartController = require("../controllers/cart.controller");
+const orderMasterController = require("../controllers/orderMaster.controller");
+const orderDetailController = require("../controllers/orderDetail.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -164,6 +166,16 @@ router.get("/cart/customize/:id", [authenticateToken], cartController.findOneCus
 router.put("/cart/:cartId", [authenticateToken], cartController.update);
 // Delete a Cart with id
 router.delete("/cart/:cartId", [authenticateToken], cartController.delete);
+
+/* Order Master Route */
+// Create a new Order Master
+router.post("/ordermaster", [authenticateToken], orderMasterController.create);
+
+/* Order Detail Route */
+// Create a new Order Detail
+router.post("/orderdetail", [authenticateToken], orderDetailController.create);
+// Retrieve all Order Detail
+router.get("/orderdetail", [authenticateToken], orderDetailController.findAll);
 
 // Send mail
 router.post("/send", mailController.create);
