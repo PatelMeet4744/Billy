@@ -8,7 +8,7 @@ exports.create = (req, res, next) => {
         addon: req.body.addon
     };
 
-    itemaddonService.creatItemAddon(model, (error, results) => {
+    itemaddonService.createItemAddon(model, (error, results) => {
         if (error) {
             return next(error);
         } else {
