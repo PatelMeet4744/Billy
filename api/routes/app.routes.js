@@ -14,6 +14,7 @@ const cartController = require("../controllers/cart.controller");
 const orderMasterController = require("../controllers/orderMaster.controller");
 const orderDetailController = require("../controllers/orderDetail.controller");
 const adminController = require("../controllers/admin.controller");
+const bannerController = require("../controllers/banner.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -196,6 +197,22 @@ router.get("/orderdetail", [authenticateToken], orderDetailController.findAll);
 router.post("/admin", adminController.create);
 // Admin Login
 router.post("/admin/login", adminController.login);
+
+/* Banner Route */
+// Create a new Banner
+router.post("/banner", [authenticateToken],  bannerController.create);
+// Retrieve a single Banner with id
+router.get("/banner/:id", [authenticateToken],  bannerController.findOne);
+// Retrieve all Banner
+router.get("/banner", [authenticateToken],  bannerController.findAll);
+// Update Banner Details
+router.put("/banner/:bannerId", [authenticateToken],  bannerController.updateBannerDetails);
+// Delete a Banner with id
+router.delete("/banner/:bannerId", [authenticateToken], bannerController.delete);
+// Update Banner Status
+router.put("/banner/:bannerId/:bannerStatus", [authenticateToken], bannerController.updateStatus);
+// Update Banner Approval Status
+router.put("/banner/Aprove/:bannerId/:approvalStatus", [authenticateToken], bannerController.updateApprovalStatus);
 
 // Send mail
 router.post("/send", mailController.create);
