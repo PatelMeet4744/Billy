@@ -8,7 +8,7 @@ exports.create = (req, res, next) => {
         addextra: req.body.addextra
     };
 
-    itemaddextraService.creatItemAddExtra(model, (error, results) => {
+    itemaddextraService.createItemAddExtra(model, (error, results) => {
         if (error) {
             return next(error);
         } else {

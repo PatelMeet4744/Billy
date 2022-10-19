@@ -1,7 +1,7 @@
 const { addon } = require("../models/addon.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
-async function creatAddOn(params, callback) {
+async function createAddOn(params, callback) {
     // return console.log(params);
 
     if (!params.restaurant || !params.addonName || !params.addonType || !params.addonPrice || !params.addonFinalPrice) {
@@ -107,7 +107,7 @@ async function updateAddOnApprovalStatus({ addonId, approvalStatus }, callback) 
 }
 
 module.exports = {
-    creatAddOn,
+    createAddOn,
     getAddOnById,
     updateAddOn,
     getAddOn,

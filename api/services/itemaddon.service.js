@@ -1,7 +1,7 @@
 const { itemAddon } = require("../models/itemAddon.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
-async function creatItemAddon(params, callback) {
+async function createItemAddon(params, callback) {
     if (!params.title || !params.customerSelection || !params.addon) {
         return callback({
             message: "Some Fields are Required!"
@@ -99,7 +99,7 @@ async function deleteItemAddon(params, callback) {
 }
 
 module.exports = {
-    creatItemAddon,
+    createItemAddon,
     getItemAddon,
     getItemAddOnById,
     updateItemAddon,
