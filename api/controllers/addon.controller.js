@@ -13,7 +13,7 @@ exports.create = (req, res, next) => {
         addonFinalPrice: req.body.addonFinalPrice
     };
     // console.log(req.body);
-    addonService.creatAddOn(model, (error, results) => {
+    addonService.createAddOn(model, (error, results) => {
         if (error) {
             return next(error);
         } else {
