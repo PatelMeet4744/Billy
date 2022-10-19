@@ -1,7 +1,7 @@
 const { addextra } = require("../models/addextra.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
-async function creatAddExtra(params, callback) {
+async function createAddExtra(params, callback) {
     // return console.log(params);
 
     if (!params.restaurant || !params.addextraName || !params.addextraType || !params.addextraPrice || !params.addextraFinalPrice) {
@@ -107,7 +107,7 @@ async function updateAddExtraApprovalStatus({ addextraId, approvalStatus }, call
 }
 
 module.exports = {
-    creatAddExtra,
+    createAddExtra,
     getAddExtraById,
     updateAddExtra,
     getAddExtra,
