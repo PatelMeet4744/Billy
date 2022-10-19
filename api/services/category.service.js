@@ -1,7 +1,7 @@
 const { category } = require("../models/category.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
-async function creatCategory({ restaurant, categoryName }, callback) {
+async function createCategory({ restaurant, categoryName }, callback) {
     if (!categoryName) {
         return callback({
             message: "Category Name is Required!"
@@ -108,7 +108,7 @@ async function updateCategoryApprovalStatus({ categoryId, approvalStatus }, call
 }
 
 module.exports = {
-    creatCategory,
+    createCategory,
     getCategoryById,
     updateCategory,
     getCategory,
