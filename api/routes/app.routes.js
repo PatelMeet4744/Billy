@@ -224,11 +224,21 @@ router.get("/complain", [authenticateToken], complainController.findAll);
 // Update Complain Status
 router.put("/complain/:complainId/:complainStatus", [authenticateToken], complainController.updateStatus);
 
-/* Delivery Boy Route */
+/* /* Delivery Boy Route */
 // Create a new Delivery Boy
 router.post("/deliveryBoy", [authenticateToken], deliveryBoyController.create);
 // Retrieve all Delivery Boy
 router.get("/deliveryBoy", [authenticateToken], deliveryBoyController.findAll);
+// Delivery Boy Login
+router.post("/deliveryBoy/login", deliveryBoyController.login);
+// Retrieve a single Delivery Boy
+router.get("/deliveryBoy/:id", [authenticateToken], deliveryBoyController.findOne);
+// Update Delivery Boy Details
+router.put("/deliveryBoy/:deliveryBoyId", [authenticateToken], deliveryBoyController.update);
+// Delete a Delivery Boy with id
+router.delete("/deliveryBoy/:deliveryBoyId", [authenticateToken], deliveryBoyController.delete);
+// Update Delivery Boy Status
+router.put("/deliveryBoy/:deliveryBoyId/:deliveryBoyStatus", [authenticateToken], deliveryBoyController.updateStatus);
 
 // Send mail
 router.post("/send", mailController.create);

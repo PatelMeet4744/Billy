@@ -8,7 +8,7 @@ exports.create = (req, res, next) => {
         deliveryBoyMobile: req.body.deliveryBoyMobile,
         deliveryBoyPassword: req.body.deliveryBoyPassword
     };
-    
+    // console.log(req.body);
     deliveryBoyService.createDeliveryBoy(model, (error, results) => {
         if (error) {
             return next(error);
@@ -36,6 +36,93 @@ exports.findAll = (req, res, next) => {
             return res.status(200).send({
                 message: "Success",
                 data: results
+            });
+        }
+    });
+}
+
+// Find a single Delivery Boy with an id
+exports.findOne = (req, res, next) => {
+    const deliveryBoyId = req.params.id;
+
+    deliveryBoyService.getDeliveryBoyById({ deliveryBoyId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
+
+// Login Delivery Boy
+exports.login = (req, res, next) => {
+    const { deliveryBoyMobile, deliveryBoyPassword } = req.body;
+    // return console.log(req.body);
+    // return console.log({ ownerEmailID, ownerPassword });
+    deliveryBoyService.loginDeliveryBoy({ deliveryBoyMobile, deliveryBoyPassword }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
+
+// Update a Delivery Boy by the id in the request
+exports.update = (req, res, next) => {
+
+    var model = {
+        deliveryBoyId: req.params.deliveryBoyId,
+        deliveryBoyName: req.body.deliveryBoyName,
+        deliveryBoyMobile: req.body.deliveryBoyMobile,
+        deliveryBoyPassword: req.body.deliveryBoyPassword
+    };
+
+    deliveryBoyService.updateDeliveryBoy(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
+
+// Delete a Delivery Boy with the specified id in the request
+exports.delete = (req, res, next) => {
+    const deliveryBoyId = req.params.deliveryBoyId;
+
+    deliveryBoyService.deleteDeliveryBoy({ deliveryBoyId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
+
+// Update a Delivery Boy status by the id in the request
+exports.updateStatus = (req, res, next) => {
+    const { deliveryBoyId, deliveryBoyStatus } = req.params;
+    // return console.log({ addonId, addonStatus });
+    deliveryBoyService.updateDeliveryBoyStatus({ deliveryBoyId, deliveryBoyStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
             });
         }
     });
