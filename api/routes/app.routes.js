@@ -15,6 +15,7 @@ const orderMasterController = require("../controllers/orderMaster.controller");
 const orderDetailController = require("../controllers/orderDetail.controller");
 const adminController = require("../controllers/admin.controller");
 const bannerController = require("../controllers/banner.controller");
+const complainController = require("../controllers/complain.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -213,6 +214,14 @@ router.delete("/banner/:bannerId", [authenticateToken], bannerController.delete)
 router.put("/banner/:bannerId/:bannerStatus", [authenticateToken], bannerController.updateStatus);
 // Update Banner Approval Status
 router.put("/banner/Aprove/:bannerId/:approvalStatus", [authenticateToken], bannerController.updateApprovalStatus);
+
+/* Complain */
+// Create a new Complain
+router.post("/complain", [authenticateToken], complainController.create);
+// Retrieve all Complain
+router.get("/complain", [authenticateToken], complainController.findAll);
+// Update Complain Status
+router.put("/complain/:complainId/:complainStatus", [authenticateToken], complainController.updateStatus);
 
 // Send mail
 router.post("/send", mailController.create);
