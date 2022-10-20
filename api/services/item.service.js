@@ -1,7 +1,7 @@
 const { item } = require("../models/item.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
-async function creatItem(params, callback) {
+async function createItem(params, callback) {
     if (!params.restaurant || !params.category || !params.itemName || !params.itemDescription || !params.variant || !params.itemImage) {
         return callback({
             message: "Some Fields are Required"
@@ -131,7 +131,7 @@ async function updateItemApprovalStatus({ itemId, approvalStatus }, callback) {
 }
 
 module.exports = {
-    creatItem,
+    createItem,
     getItem,
     getItemById,
     updateItem,

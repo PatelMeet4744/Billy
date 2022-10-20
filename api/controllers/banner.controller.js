@@ -17,7 +17,7 @@ exports.create = (req, res, next) => {
                 bannerImage: path != "" ? "/" + path : "",                
             };
 
-            bannerService.creatBanner(model, (error, results) => {
+            bannerService.createBanner(model, (error, results) => {
                 if (error) {
                     return next(error);
                 } else {

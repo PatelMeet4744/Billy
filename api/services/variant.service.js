@@ -1,7 +1,7 @@
 const { variant } = require("../models/variant.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
-async function creatVariant(params, callback) {
+async function createVariant(params, callback) {
     if (!params.variantName || !params.variantuom || !params.variantPrice || !params.variantSalesPrice) {
         return callback({
             message: "Some Fields are Required"
@@ -86,7 +86,7 @@ async function updateVariantStatus({ variantId, variantStatus }, callback) {
 }
 
 module.exports = {
-    creatVariant,
+    createVariant,
     getVariant,
     getVariantById,
     updateVariant,

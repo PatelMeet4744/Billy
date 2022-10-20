@@ -1,7 +1,7 @@
 const { banner } = require("../models/banner.model");
 
 //Create and Save Banner
-async function creatBanner(params, callback) {
+async function createBanner(params, callback) {
     // return console.log(params);
 
     if (!params.restaurant || !params.bannerName || !params.bannerImage) {
@@ -113,7 +113,7 @@ async function updateBannerDetails(params, callback) {
         });
 }
 module.exports = {
-    creatBanner,
+    createBanner,
     getBannerById,
     updateBannerDetails,
     getBanner,
