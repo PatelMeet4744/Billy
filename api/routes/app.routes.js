@@ -16,6 +16,7 @@ const orderDetailController = require("../controllers/orderDetail.controller");
 const adminController = require("../controllers/admin.controller");
 const bannerController = require("../controllers/banner.controller");
 const complainController = require("../controllers/complain.controller");
+const deliveryBoyController = require("../controllers/deliveryBoy.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -222,6 +223,10 @@ router.post("/complain", [authenticateToken], complainController.create);
 router.get("/complain", [authenticateToken], complainController.findAll);
 // Update Complain Status
 router.put("/complain/:complainId/:complainStatus", [authenticateToken], complainController.updateStatus);
+
+/* Delivery Boy Route */
+// Create a new Delivery Boy
+router.post("/deliveryBoy", [authenticateToken], deliveryBoyController.create);
 
 // Send mail
 router.post("/send", mailController.create);
