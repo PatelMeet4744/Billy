@@ -17,6 +17,7 @@ const adminController = require("../controllers/admin.controller");
 const bannerController = require("../controllers/banner.controller");
 const complainController = require("../controllers/complain.controller");
 const deliveryBoyController = require("../controllers/deliveryBoy.controller");
+const couponCodeController = require("../controllers/couponCode.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -239,6 +240,24 @@ router.put("/deliveryBoy/:deliveryBoyId", [authenticateToken], deliveryBoyContro
 router.delete("/deliveryBoy/:deliveryBoyId", [authenticateToken], deliveryBoyController.delete);
 // Update Delivery Boy Status
 router.put("/deliveryBoy/:deliveryBoyId/:deliveryBoyStatus", [authenticateToken], deliveryBoyController.updateStatus);
+
+/* Coupon Code */
+// Create a new Coupon Code
+router.post("/couponCode", [authenticateToken], couponCodeController.create);
+// Retrieve all Coupon Code
+router.get("/couponCode", [authenticateToken], couponCodeController.findAll);
+// Retrieve a single Coupon Code with id
+router.get("/couponCode/:id", [authenticateToken], couponCodeController.findOne);
+// Update Coupon Code
+router.put("/couponCode/:couponCodeId", [authenticateToken], couponCodeController.update);
+// Delete a Coupon Code with id
+router.delete("/couponCode/:couponCodeId", [authenticateToken], couponCodeController.delete);
+// Update Coupon Code Status
+router.put("/couponCode/:couponCodeId/:couponCodeStatus", [authenticateToken], couponCodeController.updateStatus);
+// Coupon Code Expired
+router.post("/couponCode/Expired", [authenticateToken], couponCodeController.ExpiredOn);
+// Coupon Code Send
+router.post("/couponCode/SendCoupon", [authenticateToken], couponCodeController.SendCouponCode);
 
 // Send mail
 router.post("/send", mailController.create);
