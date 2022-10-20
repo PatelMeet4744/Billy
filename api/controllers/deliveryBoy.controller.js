@@ -20,3 +20,23 @@ exports.create = (req, res, next) => {
         }
     });
 }
+
+// Retrieve all Delivery Boy from the database.
+exports.findAll = (req, res, next) => {
+    var model = {
+        deliveryBoyName: req.query.deliveryBoyName,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    deliveryBoyService.getDeliveryBoy(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

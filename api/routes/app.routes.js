@@ -227,6 +227,8 @@ router.put("/complain/:complainId/:complainStatus", [authenticateToken], complai
 /* Delivery Boy Route */
 // Create a new Delivery Boy
 router.post("/deliveryBoy", [authenticateToken], deliveryBoyController.create);
+// Retrieve all Delivery Boy
+router.get("/deliveryBoy", [authenticateToken], deliveryBoyController.findAll);
 
 // Send mail
 router.post("/send", mailController.create);
