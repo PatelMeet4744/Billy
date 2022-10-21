@@ -20,6 +20,7 @@ const deliveryBoyController = require("../controllers/deliveryBoy.controller");
 const couponCodeController = require("../controllers/couponCode.controller");
 const referralAmountController = require("../controllers/referralAmount.controller");
 const settingController = require("../controllers/setting.controller");
+const wishlistController = require("../controllers/wishlist.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -276,6 +277,10 @@ router.post("/setting", [authenticateToken], settingController.create);
 router.get("/setting", [authenticateToken], settingController.findAll);
 // Update Setting
 router.put("/setting/:settingId", [authenticateToken], settingController.update);
+
+/* Wishlist Route */
+// Create a new Wishlist
+router.post("/wishlist", [authenticateToken], wishlistController.create);
 
 // Send mail
 router.post("/send", mailController.create);
