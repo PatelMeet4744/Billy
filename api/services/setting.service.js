@@ -38,7 +38,21 @@ async function getSetting(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+async function updateSetting(params, callback) {
+    const settingId = params.settingId;
+
+    setting.findByIdAndUpdate(settingId, params, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Setting with ID " + settingId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createSetting,
-    getSetting
+    getSetting,
+    updateSetting
 };

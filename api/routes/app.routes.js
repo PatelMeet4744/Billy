@@ -274,6 +274,8 @@ router.put("/referralAmount/:referralAmountId", [authenticateToken], referralAmo
 router.post("/setting", [authenticateToken], settingController.create);
 // Retrieve all Setting
 router.get("/setting", [authenticateToken], settingController.findAll);
+// Update Setting
+router.put("/setting/:settingId", [authenticateToken], settingController.update);
 
 // Send mail
 router.post("/send", mailController.create);

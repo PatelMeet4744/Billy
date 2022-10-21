@@ -41,3 +41,26 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+// Update a Setting by the id in the request
+exports.update = (req, res, next) => {
+
+    var model = {
+        settingId: req.params.settingId,
+        settingCartMinPrice: req.body.settingCartMinPrice,
+        settingCartMinPriceMessage: req.body.settingCartMinPriceMessage,
+        settingDeliveryCharge: req.body.settingDeliveryCharge,
+        settingGst: req.body.settingGst
+    };
+
+    settingService.updateSetting(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
