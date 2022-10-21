@@ -1,4 +1,5 @@
 const { referralAmount } = require("../models/referralAmount.model");
+const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createReferralAmount(params, callback) {
     // return console.log(params);
@@ -19,6 +20,26 @@ async function createReferralAmount(params, callback) {
         });
 }
 
+async function getReferralAmount(params,callback) {
+    const _referralAmount = params.referralAmount;
+    var condition = _referralAmount ? { referralAmount: { $regex: new RegExp(_referralAmount), $options: "i" } } : {};
+
+    let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
+    let page = (Math.abs(params.page) || 1) - 1;
+
+    referralAmount.find(condition, "")
+        .limit(perPage)
+        .skip(perPage * page)
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+         // ex totalRecord = 20, pageSize = 10. Page 1 =>
+}
+
 module.exports = {
-    createReferralAmount
+    createReferralAmount,
+    getReferralAmount
 }
