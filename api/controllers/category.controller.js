@@ -4,7 +4,7 @@ const categoryService = require("../services/category.service");
 exports.create = (req, res, next) => {
     const { restaurant, categoryName } = req.body;
     // return console.log(req.body);
-    categoryService.creatCategory({ restaurant, categoryName }, (error, results) => {
+    categoryService.createCategory({ restaurant, categoryName }, (error, results) => {
         if (error) {
             return next(error);
         } else {

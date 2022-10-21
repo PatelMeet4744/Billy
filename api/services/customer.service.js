@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const auth = require("../middleware/auth");
 const sendEmail = require("../middleware/sendEmail");
 
-async function creatCustomer(params, callback) {
+async function createCustomer(params, callback) {
     // return console.log(params);
 
     if (!params.customerName || !params.customerEmailID || !params.customerPassword || !params.customerContact || !params.billingaddress) {
@@ -24,5 +24,5 @@ async function creatCustomer(params, callback) {
 
 
 module.exports = {
-   creatCustomer
+    createCustomer
 };

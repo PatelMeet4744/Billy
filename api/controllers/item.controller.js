@@ -23,7 +23,7 @@ exports.create = (req, res, next) => {
                 itemImage: path != "" ? "/" + path : ""
             };
 
-            itemService.creatItem(model, (error, results) => {
+            itemService.createItem(model, (error, results) => {
                 if (error) {
                     return next(error);
                 } else {

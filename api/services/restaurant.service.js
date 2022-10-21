@@ -106,13 +106,13 @@ async function loginRestaurant({ ownerEmailID, ownerPassword }, callback) {
             return callback(null, { restaurant, token });
         } else {
             return callback({
-                message: "Invalid Email/Password"
+                message: "Invalid Password"
             });
         }
     }
     else {
         return callback({
-            message: "Invalid Email/Password"
+            message: "Invalid Email ID"
         });
     }
 }

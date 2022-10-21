@@ -35,13 +35,13 @@ async function loginAdmin({ adminEmailID, adminPassword }, callback) {
             return callback(null, { admin, token });
         } else {
             return callback({
-                message: "Invalid Email/Password"
+                message: "Invalid Password"
             });
         }
     }
     else {
         return callback({
-            message: "Invalid Email/Password"
+            message: "Invalid Email ID"
         });
     }
 }

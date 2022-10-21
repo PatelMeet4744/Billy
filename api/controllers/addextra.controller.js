@@ -13,7 +13,7 @@ exports.create = (req, res, next) => {
         addextraFinalPrice: req.body.addextraFinalPrice
     };
     // console.log(req.body);
-    addExtraService.creatAddExtra(model, (error, results) => {
+    addExtraService.createAddExtra(model, (error, results) => {
         if (error) {
             return next(error);
         } else {

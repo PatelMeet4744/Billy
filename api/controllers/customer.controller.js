@@ -12,7 +12,7 @@ exports.create = (req, res, next) => {
         billingaddress: req.body.billingaddress
     };
     
-    customerService.creatCustomer(model, (error, results) => {
+    customerService.createCustomer(model, (error, results) => {
         if (error) {
             return next(error);
         } else {

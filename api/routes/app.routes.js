@@ -14,6 +14,10 @@ const cartController = require("../controllers/cart.controller");
 const orderMasterController = require("../controllers/orderMaster.controller");
 const orderDetailController = require("../controllers/orderDetail.controller");
 const adminController = require("../controllers/admin.controller");
+const bannerController = require("../controllers/banner.controller");
+const complainController = require("../controllers/complain.controller");
+const deliveryBoyController = require("../controllers/deliveryBoy.controller");
+const couponCodeController = require("../controllers/couponCode.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -196,6 +200,64 @@ router.get("/orderdetail", [authenticateToken], orderDetailController.findAll);
 router.post("/admin", adminController.create);
 // Admin Login
 router.post("/admin/login", adminController.login);
+
+/* Banner Route */
+// Create a new Banner
+router.post("/banner", [authenticateToken],  bannerController.create);
+// Retrieve a single Banner with id
+router.get("/banner/:id", [authenticateToken],  bannerController.findOne);
+// Retrieve all Banner
+router.get("/banner", [authenticateToken],  bannerController.findAll);
+// Update Banner Details
+router.put("/banner/:bannerId", [authenticateToken],  bannerController.updateBannerDetails);
+// Delete a Banner with id
+router.delete("/banner/:bannerId", [authenticateToken], bannerController.delete);
+// Update Banner Status
+router.put("/banner/:bannerId/:bannerStatus", [authenticateToken], bannerController.updateStatus);
+// Update Banner Approval Status
+router.put("/banner/Aprove/:bannerId/:approvalStatus", [authenticateToken], bannerController.updateApprovalStatus);
+
+/* Complain */
+// Create a new Complain
+router.post("/complain", [authenticateToken], complainController.create);
+// Retrieve all Complain
+router.get("/complain", [authenticateToken], complainController.findAll);
+// Update Complain Status
+router.put("/complain/:complainId/:complainStatus", [authenticateToken], complainController.updateStatus);
+
+/* /* Delivery Boy Route */
+// Create a new Delivery Boy
+router.post("/deliveryBoy", [authenticateToken], deliveryBoyController.create);
+// Retrieve all Delivery Boy
+router.get("/deliveryBoy", [authenticateToken], deliveryBoyController.findAll);
+// Delivery Boy Login
+router.post("/deliveryBoy/login", deliveryBoyController.login);
+// Retrieve a single Delivery Boy
+router.get("/deliveryBoy/:id", [authenticateToken], deliveryBoyController.findOne);
+// Update Delivery Boy Details
+router.put("/deliveryBoy/:deliveryBoyId", [authenticateToken], deliveryBoyController.update);
+// Delete a Delivery Boy with id
+router.delete("/deliveryBoy/:deliveryBoyId", [authenticateToken], deliveryBoyController.delete);
+// Update Delivery Boy Status
+router.put("/deliveryBoy/:deliveryBoyId/:deliveryBoyStatus", [authenticateToken], deliveryBoyController.updateStatus);
+
+/* Coupon Code */
+// Create a new Coupon Code
+router.post("/couponCode", [authenticateToken], couponCodeController.create);
+// Retrieve all Coupon Code
+router.get("/couponCode", [authenticateToken], couponCodeController.findAll);
+// Retrieve a single Coupon Code with id
+router.get("/couponCode/:id", [authenticateToken], couponCodeController.findOne);
+// Update Coupon Code
+router.put("/couponCode/:couponCodeId", [authenticateToken], couponCodeController.update);
+// Delete a Coupon Code with id
+router.delete("/couponCode/:couponCodeId", [authenticateToken], couponCodeController.delete);
+// Update Coupon Code Status
+router.put("/couponCode/:couponCodeId/:couponCodeStatus", [authenticateToken], couponCodeController.updateStatus);
+// Coupon Code Expired
+router.post("/couponCode/Expired", [authenticateToken], couponCodeController.ExpiredOn);
+// Coupon Code Send
+router.post("/couponCode/SendCoupon", [authenticateToken], couponCodeController.SendCouponCode);
 
 // Send mail
 router.post("/send", mailController.create);
