@@ -18,6 +18,7 @@ const bannerController = require("../controllers/banner.controller");
 const complainController = require("../controllers/complain.controller");
 const deliveryBoyController = require("../controllers/deliveryBoy.controller");
 const couponCodeController = require("../controllers/couponCode.controller");
+const referralAmountController = require("../controllers/referralAmount.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -258,6 +259,10 @@ router.put("/couponCode/:couponCodeId/:couponCodeStatus", [authenticateToken], c
 router.post("/couponCode/Expired", [authenticateToken], couponCodeController.ExpiredOn);
 // Coupon Code Send
 router.post("/couponCode/SendCoupon", [authenticateToken], couponCodeController.SendCouponCode);
+
+/* Referral Amount */
+// Create a new Referral Amount
+router.post("/referralAmount", [authenticateToken], referralAmountController.create);
 
 // Send mail
 router.post("/send", mailController.create);
