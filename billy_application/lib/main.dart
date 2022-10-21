@@ -1,16 +1,12 @@
+import 'package:billy_application/pages/splashscreen/splash_page.dart';
 import 'package:flutter/material.dart';
-import 'package:billy_application/pages/layout/navbar.dart';
-import 'package:billy_application/pages/onboard/onboarding.dart';
-import 'package:billy_application/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 bool? info;
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  Providers().getOnboardState().then((value) {
-    info = value;
-  });
+  // WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -27,13 +23,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Billy',
-      darkTheme: ThemeData(brightness: Brightness.dark),
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-      ),
-      home: info == true ? const Onboarding() : const Navbar(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Billy',
+        darkTheme: ThemeData(brightness: Brightness.dark),
+        theme: ThemeData(
+          primarySwatch: Colors.deepOrange,
+        ),
+        home: const SplashPage());
   }
 }
