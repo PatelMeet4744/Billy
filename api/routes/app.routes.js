@@ -18,6 +18,9 @@ const bannerController = require("../controllers/banner.controller");
 const complainController = require("../controllers/complain.controller");
 const deliveryBoyController = require("../controllers/deliveryBoy.controller");
 const couponCodeController = require("../controllers/couponCode.controller");
+const referralAmountController = require("../controllers/referralAmount.controller");
+const settingController = require("../controllers/setting.controller");
+const wishlistController = require("../controllers/wishlist.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -258,6 +261,30 @@ router.put("/couponCode/:couponCodeId/:couponCodeStatus", [authenticateToken], c
 router.post("/couponCode/Expired", [authenticateToken], couponCodeController.ExpiredOn);
 // Coupon Code Send
 router.post("/couponCode/SendCoupon", [authenticateToken], couponCodeController.SendCouponCode);
+
+/* Referral Amount */
+// Create a new Referral Amount
+router.post("/referralAmount", [authenticateToken], referralAmountController.create);
+// Retrieve all Referral Amount
+router.get("/referralAmount", [authenticateToken], referralAmountController.findAll);
+// Update Referral Amount
+router.put("/referralAmount/:referralAmountId", [authenticateToken], referralAmountController.update);
+
+/* Setting */
+// Create a new Setting
+router.post("/setting", [authenticateToken], settingController.create);
+// Retrieve all Setting
+router.get("/setting", [authenticateToken], settingController.findAll);
+// Update Setting
+router.put("/setting/:settingId", [authenticateToken], settingController.update);
+
+/* Wishlist Route */
+// Create a new Wishlist
+router.post("/wishlist", [authenticateToken], wishlistController.create);
+// Retrieve all Wishlist
+router.get("/wishlist", [authenticateToken], wishlistController.findAll);
+// Delete a Wishlist with id
+router.delete("/wishlist/:wishlistId", [authenticateToken], wishlistController.delete);
 
 // Send mail
 router.post("/send", mailController.create);
