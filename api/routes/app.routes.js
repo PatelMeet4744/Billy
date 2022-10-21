@@ -19,6 +19,7 @@ const complainController = require("../controllers/complain.controller");
 const deliveryBoyController = require("../controllers/deliveryBoy.controller");
 const couponCodeController = require("../controllers/couponCode.controller");
 const referralAmountController = require("../controllers/referralAmount.controller");
+const settingController = require("../controllers/setting.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -267,6 +268,14 @@ router.post("/referralAmount", [authenticateToken], referralAmountController.cre
 router.get("/referralAmount", [authenticateToken], referralAmountController.findAll);
 // Update Referral Amount
 router.put("/referralAmount/:referralAmountId", [authenticateToken], referralAmountController.update);
+
+/* Setting */
+// Create a new Setting
+router.post("/setting", [authenticateToken], settingController.create);
+// Retrieve all Setting
+router.get("/setting", [authenticateToken], settingController.findAll);
+// Update Setting
+router.put("/setting/:settingId", [authenticateToken], settingController.update);
 
 // Send mail
 router.post("/send", mailController.create);
