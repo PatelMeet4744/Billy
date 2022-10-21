@@ -19,6 +19,20 @@ async function createWishlist(params, callback) {
         });
 }
 
+async function getWishlist(callback) {
+
+    wishlist.find().populate("customer", "customerName customerEmailID customerContact").populate("item").populate("addon").populate("addextra")
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+
+    // ex totalRecord = 20, pageSize = 10. Page 1 =>
+}
+
 module.exports = {
-    createWishlist
+    createWishlist,
+    getWishlist
 };

@@ -21,3 +21,18 @@ exports.create = (req, res, next) => {
         }
     });
 }
+
+// Retrieve all Wishlist from the database.
+exports.findAll = (req, res, next) => {
+
+    wishlistService.getWishlist((error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
