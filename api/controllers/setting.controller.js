@@ -21,3 +21,23 @@ exports.create = (req, res, next) => {
         }
     });
 }
+
+// Retrieve all Setting from the database.
+exports.findAll = (req, res, next) => {
+    var model = {
+        settingCartMinPrice: req.query.settingCartMinPrice,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    settingService.getSetting(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
