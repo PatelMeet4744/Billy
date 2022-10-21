@@ -37,3 +37,23 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+// Update a Referral Amount Details by the id in the request
+exports.update = (req, res, next) => {
+
+    var model = {
+        referralAmountId: req.params.referralAmountId,
+        referralAmount: req.body.referralAmount,
+    };
+
+    referralAmountService.updateReferralAmount(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}

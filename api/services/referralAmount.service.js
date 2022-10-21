@@ -39,7 +39,21 @@ async function getReferralAmount(params,callback) {
          // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+async function updateReferralAmount(params, callback) {
+    const referralAmountId = params.referralAmountId;
+
+    referralAmount.findByIdAndUpdate(referralAmountId, params, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Referral Amount with ID " + referralAmountId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createReferralAmount,
-    getReferralAmount
+    getReferralAmount,
+    updateReferralAmount
 }

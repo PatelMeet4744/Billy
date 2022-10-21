@@ -265,6 +265,8 @@ router.post("/couponCode/SendCoupon", [authenticateToken], couponCodeController.
 router.post("/referralAmount", [authenticateToken], referralAmountController.create);
 // Retrieve all Referral Amount
 router.get("/referralAmount", [authenticateToken], referralAmountController.findAll);
+// Update Referral Amount
+router.put("/referralAmount/:referralAmountId", [authenticateToken], referralAmountController.update);
 
 // Send mail
 router.post("/send", mailController.create);
