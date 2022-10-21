@@ -36,3 +36,19 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+// Delete a Wishlist with the specified id in the request
+exports.delete = (req, res, next) => {
+    const wishlistId = req.params.wishlistId;
+
+    wishlistService.deleteWishlist({ wishlistId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

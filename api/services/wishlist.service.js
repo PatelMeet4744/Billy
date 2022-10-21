@@ -32,7 +32,21 @@ async function getWishlist(callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+async function deleteWishlist(params, callback) {
+    const wishlistId = params.wishlistId;
+
+    wishlist.findByIdAndDelete(wishlistId)
+        .then((response) => {
+            if (!response) callback("Not Found Wishlist with ID " + wishlistId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createWishlist,
-    getWishlist
+    getWishlist,
+    deleteWishlist
 };

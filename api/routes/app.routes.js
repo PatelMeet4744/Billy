@@ -283,6 +283,8 @@ router.put("/setting/:settingId", [authenticateToken], settingController.update)
 router.post("/wishlist", [authenticateToken], wishlistController.create);
 // Retrieve all Wishlist
 router.get("/wishlist", [authenticateToken], wishlistController.findAll);
+// Delete a Wishlist with id
+router.delete("/wishlist/:wishlistId", [authenticateToken], wishlistController.delete);
 
 // Send mail
 router.post("/send", mailController.create);
