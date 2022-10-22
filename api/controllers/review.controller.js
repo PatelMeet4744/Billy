@@ -75,3 +75,23 @@ exports.update = (req, res, next) => {
         }
     });
 }
+
+// Retrieve all Review from the database.
+exports.findAll = (req, res, next) => {
+    var model = {
+        reviewRating: req.query.reviewRating,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    reviewService.getReview(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

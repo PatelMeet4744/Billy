@@ -1,4 +1,5 @@
 const { review } = require("../models/review.model");
+const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createReview(params, callback) {
     // return console.log(params);
@@ -58,9 +59,30 @@ async function updateReview(params, callback) {
         });
 }
 
+async function getReview(params, callback) {
+    const reviewRating = params.reviewRating;
+    var condition = reviewRating ? { reviewRating: { $regex: new RegExp(reviewRating), $options: "i" } } : {};
+
+    let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
+    let page = (Math.abs(params.page) || 1) - 1;
+
+    review.find(condition, "").populate("item","itemName").populate("customer", "customerName")
+        .limit(perPage)
+        .skip(perPage * page)
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+
+    // ex totalRecord = 20, pageSize = 10. Page 1 =>
+}
+
 module.exports = {
     createReview,
     getReviewById,
     getReviewByCustomerId,
-    updateReview
+    updateReview,
+    getReview
 };

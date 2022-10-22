@@ -349,6 +349,8 @@ router.get("/review/:id", [authenticateToken], reviewController.findOne);
 router.get("/review/customer/:customer", [authenticateToken], reviewController.findOneByCustomerId);
 // Update Review
 router.put("/review/:reviewId", [authenticateToken], reviewController.update);
+// Retrieve all Review
+router.get("/review", [authenticateToken], reviewController.findAll);
 
 // Send mail
 router.post("/send", mailController.create);
