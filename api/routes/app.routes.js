@@ -22,6 +22,7 @@ const referralAmountController = require("../controllers/referralAmount.controll
 const settingController = require("../controllers/setting.controller");
 const wishlistController = require("../controllers/wishlist.controller");
 const walletController = require("../controllers/wallet.controller");
+const getTouchController = require("../controllers/getTouch.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -314,6 +315,10 @@ router.get("/wallet/:id", [authenticateToken], walletController.findOne);
 router.get("/wallet/customer/:customer", [authenticateToken], walletController.findOneCustomerID);
 // Delete a Wallet with id
 router.delete("/wallet/:walletId", walletController.delete);
+
+/* Get Touch */
+// Create a new Get Touch
+router.post("/getTouch", [authenticateToken], getTouchController.create);
 
 // Send mail
 router.post("/send", mailController.create);
