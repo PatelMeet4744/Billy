@@ -54,3 +54,24 @@ exports.findOneByCustomerId = (req, res, next) => {
         }
     });
 }
+
+// Update a Review status by the id in the request
+exports.update = (req, res, next) => {
+
+    var model = {
+        reviewId: req.params.reviewId,
+        reviewRating: req.body.reviewRating,
+        reviewComment: req.body.reviewComment
+    };
+    // return console.log(req.body);
+    reviewService.updateReview(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}

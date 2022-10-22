@@ -45,8 +45,22 @@ async function getReviewByCustomerId({ customer }, callback) {
         });
 }
 
+async function updateReview(params, callback) {
+    const reviewId = params.reviewId;
+
+    review.findByIdAndUpdate(reviewId, params, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Review with ID " + reviewId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createReview,
     getReviewById,
-    getReviewByCustomerId
+    getReviewByCustomerId,
+    updateReview
 };
