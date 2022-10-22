@@ -95,3 +95,19 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+// Delete a Review with the specified id in the request
+exports.delete = (req, res, next) => {
+    const reviewId = req.params.reviewId;
+
+    reviewService.deleteReview({ reviewId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

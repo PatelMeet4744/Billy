@@ -351,6 +351,8 @@ router.get("/review/customer/:customer", [authenticateToken], reviewController.f
 router.put("/review/:reviewId", [authenticateToken], reviewController.update);
 // Retrieve all Review
 router.get("/review", [authenticateToken], reviewController.findAll);
+// Delete a Review with id
+router.delete("/review/:reviewId", [authenticateToken], reviewController.delete);
 
 // Send mail
 router.post("/send", mailController.create);

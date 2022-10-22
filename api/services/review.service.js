@@ -79,10 +79,24 @@ async function getReview(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+async function deleteReview(params, callback) {
+    const reviewId = params.reviewId;
+
+    review.findByIdAndDelete(reviewId)
+        .then((response) => {
+            if (!response) callback("Not Found review with ID " + reviewId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createReview,
     getReviewById,
     getReviewByCustomerId,
     updateReview,
-    getReview
+    getReview,
+    deleteReview
 };
