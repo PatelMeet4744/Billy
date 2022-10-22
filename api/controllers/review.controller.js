@@ -22,3 +22,19 @@ exports.create = (req, res, next) => {
         }
     });
 }
+
+// Find a single Review with an id
+exports.findOne = (req, res, next) => {
+    const reviewId = req.params.id;
+
+    reviewService.getReviewById({ reviewId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
