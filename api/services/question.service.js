@@ -53,8 +53,23 @@ async function getQuestionById({ questionId }, callback) {
         });
 }
 
+// Update question
+async function updateQuestion(params, callback) {
+    const questionId = params.questionId;
+
+    question.findByIdAndUpdate(questionId, params, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Question with ID " + questionId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createQuestion,
     getQuestion,
-    getQuestionById
+    getQuestionById,
+    updateQuestion
 }

@@ -54,3 +54,23 @@ exports.findOne = (req, res, next) => {
         }
     });
 }
+
+// Update a Question status by the id in the request
+exports.update = (req, res, next) => {
+
+    var model = {
+        questionId: req.params.questionId,
+        questionName: req.body.questionName
+    };
+
+    questionService.updateQuestion(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}

@@ -334,6 +334,8 @@ router.post("/question", [authenticateToken],  questionController.create);
 router.get("/question", [authenticateToken],  questionController.findAll);
 // Retrieve a single Question with id
 router.get("/question/:id", [authenticateToken],  questionController.findOne);
+// Update Question
+router.put("/question/:questionId", [authenticateToken],  questionController.update);
 
 // Send mail
 router.post("/send", mailController.create);
