@@ -286,7 +286,7 @@ router.delete("/wishlist/:wishlistId", [authenticateToken], wishlistController.d
 // Create a new Customer
 router.post("/customer", customerController.create);
 // Retrieve a single Customer with id
-router.get("/customer/:id", customerController.findOne);
+router.get("/customer/:id", [authenticateToken], customerController.findOne);
 // Customer Login
 router.post("/customer/login", customerController.login);
 // Update Customer
@@ -300,7 +300,7 @@ router.put("/customer/:customerId/:customerStatus", [authenticateToken], custome
 // Update Customer Email Verify Status
 router.put("/customer/verify/:customerId/:customerRandomstring", customerController.EmailVerify);
 // Update Customer Password Update
-router.put("/customer/password/:customerId/:customerPassword/:newpassword", customerController.PasswordUpdate);
+router.put("/customer/password/password/:customerId", customerController.PasswordUpdate);
 
 // Send mail
 router.post("/send", mailController.create);

@@ -150,9 +150,13 @@ exports.EmailVerify = (req, res, next) => {
 
 // Customer Password Update
 exports.PasswordUpdate = (req, res, next) => {
-    const { customerId, customerPassword, newpassword } = req.params;
-   
-    customerService.updateCustomerPassword({ customerId, customerPassword, newpassword}, (error, results) => {
+    
+    var model = {
+        customerId: req.params.customerId,
+        customerPassword: req.body.customerPassword,
+        newpassword: req.body.newpassword
+    };
+    customerService.updateCustomerPassword(model, (error, results) => {
         if (error) {
             return next(error);
         }
