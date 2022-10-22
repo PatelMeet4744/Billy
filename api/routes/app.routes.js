@@ -160,10 +160,6 @@ router.delete("/variant/:variantId", [authenticateToken], variantController.dele
 // Update Variant Status
 router.put("/variant/:variantId/:variantStatus", [authenticateToken], variantController.updateStatus);
 
-/* Customer Route */
-// Create a new Customer
-router.post("/customer", customerController.create);
-
 /* Billing Address */
 // Create a new Billing Address
 router.post("/billingaddress", billingAddressController.create);
@@ -285,6 +281,26 @@ router.post("/wishlist", [authenticateToken], wishlistController.create);
 router.get("/wishlist", [authenticateToken], wishlistController.findAll);
 // Delete a Wishlist with id
 router.delete("/wishlist/:wishlistId", [authenticateToken], wishlistController.delete);
+
+/* Customer Route */
+// Create a new Customer
+router.post("/customer", customerController.create);
+// Retrieve a single Customer with id
+router.get("/customer/:id", customerController.findOne);
+// Customer Login
+router.post("/customer/login", customerController.login);
+// Update Customer
+router.put("/customer/:customerId", [authenticateToken], customerController.update);
+// Retrieve all Customer
+router.get("/customer", [authenticateToken], customerController.findAll);
+// Delete a Customer with id
+router.delete("/customer/:customerId", [authenticateToken], customerController.delete);
+// Update Customer Status
+router.put("/customer/:customerId/:customerStatus", [authenticateToken], customerController.updateStatus);
+// Update Customer Email Verify Status
+router.put("/customer/verify/:customerId/:customerRandomstring", customerController.EmailVerify);
+// Update Customer Password Update
+router.put("/customer/password/:customerId/:customerPassword/:newpassword", customerController.PasswordUpdate);
 
 // Send mail
 router.post("/send", mailController.create);
