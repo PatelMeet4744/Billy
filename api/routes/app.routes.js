@@ -342,9 +342,11 @@ router.delete("/question/:questionId", [authenticateToken],  questionController.
 
 /* Review */
 // Create a new Review
-router.post("/review", [authenticateToken],  reviewController.create);
+router.post("/review", [authenticateToken], reviewController.create);
 // Retrieve a single Review with id
-router.get("/review/:id", [authenticateToken],  reviewController.findOne);
+router.get("/review/:id", [authenticateToken], reviewController.findOne);
+// Retrieve a single Review with Customer id
+router.get("/review/customer/:customer", [authenticateToken], reviewController.findOneByCustomerId);
 
 // Send mail
 router.post("/send", mailController.create);

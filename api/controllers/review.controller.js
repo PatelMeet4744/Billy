@@ -38,3 +38,19 @@ exports.findOne = (req, res, next) => {
         }
     });
 }
+
+// Find a single Review with Customer id
+exports.findOneByCustomerId = (req, res, next) => {
+    const customer = req.params.customer;
+
+    reviewService.getReviewByCustomerId({ customer }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

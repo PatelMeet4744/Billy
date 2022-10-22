@@ -32,7 +32,21 @@ async function getReviewById({ reviewId }, callback) {
         });
 }
 
+async function getReviewByCustomerId({ customer }, callback) {
+
+    // review.findById(reviewId).populate("customer", "customerName").populate("order", "orderName").populate("item")
+    review.find({customer}).populate("customer", "customerName").populate("item")
+        .then((response) => {
+            if (!response) callback("Not Found Review with Customer ID " + customer);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createReview,
-    getReviewById
+    getReviewById,
+    getReviewByCustomerId
 };
