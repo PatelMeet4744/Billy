@@ -23,6 +23,7 @@ const settingController = require("../controllers/setting.controller");
 const wishlistController = require("../controllers/wishlist.controller");
 const walletController = require("../controllers/wallet.controller");
 const getTouchController = require("../controllers/getTouch.controller");
+const questionController = require("../controllers/question.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -326,6 +327,17 @@ router.get("/getTouch/:id", [authenticateToken], getTouchController.findOne);
 // Update Get Touch Status
 router.put("/getTouch/:getTouchId/:getTouchStatus", [authenticateToken], getTouchController.updateStatus);
 
+/* Question */
+// Create a new Question
+router.post("/question", [authenticateToken],  questionController.create);
+// Retrieve all Question
+router.get("/question", [authenticateToken],  questionController.findAll);
+// Retrieve a single Question with id
+router.get("/question/:id", [authenticateToken],  questionController.findOne);
+// Update Question
+router.put("/question/:questionId", [authenticateToken],  questionController.update);
+// Delete a Question with id
+router.delete("/question/:questionId", [authenticateToken],  questionController.delete);
 
 // Send mail
 router.post("/send", mailController.create);
