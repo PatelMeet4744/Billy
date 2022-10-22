@@ -56,3 +56,19 @@ exports.findOne = (req, res, next) => {
         }
     });
 }
+
+// Update a Get Touch status by the id in the request
+exports.updateStatus = (req, res, next) => {
+    const { getTouchId, getTouchStatus } = req.params;
+
+    getTouchService.updateGetTouchStatus({ getTouchId, getTouchStatus }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}

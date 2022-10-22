@@ -323,6 +323,9 @@ router.post("/getTouch", [authenticateToken], getTouchController.create);
 router.get("/getTouch", [authenticateToken], getTouchController.findAll);
 // Retrieve a single Get Touch with Restaurant id
 router.get("/getTouch/:id", [authenticateToken], getTouchController.findOne);
+// Update Get Touch Status
+router.put("/getTouch/:getTouchId/:getTouchStatus", [authenticateToken], getTouchController.updateStatus);
+
 
 // Send mail
 router.post("/send", mailController.create);

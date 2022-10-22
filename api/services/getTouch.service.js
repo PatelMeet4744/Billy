@@ -51,8 +51,23 @@ async function getGetTouchById({ restaurant }, callback) {
         });
 }
 
+async function updateGetTouchStatus({ getTouchId, getTouchStatus }, callback) {
+    // Convert String to Boolean status
+    const status = getTouchStatus === "true" ? true : false
+
+    getTouch.findByIdAndUpdate(getTouchId, { getTouchStatus: status }, { useFindAndModify: false })
+        .then((response) => {
+            if (!response) callback("Not Found Get Touch with ID " + getTouchId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createGetTouch,
     getGetTouch,
-    getGetTouchById
+    getGetTouchById,
+    updateGetTouchStatus
 }
