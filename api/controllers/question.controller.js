@@ -74,3 +74,19 @@ exports.update = (req, res, next) => {
         }
     });
 }
+
+// Delete a Question with the specified id in the request
+exports.delete = (req, res, next) => {
+    const questionId = req.params.questionId;
+
+    questionService.deleteQuestion({ questionId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

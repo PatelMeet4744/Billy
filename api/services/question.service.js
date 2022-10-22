@@ -67,9 +67,24 @@ async function updateQuestion(params, callback) {
         });
 }
 
+// Delete Question Using Id
+async function deleteQuestion(params, callback) {
+    const questionId = params.questionId;
+
+    question.findByIdAndDelete(questionId)
+        .then((response) => {
+            if (!response) callback("Not Found Question with ID " + questionId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createQuestion,
     getQuestion,
     getQuestionById,
-    updateQuestion
+    updateQuestion,
+    deleteQuestion
 }

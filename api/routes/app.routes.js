@@ -336,6 +336,8 @@ router.get("/question", [authenticateToken],  questionController.findAll);
 router.get("/question/:id", [authenticateToken],  questionController.findOne);
 // Update Question
 router.put("/question/:questionId", [authenticateToken],  questionController.update);
+// Delete a Question with id
+router.delete("/question/:questionId", [authenticateToken],  questionController.delete);
 
 // Send mail
 router.post("/send", mailController.create);
