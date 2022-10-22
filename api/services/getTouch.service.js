@@ -38,7 +38,21 @@ async function getGetTouch(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+// Retrieve a Single Get Touch with Restaurant Id
+async function getGetTouchById({ restaurant }, callback) {
+
+    getTouch.find({ restaurant: restaurant }).populate("restaurant", "restaurantName")
+        .then((response) => {
+            if (!response) callback("Not Found Get Touch with ID " + restaurant);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createGetTouch,
-    getGetTouch
+    getGetTouch,
+    getGetTouchById
 }

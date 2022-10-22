@@ -40,3 +40,19 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+// Find a single Get Touch with an id
+exports.findOne = (req, res, next) => {
+    const restaurant = req.params.id;
+
+    getTouchService.getGetTouchById({ restaurant }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

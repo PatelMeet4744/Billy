@@ -321,6 +321,8 @@ router.delete("/wallet/:walletId", walletController.delete);
 router.post("/getTouch", [authenticateToken], getTouchController.create);
 // Retrieve all Get Touch
 router.get("/getTouch", [authenticateToken], getTouchController.findAll);
+// Retrieve a single Get Touch with Restaurant id
+router.get("/getTouch/:id", [authenticateToken], getTouchController.findOne);
 
 // Send mail
 router.post("/send", mailController.create);
