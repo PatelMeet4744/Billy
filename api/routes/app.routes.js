@@ -24,6 +24,7 @@ const wishlistController = require("../controllers/wishlist.controller");
 const walletController = require("../controllers/wallet.controller");
 const getTouchController = require("../controllers/getTouch.controller");
 const questionController = require("../controllers/question.controller");
+const reviewController = require("../controllers/review.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -338,6 +339,20 @@ router.get("/question/:id", [authenticateToken],  questionController.findOne);
 router.put("/question/:questionId", [authenticateToken],  questionController.update);
 // Delete a Question with id
 router.delete("/question/:questionId", [authenticateToken],  questionController.delete);
+
+/* Review */
+// Create a new Review
+router.post("/review", [authenticateToken], reviewController.create);
+// Retrieve a single Review with id
+router.get("/review/:id", [authenticateToken], reviewController.findOne);
+// Retrieve a single Review with Customer id
+router.get("/review/customer/:customer", [authenticateToken], reviewController.findOneByCustomerId);
+// Update Review
+router.put("/review/:reviewId", [authenticateToken], reviewController.update);
+// Retrieve all Review
+router.get("/review", [authenticateToken], reviewController.findAll);
+// Delete a Review with id
+router.delete("/review/:reviewId", [authenticateToken], reviewController.delete);
 
 // Send mail
 router.post("/send", mailController.create);
