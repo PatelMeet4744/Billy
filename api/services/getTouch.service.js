@@ -1,4 +1,5 @@
 const { getTouch } = require("../models/getTouch.model");
+const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createGetTouch(params, callback) {
     // return console.log(params);
@@ -17,6 +18,27 @@ async function createGetTouch(params, callback) {
         });
 }
 
+async function getGetTouch(params, callback) {
+    const getTouchSubject = params.getTouchSubject;
+    var condition = getTouchSubject ? { getTouchSubject: { $regex: new RegExp(getTouchSubject), $options: "i" } } : {};
+
+    let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
+    let page = (Math.abs(params.page) || 1) - 1;
+
+    getTouch.find(condition, "").populate("restaurant", "restaurantName")
+        .limit(perPage)
+        .skip(perPage * page)
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+
+    // ex totalRecord = 20, pageSize = 10. Page 1 =>
+}
+
 module.exports = {
-    createGetTouch
+    createGetTouch,
+    getGetTouch
 }

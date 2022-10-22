@@ -319,6 +319,8 @@ router.delete("/wallet/:walletId", walletController.delete);
 /* Get Touch */
 // Create a new Get Touch
 router.post("/getTouch", [authenticateToken], getTouchController.create);
+// Retrieve all Get Touch
+router.get("/getTouch", [authenticateToken], getTouchController.findAll);
 
 // Send mail
 router.post("/send", mailController.create);
