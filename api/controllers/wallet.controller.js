@@ -43,3 +43,19 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+
+// Find a single Wallet with an id
+exports.findOne = (req, res, next) => {
+    const walletId = req.params.id;
+
+    walletService.getWalletById({ walletId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
