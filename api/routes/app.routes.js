@@ -305,7 +305,9 @@ router.put("/customer/password/password/:customerId", customerController.Passwor
 
 /* Wallet Route */
 // Create a new Wallet
-router.post("/wallet", walletController.create);
+router.post("/wallet", [authenticateToken], walletController.create);
+// Retrieve all Wallet
+router.get("/wallet", [authenticateToken], walletController.findAll);
 
 // Send mail
 router.post("/send", mailController.create);
