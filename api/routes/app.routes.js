@@ -24,6 +24,7 @@ const wishlistController = require("../controllers/wishlist.controller");
 const walletController = require("../controllers/wallet.controller");
 const getTouchController = require("../controllers/getTouch.controller");
 const questionController = require("../controllers/question.controller");
+const reviewController = require("../controllers/review.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -338,6 +339,10 @@ router.get("/question/:id", [authenticateToken],  questionController.findOne);
 router.put("/question/:questionId", [authenticateToken],  questionController.update);
 // Delete a Question with id
 router.delete("/question/:questionId", [authenticateToken],  questionController.delete);
+
+/* Review */
+// Create a new Review
+router.post("/review", reviewController.create);
 
 // Send mail
 router.post("/send", mailController.create);
