@@ -19,13 +19,12 @@ const customer = mongoose.model(
             },
             customerContact: {
                 type: Number,
-                require: true,
-                unique: true
+                require: true
             },
-            billingaddress: [
+            billingAddress: [
                 {
                     type: mongoose.Schema.Types.ObjectId,
-                    ref: 'Billingaddress'
+                    ref: 'BillingAddress'
                 }
             ],
             customerEmailVerify: {
@@ -37,12 +36,10 @@ const customer = mongoose.model(
                 unique: true
             },
             customerReferralcode: {
-                type: String,
-                unique: true
+                type: String
             },
-            customerFromreferralcode: {
-                type: String,
-                unique: true
+            customerFromReferralcode: {
+                type: String
             },
             customerStatus: {
                 type: Boolean,
