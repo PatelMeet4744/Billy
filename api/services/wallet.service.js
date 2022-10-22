@@ -52,8 +52,21 @@ async function getWalletById({ walletId }, callback) {
         });
 }
 
+async function getWalletByCustomerId({ customer }, callback) {
+
+    wallet.find({ customer }).populate("customer", "customerName customerEmailID customerContact")
+        .then((response) => {
+            if (!response) callback("Not Found Wallet with Customer ID " + customer);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createWallet,
     getWallet,
-    getWalletById
+    getWalletById,
+    getWalletByCustomerId
 };

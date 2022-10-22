@@ -310,6 +310,8 @@ router.post("/wallet", [authenticateToken], walletController.create);
 router.get("/wallet", [authenticateToken], walletController.findAll);
 // Retrieve a single Wallet with id
 router.get("/wallet/:id", [authenticateToken], walletController.findOne);
+// Retrieve a single Wallet with Customer id
+router.get("/wallet/customer/:customer", [authenticateToken], walletController.findOneCustomerID);
 
 // Send mail
 router.post("/send", mailController.create);

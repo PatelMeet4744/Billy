@@ -59,3 +59,19 @@ exports.findOne = (req, res, next) => {
         }
     });
 }
+
+// Find a single Wallet with an Customer id
+exports.findOneCustomerID = (req, res, next) => {
+    const customer = req.params.customer;
+
+    walletService.getWalletByCustomerId({ customer }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
