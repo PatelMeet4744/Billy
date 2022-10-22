@@ -21,6 +21,7 @@ const couponCodeController = require("../controllers/couponCode.controller");
 const referralAmountController = require("../controllers/referralAmount.controller");
 const settingController = require("../controllers/setting.controller");
 const wishlistController = require("../controllers/wishlist.controller");
+const walletController = require("../controllers/wallet.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -301,6 +302,10 @@ router.put("/customer/:customerId/:customerStatus", [authenticateToken], custome
 router.put("/customer/verify/:customerId/:customerRandomstring", customerController.EmailVerify);
 // Update Customer Password Update
 router.put("/customer/password/password/:customerId", customerController.PasswordUpdate);
+
+/* Wallet Route */
+// Create a new Wallet
+router.post("/wallet", walletController.create);
 
 // Send mail
 router.post("/send", mailController.create);
