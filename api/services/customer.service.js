@@ -40,7 +40,7 @@ async function createCustomer(params, callback, req, res) {
 async function getCustomerById({ customerId }, callback) {
 
     // customer.findById(customerId).populate("billingAddress")
-    customer.findById(customerId).populate("billingAddress")
+    customer.findById(customerId,{customerPassword:0}).populate("billingAddress")
         .then((response) => {
             if (!response) callback("Not Found Customer with ID " + customerId);
             else callback(null, response);
@@ -70,7 +70,7 @@ async function getCustomer(params, callback) {
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
 
-    customer.find(condition, "")
+    customer.find(condition,{customerPassword:0}).populate("billingAddress")
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
@@ -153,12 +153,21 @@ async function updateCustomerEmailVerify({ customerId, customerRandomstring }, c
         }
     }else {
         return callback({
-            message: "The Email is not Found"
+            message: "Not Found Customer with ID " + customerId
         });
     }
 }
 
-async function updateCustomerPassword({ customerId, customerPassword, newpassword }, callback) {
+async function updateCustomerPassword(params, callback) {
+
+    if (!params.customerId || !params.customerPassword || !params.newpassword) {
+        return callback({
+            message: "Some Fields are Required"
+        }, "");
+    }
+
+    const {customerId,customerPassword,newpassword} = params;
+
     customer.findById(customerId)
     const customerModel = await customer.findById(customerId, { customerPassword: 1});
     if (customerModel != null) {
