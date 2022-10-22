@@ -21,6 +21,7 @@ const couponCodeController = require("../controllers/couponCode.controller");
 const referralAmountController = require("../controllers/referralAmount.controller");
 const settingController = require("../controllers/setting.controller");
 const wishlistController = require("../controllers/wishlist.controller");
+const walletController = require("../controllers/wallet.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -301,6 +302,18 @@ router.put("/customer/:customerId/:customerStatus", [authenticateToken], custome
 router.put("/customer/verify/:customerId/:customerRandomstring", customerController.EmailVerify);
 // Update Customer Password Update
 router.put("/customer/password/password/:customerId", customerController.PasswordUpdate);
+
+/* Wallet Route */
+// Create a new Wallet
+router.post("/wallet", [authenticateToken], walletController.create);
+// Retrieve all Wallet
+router.get("/wallet", [authenticateToken], walletController.findAll);
+// Retrieve a single Wallet with id
+router.get("/wallet/:id", [authenticateToken], walletController.findOne);
+// Retrieve a single Wallet with Customer id
+router.get("/wallet/customer/:customer", [authenticateToken], walletController.findOneCustomerID);
+// Delete a Wallet with id
+router.delete("/wallet/:walletId", walletController.delete);
 
 // Send mail
 router.post("/send", mailController.create);
