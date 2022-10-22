@@ -18,3 +18,23 @@ exports.create = (req, res, next) => {
         }
     });
 }
+
+// Retrieve all Question from the database.
+exports.findAll = (req, res, next) => {
+    var model = {
+        questionName: req.query.questionName,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    questionService.getQuestion(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

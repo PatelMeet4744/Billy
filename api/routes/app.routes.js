@@ -330,6 +330,8 @@ router.put("/getTouch/:getTouchId/:getTouchStatus", [authenticateToken], getTouc
 /* Question */
 // Create a new Question
 router.post("/question", [authenticateToken],  questionController.create);
+// Retrieve all Question
+router.get("/question", [authenticateToken],  questionController.findAll);
 
 // Send mail
 router.post("/send", mailController.create);
