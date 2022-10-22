@@ -21,6 +21,10 @@ const couponCodeController = require("../controllers/couponCode.controller");
 const referralAmountController = require("../controllers/referralAmount.controller");
 const settingController = require("../controllers/setting.controller");
 const wishlistController = require("../controllers/wishlist.controller");
+const walletController = require("../controllers/wallet.controller");
+const getTouchController = require("../controllers/getTouch.controller");
+const questionController = require("../controllers/question.controller");
+const reviewController = require("../controllers/review.controller");
 
 const { authenticateToken } = require("../middleware/auth");
 const express = require("express");
@@ -160,10 +164,6 @@ router.delete("/variant/:variantId", [authenticateToken], variantController.dele
 // Update Variant Status
 router.put("/variant/:variantId/:variantStatus", [authenticateToken], variantController.updateStatus);
 
-/* Customer Route */
-// Create a new Customer
-router.post("/customer", customerController.create);
-
 /* Billing Address */
 // Create a new Billing Address
 router.post("/billingaddress", billingAddressController.create);
@@ -285,6 +285,74 @@ router.post("/wishlist", [authenticateToken], wishlistController.create);
 router.get("/wishlist", [authenticateToken], wishlistController.findAll);
 // Delete a Wishlist with id
 router.delete("/wishlist/:wishlistId", [authenticateToken], wishlistController.delete);
+
+/* Customer Route */
+// Create a new Customer
+router.post("/customer", customerController.create);
+// Retrieve a single Customer with id
+router.get("/customer/:id", [authenticateToken], customerController.findOne);
+// Customer Login
+router.post("/customer/login", customerController.login);
+// Update Customer
+router.put("/customer/:customerId", [authenticateToken], customerController.update);
+// Retrieve all Customer
+router.get("/customer", [authenticateToken], customerController.findAll);
+// Delete a Customer with id
+router.delete("/customer/:customerId", [authenticateToken], customerController.delete);
+// Update Customer Status
+router.put("/customer/:customerId/:customerStatus", [authenticateToken], customerController.updateStatus);
+// Update Customer Email Verify Status
+router.put("/customer/verify/:customerId/:customerRandomstring", customerController.EmailVerify);
+// Update Customer Password Update
+router.put("/customer/password/password/:customerId", customerController.PasswordUpdate);
+
+/* Wallet Route */
+// Create a new Wallet
+router.post("/wallet", [authenticateToken], walletController.create);
+// Retrieve all Wallet
+router.get("/wallet", [authenticateToken], walletController.findAll);
+// Retrieve a single Wallet with id
+router.get("/wallet/:id", [authenticateToken], walletController.findOne);
+// Retrieve a single Wallet with Customer id
+router.get("/wallet/customer/:customer", [authenticateToken], walletController.findOneCustomerID);
+// Delete a Wallet with id
+router.delete("/wallet/:walletId", walletController.delete);
+
+/* Get Touch */
+// Create a new Get Touch
+router.post("/getTouch", [authenticateToken], getTouchController.create);
+// Retrieve all Get Touch
+router.get("/getTouch", [authenticateToken], getTouchController.findAll);
+// Retrieve a single Get Touch with Restaurant id
+router.get("/getTouch/:id", [authenticateToken], getTouchController.findOne);
+// Update Get Touch Status
+router.put("/getTouch/:getTouchId/:getTouchStatus", [authenticateToken], getTouchController.updateStatus);
+
+/* Question */
+// Create a new Question
+router.post("/question", [authenticateToken],  questionController.create);
+// Retrieve all Question
+router.get("/question", [authenticateToken],  questionController.findAll);
+// Retrieve a single Question with id
+router.get("/question/:id", [authenticateToken],  questionController.findOne);
+// Update Question
+router.put("/question/:questionId", [authenticateToken],  questionController.update);
+// Delete a Question with id
+router.delete("/question/:questionId", [authenticateToken],  questionController.delete);
+
+/* Review */
+// Create a new Review
+router.post("/review", [authenticateToken], reviewController.create);
+// Retrieve a single Review with id
+router.get("/review/:id", [authenticateToken], reviewController.findOne);
+// Retrieve a single Review with Customer id
+router.get("/review/customer/:customer", [authenticateToken], reviewController.findOneByCustomerId);
+// Update Review
+router.put("/review/:reviewId", [authenticateToken], reviewController.update);
+// Retrieve all Review
+router.get("/review", [authenticateToken], reviewController.findAll);
+// Delete a Review with id
+router.delete("/review/:reviewId", [authenticateToken], reviewController.delete);
 
 // Send mail
 router.post("/send", mailController.create);
