@@ -40,7 +40,21 @@ async function getQuestion(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+// Get question By Id
+async function getQuestionById({ questionId }, callback) {
+
+    question.findById(questionId)
+        .then((response) => {
+            if (!response) callback("Not Found Question with ID " + questionId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createQuestion,
-    getQuestion
+    getQuestion,
+    getQuestionById
 }

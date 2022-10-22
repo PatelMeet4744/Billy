@@ -332,6 +332,8 @@ router.put("/getTouch/:getTouchId/:getTouchStatus", [authenticateToken], getTouc
 router.post("/question", [authenticateToken],  questionController.create);
 // Retrieve all Question
 router.get("/question", [authenticateToken],  questionController.findAll);
+// Retrieve a single Question with id
+router.get("/question/:id", [authenticateToken],  questionController.findOne);
 
 // Send mail
 router.post("/send", mailController.create);
