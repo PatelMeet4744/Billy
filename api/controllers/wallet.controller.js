@@ -75,3 +75,19 @@ exports.findOneCustomerID = (req, res, next) => {
         }
     });
 }
+
+// Delete a Wallet with the specified id in the request
+exports.delete = (req, res, next) => {
+    const walletId = req.params.walletId;
+
+    walletService.deleteWallet({ walletId }, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}

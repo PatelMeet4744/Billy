@@ -64,9 +64,23 @@ async function getWalletByCustomerId({ customer }, callback) {
         });
 }
 
+async function deleteWallet(params, callback) {
+    const walletId = params.walletId;
+
+    wallet.findByIdAndDelete(walletId)
+        .then((response) => {
+            if (!response) callback("Not Found Wallet with ID " + walletId);
+            else callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createWallet,
     getWallet,
     getWalletById,
-    getWalletByCustomerId
+    getWalletByCustomerId,
+    deleteWallet
 };

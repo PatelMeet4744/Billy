@@ -312,6 +312,8 @@ router.get("/wallet", [authenticateToken], walletController.findAll);
 router.get("/wallet/:id", [authenticateToken], walletController.findOne);
 // Retrieve a single Wallet with Customer id
 router.get("/wallet/customer/:customer", [authenticateToken], walletController.findOneCustomerID);
+// Delete a Wallet with id
+router.delete("/wallet/:walletId", walletController.delete);
 
 // Send mail
 router.post("/send", mailController.create);
