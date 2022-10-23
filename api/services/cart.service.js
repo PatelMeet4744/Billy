@@ -54,7 +54,7 @@ async function getCartCustomizeById(params, callback) {
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
-            if (!response) callback("Not Found Item with ID " + itemId);
+            if (!response) callback("Not Found Cart with ID " + cartId);
             else callback(null, response);
         })
         .catch((error) => {
