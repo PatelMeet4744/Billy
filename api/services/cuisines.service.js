@@ -2,9 +2,9 @@ const { cuisines } = require("../models/cuisines.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createCuisines(params, callback) {
-    if (!params.cuisinesName) {
+    if (!params.cuisinesName || !params.cuisinesDescription || !params.cuisinesImage || !params.cuisinesBanner) {
         return callback({
-            message: "Cuisines Name is Required!"
+            message: "Some Fields are Required"
         }, "");
     }
 
