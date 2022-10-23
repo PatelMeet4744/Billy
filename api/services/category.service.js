@@ -2,9 +2,9 @@ const { category } = require("../models/category.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createCategory({ restaurant, categoryName }, callback) {
-    if (!categoryName) {
+    if (!categoryName || !restaurant) {
         return callback({
-            message: "Category Name is Required!"
+            message: "Some Fields are Required"
         }, "");
     }
 
