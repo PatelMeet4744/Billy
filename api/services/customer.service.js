@@ -4,43 +4,40 @@ const auth = require("../middleware/auth");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createCustomer(params, callback, req, res) {
-    // return console.log(params);
+    // return console.log(params); 
 
-    if (!params.customerName || !params.customerEmailID || !params.customerPassword || !params.customerContact || !params.billingAddress) {
+    if (!params.customerName || !params.customerEmailID || !params.customerPassword || !params.customerContact) {
         return callback({
             message: "Some Fields are Required"
         }, "");
     }
-    let model = new customer(params);
 
-    // Encrypt password
+    let isCustomerExist = await customer.findOne({ customerEmailID: params.customerEmailID });
+
+    if (isCustomerExist) {
+        return callback({
+            message: "Customer Email ID already Registered!"
+        });
+    }
+
     const salt = await bcrypt.genSalt(10);
-    model.customerPassword = await bcrypt.hash(params.customerPassword, salt);
-    //  return console.log(model);
-    const customerEmailID = params.customerEmailID;
+    params.customerPassword = await bcrypt.hash(params.customerPassword, salt);
 
-    customer.find({customerEmailID}).then(result => {
-        console.log("Result Data",result)
-        if (result.length) {
-            return callback(null, { message: "Customer with the provided Email already exists!" });
-        } else {          
-            model.save()
-                .then((response) => {
-                    return callback(null, response);
-                })
-                .catch((error) => {
-                    return callback(error);
-                });
-        }
-    }).catch(err => {
-        return callback(err);
-    })
+    const model = new customer(params);
+    model.save()
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+
 }
 
 async function getCustomerById({ customerId }, callback) {
 
     // customer.findById(customerId).populate("billingAddress")
-    customer.findById(customerId,{customerPassword:0}).populate("billingAddress")
+    customer.findById(customerId, { customerPassword: 0 }).populate("billingAddress")
         .then((response) => {
             if (!response) callback("Not Found Customer with ID " + customerId);
             else callback(null, response);
@@ -70,7 +67,7 @@ async function getCustomer(params, callback) {
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
 
-    customer.find(condition,{customerPassword:0}).populate("billingAddress")
+    customer.find(condition, { customerPassword: 0 }).populate("billingAddress")
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
@@ -134,24 +131,23 @@ async function loginCustomer({ customerEmailID, customerPassword }, callback) {
 
 async function updateCustomerEmailVerify({ customerId, customerRandomstring }, callback) {
     customer.findById(customerId)
-    const customerModel = await customer.findById(customerId, { customerRandomstring: 1});
+    const customerModel = await customer.findById(customerId, { customerRandomstring: 1 });
     if (customerModel != null) {
-        if(customerModel.customerRandomstring === customerRandomstring)
-        {
+        if (customerModel.customerRandomstring === customerRandomstring) {
             customer.findByIdAndUpdate(customerId, { customerEmailVerify: true }, { useFindAndModify: false })
-            .then((response) => {
-                if (!response) callback("Not Found Customer with ID " + customerId);
-                else callback(null, response);
-            })
-            .catch((error) => {
-                return callback(error);
-            });
-        }else {
+                .then((response) => {
+                    if (!response) callback("Not Found Customer with ID " + customerId);
+                    else callback(null, response);
+                })
+                .catch((error) => {
+                    return callback(error);
+                });
+        } else {
             return callback({
                 message: "The Random String was wrong"
             });
         }
-    }else {
+    } else {
         return callback({
             message: "Not Found Customer with ID " + customerId
         });
@@ -166,28 +162,28 @@ async function updateCustomerPassword(params, callback) {
         }, "");
     }
 
-    const {customerId,customerPassword,newpassword} = params;
+    const { customerId, customerPassword, newpassword } = params;
 
     customer.findById(customerId)
-    const customerModel = await customer.findById(customerId, { customerPassword: 1});
+    const customerModel = await customer.findById(customerId, { customerPassword: 1 });
     if (customerModel != null) {
         if (bcrypt.compareSync(customerPassword, customerModel.customerPassword)) {
             const salt = await bcrypt.genSalt(10);
             hashpassword = await bcrypt.hash(newpassword, salt);
             customer.findByIdAndUpdate(customerId, { customerPassword: hashpassword }, { useFindAndModify: false })
-            .then((response) => {
-                if (!response) callback("Not Found Customer with ID " + customerId);
-                else callback(null, response);
-            })
-            .catch((error) => {
-                return callback(error);
-            });
-        }else {
+                .then((response) => {
+                    if (!response) callback("Not Found Customer with ID " + customerId);
+                    else callback(null, response);
+                })
+                .catch((error) => {
+                    return callback(error);
+                });
+        } else {
             return callback({
                 message: "The Password was wrong"
             });
         }
-    }else {
+    } else {
         return callback({
             message: "The Email is not Found"
         });

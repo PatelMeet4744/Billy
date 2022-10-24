@@ -1,5 +1,5 @@
-import 'dart:ffi';
-
+import 'package:billy_application/api/api_service.dart';
+import 'package:billy_application/config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
@@ -349,7 +349,32 @@ class _RegisterPageState extends State<RegisterPage> {
               "Sign Up",
               () {
                 if (validateSave()) {
-                  //API Request
+                  setState(() {
+                    isAsyncCallProcess = true;
+                  });
+                  APIService.registerCustomer(
+                    customerName!,
+                    customerEmailID!,
+                    customerPassword!,
+                    customerContact!,
+                  ).then((response) {
+                    setState(() {
+                      isAsyncCallProcess = false;
+                    });
+
+                    if (response) {
+                      FormHelper.showSimpleAlertDialog(context, Config.appName,
+                          "Registration Completed Successfully", "Ok", () {
+                        Navigator.of(context).pop();
+                      });
+                    } else {
+                      FormHelper.showSimpleAlertDialog(
+                          context, Config.appName, "Registration Fail", "Ok",
+                          () {
+                        Navigator.of(context).pop();
+                      });
+                    }
+                  });
                 }
               },
               btnColor: Theme.of(context).primaryColor,
