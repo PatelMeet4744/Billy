@@ -30,4 +30,36 @@ class APIService {
       return null;
     }
   }
+
+  static Future<bool> registerCustomer(
+    String customerName,
+    String customerEmailID,
+    String customerPassword,
+    String customerContact,
+  ) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+    var url = Uri.http(Config.apiURL, Config.customerAPI);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(
+        {
+          "customerName": customerName,
+          "customerEmailID": customerEmailID,
+          "customerPassword": customerPassword,
+          "customerContact": double.parse(customerContact)
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print(data);
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

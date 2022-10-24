@@ -10,7 +10,6 @@ exports.create = (req, res, next) => {
         customerEmailID: req.body.customerEmailID,
         customerPassword: req.body.customerPassword,
         customerContact: req.body.customerContact,
-        billingAddress: req.body.billingAddress,
         customerRandomstring: uniqueString
     };
     // return console.log(model);
@@ -103,7 +102,7 @@ exports.delete = (req, res, next) => {
 // Update a Customer status by the id in the request
 exports.updateStatus = (req, res, next) => {
     const { customerId, customerStatus } = req.params;
-    
+
     customerService.updateCustomerStatus({ customerId, customerStatus }, (error, results) => {
         if (error) {
             return next(error);
@@ -119,7 +118,7 @@ exports.updateStatus = (req, res, next) => {
 // Login Customer
 exports.login = (req, res, next) => {
     const { customerEmailID, customerPassword } = req.body;
-   
+
     customerService.loginCustomer({ customerEmailID, customerPassword }, (error, results) => {
         if (error) {
             return next(error);
@@ -135,7 +134,7 @@ exports.login = (req, res, next) => {
 // Customer Email Verification
 exports.EmailVerify = (req, res, next) => {
     const { customerId, customerRandomstring } = req.params;
-   
+
     customerService.updateCustomerEmailVerify({ customerId, customerRandomstring }, (error, results) => {
         if (error) {
             return next(error);
@@ -150,7 +149,7 @@ exports.EmailVerify = (req, res, next) => {
 
 // Customer Password Update
 exports.PasswordUpdate = (req, res, next) => {
-    
+
     var model = {
         customerId: req.params.customerId,
         customerPassword: req.body.customerPassword,
