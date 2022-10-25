@@ -1,3 +1,4 @@
+import 'package:billy_application/pages/login/otp_login_page.dart';
 import 'package:billy_application/pages/register/register_page.dart';
 import 'package:billy_application/pages/splashscreen/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,8 @@ class _MyAppState extends State<MyApp> {
       // home: const SplashPage(),
       home: const RegisterPage(),
       routes: <String, WidgetBuilder>{
-        '/register': ((context) => const RegisterPage())
+        '/register': ((context) => const RegisterPage()),
+        '/login': ((context) => const LoginPage())
       },
     );
   }

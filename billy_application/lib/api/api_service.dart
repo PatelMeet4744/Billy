@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:billy_application/config/config.dart';
 import 'package:billy_application/models/cuisines.dart';
+import 'package:billy_application/models/login_response_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
@@ -55,11 +56,47 @@ class APIService {
     );
 
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      print(data);
+      // var data = jsonDecode(response.body);
+      // print(data);
       return true;
     } else {
       return false;
     }
+  }
+
+  static Future<LoginResponseModel> otpLogin(String mobileNo) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.createOTPAPI);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"phone": mobileNo}),
+    );
+
+    return loginResponseJson(response.body);
+  }
+
+  static Future<LoginResponseModel> verifyOtp(
+    String mobileNo,
+    String otpHash,
+    String otpCode,
+  ) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.verifyOTPAPI);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"phone": mobileNo, "otp": otpCode, "hash": otpHash}),
+    );
+
+    return loginResponseJson(response.body);
   }
 }

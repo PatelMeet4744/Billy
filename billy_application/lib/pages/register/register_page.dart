@@ -1,5 +1,6 @@
 import 'package:billy_application/api/api_service.dart';
 import 'package:billy_application/config/config.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
@@ -372,6 +373,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           context, Config.appName, "Registration Fail", "Ok",
                           () {
                         Navigator.of(context).pop();
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/login",
+                          (route) => false,
+                        );
                       });
                     }
                   });
@@ -388,16 +393,23 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           Center(
             child: RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 style: TextStyle(color: Colors.grey, fontSize: 14.0),
                 children: <TextSpan>[
                   TextSpan(text: "Already have an account? "),
                   TextSpan(
                     text: "Sign In",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xfff6881f),
                       fontWeight: FontWeight.bold,
                     ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/login",
+                          (route) => false,
+                        );
+                      },
                   ),
                 ],
               ),
