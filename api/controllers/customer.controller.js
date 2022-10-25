@@ -1,16 +1,13 @@
 const customerService = require("../services/customer.service");
-const { v4: uuidv4 } = require('uuid');
 
 // Create and Save a new Customer
 exports.create = (req, res, next) => {
 
-    const uniqueString = uuidv4();
     var model = {
         customerName: req.body.customerName,
         customerEmailID: req.body.customerEmailID,
         customerPassword: req.body.customerPassword,
-        customerContact: req.body.customerContact,
-        customerRandomstring: uniqueString
+        customerContact: req.body.customerContact
     };
     // return console.log(model);
     customerService.createCustomer(model, (error, results) => {
@@ -156,6 +153,34 @@ exports.PasswordUpdate = (req, res, next) => {
         newpassword: req.body.newpassword
     };
     customerService.updateCustomerPassword(model, (error, results) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            message: "Success",
+            data: results
+        });
+    });
+}
+
+// Create OTP OR Generate
+exports.createOTP = (req, res, next) => {
+    customerService.createOTP(req.body, (error, results) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            message: "Success",
+            data: results
+        });
+    });
+}
+
+// Verify OTP
+exports.verifyOTP = (req, res, next) => {
+    customerService.verifyOTP(req.body, (error, results) => {
         if (error) {
             return next(error);
         }

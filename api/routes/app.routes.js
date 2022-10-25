@@ -206,13 +206,13 @@ router.post("/admin/login", adminController.login);
 
 /* Banner Route */
 // Create a new Banner
-router.post("/banner", [authenticateToken],  bannerController.create);
+router.post("/banner", [authenticateToken], bannerController.create);
 // Retrieve a single Banner with id
-router.get("/banner/:id", [authenticateToken],  bannerController.findOne);
+router.get("/banner/:id", [authenticateToken], bannerController.findOne);
 // Retrieve all Banner
-router.get("/banner", [authenticateToken],  bannerController.findAll);
+router.get("/banner", [authenticateToken], bannerController.findAll);
 // Update Banner Details
-router.put("/banner/:bannerId", [authenticateToken],  bannerController.updateBannerDetails);
+router.put("/banner/:bannerId", [authenticateToken], bannerController.updateBannerDetails);
 // Delete a Banner with id
 router.delete("/banner/:bannerId", [authenticateToken], bannerController.delete);
 // Update Banner Status
@@ -305,6 +305,10 @@ router.put("/customer/:customerId/:customerStatus", [authenticateToken], custome
 router.put("/customer/verify/:customerId/:customerRandomstring", customerController.EmailVerify);
 // Update Customer Password Update
 router.put("/customer/password/password/:customerId", customerController.PasswordUpdate);
+// Create OTP OR Generate OTP
+router.post("/createotp", customerController.createOTP);
+// Verify OTP
+router.post("/verifyotp", customerController.verifyOTP);
 
 /* Wallet Route */
 // Create a new Wallet
@@ -330,15 +334,15 @@ router.put("/getTouch/:getTouchId/:getTouchStatus", [authenticateToken], getTouc
 
 /* Question */
 // Create a new Question
-router.post("/question", [authenticateToken],  questionController.create);
+router.post("/question", [authenticateToken], questionController.create);
 // Retrieve all Question
-router.get("/question", [authenticateToken],  questionController.findAll);
+router.get("/question", [authenticateToken], questionController.findAll);
 // Retrieve a single Question with id
-router.get("/question/:id", [authenticateToken],  questionController.findOne);
+router.get("/question/:id", [authenticateToken], questionController.findOne);
 // Update Question
-router.put("/question/:questionId", [authenticateToken],  questionController.update);
+router.put("/question/:questionId", [authenticateToken], questionController.update);
 // Delete a Question with id
-router.delete("/question/:questionId", [authenticateToken],  questionController.delete);
+router.delete("/question/:questionId", [authenticateToken], questionController.delete);
 
 /* Review */
 // Create a new Review

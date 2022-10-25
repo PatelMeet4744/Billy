@@ -2,6 +2,9 @@ const { customer } = require("../models/customer.model");
 const bcrypt = require('bcryptjs');
 const auth = require("../middleware/auth");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
+const otpGenerator = require("otp-generator");
+const crypto = require("crypto");
+const key = "otp-secret-key";
 
 async function createCustomer(params, callback, req, res) {
     // return console.log(params); 
@@ -190,6 +193,44 @@ async function updateCustomerPassword(params, callback) {
     }
 }
 
+async function createOTP(params, callback) {
+    try {
+        const otp = otpGenerator.generate(4, { alphabets: false, upperCase: false, specialChars: false });
+
+        const ttl = 5 * 60 * 1000;
+        const expires = Date.now() + ttl;
+        const data = `${params.customerContact}.${otp}.${expires}`;
+        const hash = crypto.createHmac("sha256", key).update(data).digest("hex");
+        const fullHash = `${hash}.${expires}`;
+
+        console.log(`Your OTP is ${otp}`);
+
+        // SEND SMS Function Call Here
+        return callback(null, fullHash);
+    } catch (error) {
+        return callback(error);
+    }
+
+}
+
+async function verifyOTP(params, callback) {
+    try {
+        let [hashValue, expires] = params.hash.split('.');
+
+        let now = Date.now();
+        if (now > parseInt(expires)) return callback({ name: "UnauthorizedOTP", message: "OTP Expired" }, "");
+
+        let data = `${params.customerContact}.${params.otp}.${expires}`;
+        let newCalculateHash = crypto.createHmac("sha256", key).update(data).digest("hex");
+
+        if (newCalculateHash === hashValue) return callback(null, "Valid OTP");
+
+        return callback({ name: "UnauthorizedOTP", message: "Invalid OTP" }, "");
+    } catch (error) {
+        return callback(error);
+    }
+
+}
 module.exports = {
     createCustomer,
     getCustomerById,
@@ -199,5 +240,7 @@ module.exports = {
     updateCustomerStatus,
     loginCustomer,
     updateCustomerEmailVerify,
-    updateCustomerPassword
+    updateCustomerPassword,
+    createOTP,
+    verifyOTP
 };
