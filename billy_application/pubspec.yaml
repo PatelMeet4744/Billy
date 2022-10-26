@@ -43,6 +43,9 @@ dependencies:
   json_annotation: ^4.7.0
   http: ^0.13.5
   flutter_riverpod: ^1.0.4
+  snippet_coder_utils: ^1.0.12
+  sms_autofill: ^2.2.0
+  api_cache_manager: ^1.0.2
 
 dev_dependencies:
   flutter_test:

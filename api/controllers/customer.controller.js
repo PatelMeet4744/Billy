@@ -4,14 +4,12 @@ const { v4: uuidv4 } = require('uuid');
 // Create and Save a new Customer
 exports.create = (req, res, next) => {
 
-    const uniqueString = uuidv4();
     var model = {
         customerName: req.body.customerName,
         customerEmailID: req.body.customerEmailID,
         customerPassword: req.body.customerPassword,
         customerContact: req.body.customerContact,
-        billingAddress: req.body.billingAddress,
-        customerRandomstring: uniqueString
+        customerReferralcode: uuidv4().toString()
     };
     // return console.log(model);
     customerService.createCustomer(model, (error, results) => {
@@ -103,7 +101,7 @@ exports.delete = (req, res, next) => {
 // Update a Customer status by the id in the request
 exports.updateStatus = (req, res, next) => {
     const { customerId, customerStatus } = req.params;
-    
+
     customerService.updateCustomerStatus({ customerId, customerStatus }, (error, results) => {
         if (error) {
             return next(error);
@@ -119,24 +117,8 @@ exports.updateStatus = (req, res, next) => {
 // Login Customer
 exports.login = (req, res, next) => {
     const { customerEmailID, customerPassword } = req.body;
-   
+
     customerService.loginCustomer({ customerEmailID, customerPassword }, (error, results) => {
-        if (error) {
-            return next(error);
-        }
-
-        return res.status(200).send({
-            message: "Success",
-            data: results
-        });
-    });
-}
-
-// Customer Email Verification
-exports.EmailVerify = (req, res, next) => {
-    const { customerId, customerRandomstring } = req.params;
-   
-    customerService.updateCustomerEmailVerify({ customerId, customerRandomstring }, (error, results) => {
         if (error) {
             return next(error);
         }
@@ -150,13 +132,41 @@ exports.EmailVerify = (req, res, next) => {
 
 // Customer Password Update
 exports.PasswordUpdate = (req, res, next) => {
-    
+
     var model = {
         customerId: req.params.customerId,
         customerPassword: req.body.customerPassword,
         newpassword: req.body.newpassword
     };
     customerService.updateCustomerPassword(model, (error, results) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            message: "Success",
+            data: results
+        });
+    });
+}
+
+// Create OTP OR Generate
+exports.createOTP = (req, res, next) => {
+    customerService.createOTP(req.body, (error, results) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            message: "Success",
+            data: results
+        });
+    });
+}
+
+// Verify OTP
+exports.verifyOTP = (req, res, next) => {
+    customerService.verifyOTP(req.body, (error, results) => {
         if (error) {
             return next(error);
         }
