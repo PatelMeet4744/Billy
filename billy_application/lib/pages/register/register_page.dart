@@ -66,14 +66,6 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(
                 height: 10,
               ),
-              // ignore: prefer_const_constructors
-              Text(
-                "",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 35,
-                ),
-              ),
               const SizedBox(
                 height: 10,
               ),
@@ -367,6 +359,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       FormHelper.showSimpleAlertDialog(context, Config.appName,
                           "Registration Completed Successfully", "Ok", () {
                         Navigator.of(context).pop();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, "/login", (route) => false);
                       });
                     } else {
                       FormHelper.showSimpleAlertDialog(

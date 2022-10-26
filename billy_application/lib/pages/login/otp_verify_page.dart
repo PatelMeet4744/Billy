@@ -10,7 +10,7 @@ class OTPVerifyPage extends StatefulWidget {
   final String? mobileNo;
   final String? otpHash;
 
-  const OTPVerifyPage({this.mobileNo, this.otpHash});
+  const OTPVerifyPage({super.key, this.mobileNo, this.otpHash});
 
   @override
   _OTPVerifyPageState createState() => _OTPVerifyPageState();
@@ -57,10 +57,10 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
     return SafeArea(
       child: Scaffold(
         body: ProgressHUD(
-          child: otpVerify(),
           inAsyncCall: isAPIcallProcess,
           opacity: 0.3,
           key: UniqueKey(),
+          child: otpVerify(),
         ),
       ),
     );
@@ -111,7 +111,6 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
             codeLength: _otpCodeLength,
             onCodeSubmitted: (code) {},
             onCodeChanged: (code) {
-              print(code);
               if (code!.length == _otpCodeLength) {
                 _otpCode = code;
                 _enableButton = true;
@@ -137,22 +136,23 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
                     isAPIcallProcess = false;
                   });
 
-                  if (response.data != null) {
-                    //REDIRECT TO HOME SCREEN
+                  if (response) {
                     FormHelper.showSimpleAlertDialog(
                       context,
                       Config.appName,
-                      response.message,
+                      "Customer Login Successfully!",
                       "OK",
                       () {
-                        Navigator.pop(context);
+                        Navigator.of(context).pop();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, "/nav", (route) => false);
                       },
                     );
                   } else {
                     FormHelper.showSimpleAlertDialog(
                       context,
                       Config.appName,
-                      response.message,
+                      "Invalid OTP",
                       "OK",
                       () {
                         Navigator.pop(context);

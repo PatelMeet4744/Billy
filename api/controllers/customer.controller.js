@@ -1,4 +1,5 @@
 const customerService = require("../services/customer.service");
+const { v4: uuidv4 } = require('uuid');
 
 // Create and Save a new Customer
 exports.create = (req, res, next) => {
@@ -7,7 +8,8 @@ exports.create = (req, res, next) => {
         customerName: req.body.customerName,
         customerEmailID: req.body.customerEmailID,
         customerPassword: req.body.customerPassword,
-        customerContact: req.body.customerContact
+        customerContact: req.body.customerContact,
+        customerReferralcode: uuidv4().toString()
     };
     // return console.log(model);
     customerService.createCustomer(model, (error, results) => {
@@ -117,22 +119,6 @@ exports.login = (req, res, next) => {
     const { customerEmailID, customerPassword } = req.body;
 
     customerService.loginCustomer({ customerEmailID, customerPassword }, (error, results) => {
-        if (error) {
-            return next(error);
-        }
-
-        return res.status(200).send({
-            message: "Success",
-            data: results
-        });
-    });
-}
-
-// Customer Email Verification
-exports.EmailVerify = (req, res, next) => {
-    const { customerId, customerRandomstring } = req.params;
-
-    customerService.updateCustomerEmailVerify({ customerId, customerRandomstring }, (error, results) => {
         if (error) {
             return next(error);
         }

@@ -1,6 +1,10 @@
+import 'package:billy_application/pages/login/otp_login_page.dart';
 import 'package:billy_application/pages/onboard/content_model.dart';
 import 'package:billy_application/pages/layout/navbar.dart';
+import 'package:billy_application/utils/shared_service.dart';
 import 'package:flutter/material.dart';
+
+Widget _defaultHome = const LoginPage();
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -16,7 +20,14 @@ class _OnboardingState extends State<Onboarding> {
   @override
   void initState() {
     _controller = PageController(initialPage: 0);
+    checkLogin();
     super.initState();
+  }
+
+  checkLogin() async {
+    bool result = await SharedService.isLoggedIn();
+
+    if (result) _defaultHome = const Navbar();
   }
 
   @override
@@ -91,7 +102,7 @@ class _OnboardingState extends State<Onboarding> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const Navbar(),
+                      builder: (_) => _defaultHome,
                     ),
                   );
                 }

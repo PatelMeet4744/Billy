@@ -1,5 +1,7 @@
 import 'package:billy_application/api/api_service.dart';
+import 'package:billy_application/config/config.dart';
 import 'package:billy_application/pages/login/otp_verify_page.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
@@ -59,9 +61,9 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 "Login with a Mobile Number",
                 style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xfff6881f)),
               ),
             ),
           ),
@@ -69,9 +71,7 @@ class _LoginPageState extends State<LoginPage> {
           const Center(
             child: Text(
               "Enter your mobile number we will send you OTP to verify",
-              style: TextStyle(
-                fontSize: 14,
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
           ),
           const SizedBox(height: 10),
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextFormField(
                     maxLines: 1,
                     maxLength: 10,
-                    initialValue: "9988552299",
+                    initialValue: "",
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(6),
                       hintText: "Mobile Number",
@@ -140,6 +140,9 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                     validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '* Required';
+                      }
                       return null;
                     },
                   ),
@@ -172,18 +175,53 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         (route) => false,
                       );
+                    } else {
+                      FormHelper.showSimpleAlertDialog(
+                        context,
+                        Config.appName,
+                        response.message,
+                        "OK",
+                        () {
+                          Navigator.pop(context);
+                        },
+                      );
                     }
                   });
                 }
               },
-              btnColor: HexColor("#78D0B1"),
-              borderColor: HexColor("#78D0B1"),
-              txtColor: HexColor(
-                "#000000",
-              ),
+              btnColor: Theme.of(context).primaryColor,
+              borderColor: Colors.white,
+              txtColor: Colors.white,
               borderRadius: 20,
             ),
           ),
+          const SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: RichText(
+              text: TextSpan(
+                style: TextStyle(color: Colors.grey, fontSize: 14.0),
+                children: <TextSpan>[
+                  TextSpan(text: "Don\'t have an account? "),
+                  TextSpan(
+                    text: "Sign Up",
+                    style: const TextStyle(
+                      color: Color(0xfff6881f),
+                      fontWeight: FontWeight.bold,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/register",
+                          (route) => false,
+                        );
+                      },
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

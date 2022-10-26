@@ -1,10 +1,9 @@
+import 'package:billy_application/pages/layout/navbar.dart';
 import 'package:billy_application/pages/login/otp_login_page.dart';
 import 'package:billy_application/pages/register/register_page.dart';
 import 'package:billy_application/pages/splashscreen/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-bool? info;
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -43,11 +42,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: MaterialColor(0xfff6881f, color),
       ),
-      // home: const SplashPage(),
-      home: const RegisterPage(),
+      home: const SplashPage(),
+      // home: const RegisterPage(),
       routes: <String, WidgetBuilder>{
         '/register': ((context) => const RegisterPage()),
-        '/login': ((context) => const LoginPage())
+        '/login': ((context) => const LoginPage()),
+        '/nav': ((context) => const Navbar())
       },
     );
   }
