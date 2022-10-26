@@ -28,34 +28,37 @@ mixin _$PaginationModel {
 abstract class $PaginationModelCopyWith<$Res> {
   factory $PaginationModelCopyWith(
           PaginationModel value, $Res Function(PaginationModel) then) =
-      _$PaginationModelCopyWithImpl<$Res>;
+      _$PaginationModelCopyWithImpl<$Res, PaginationModel>;
+  @useResult
   $Res call({int page, int pageSize});
 }
 
 /// @nodoc
-class _$PaginationModelCopyWithImpl<$Res>
+class _$PaginationModelCopyWithImpl<$Res, $Val extends PaginationModel>
     implements $PaginationModelCopyWith<$Res> {
   _$PaginationModelCopyWithImpl(this._value, this._then);
 
-  final PaginationModel _value;
   // ignore: unused_field
-  final $Res Function(PaginationModel) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? page = freezed,
-    Object? pageSize = freezed,
+    Object? page = null,
+    Object? pageSize = null,
   }) {
     return _then(_value.copyWith(
-      page: page == freezed
+      page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSize: pageSize == freezed
+      pageSize: null == pageSize
           ? _value.pageSize
           : pageSize // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,31 +69,30 @@ abstract class _$$_PaginationModelCopyWith<$Res>
           _$_PaginationModel value, $Res Function(_$_PaginationModel) then) =
       __$$_PaginationModelCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int page, int pageSize});
 }
 
 /// @nodoc
 class __$$_PaginationModelCopyWithImpl<$Res>
-    extends _$PaginationModelCopyWithImpl<$Res>
+    extends _$PaginationModelCopyWithImpl<$Res, _$_PaginationModel>
     implements _$$_PaginationModelCopyWith<$Res> {
   __$$_PaginationModelCopyWithImpl(
       _$_PaginationModel _value, $Res Function(_$_PaginationModel) _then)
-      : super(_value, (v) => _then(v as _$_PaginationModel));
+      : super(_value, _then);
 
-  @override
-  _$_PaginationModel get _value => super._value as _$_PaginationModel;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? page = freezed,
-    Object? pageSize = freezed,
+    Object? page = null,
+    Object? pageSize = null,
   }) {
     return _then(_$_PaginationModel(
-      page: page == freezed
+      page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSize: pageSize == freezed
+      pageSize: null == pageSize
           ? _value.pageSize
           : pageSize // ignore: cast_nullable_to_non_nullable
               as int,
@@ -118,18 +120,17 @@ class _$_PaginationModel implements _PaginationModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PaginationModel &&
-            const DeepCollectionEquality().equals(other.page, page) &&
-            const DeepCollectionEquality().equals(other.pageSize, pageSize));
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.pageSize, pageSize) ||
+                other.pageSize == pageSize));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(page),
-      const DeepCollectionEquality().hash(pageSize));
+  int get hashCode => Object.hash(runtimeType, page, pageSize);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PaginationModelCopyWith<_$_PaginationModel> get copyWith =>
       __$$_PaginationModelCopyWithImpl<_$_PaginationModel>(this, _$identity);
 }

@@ -36,7 +36,8 @@ mixin _$Cuisines {
 /// @nodoc
 abstract class $CuisinesCopyWith<$Res> {
   factory $CuisinesCopyWith(Cuisines value, $Res Function(Cuisines) then) =
-      _$CuisinesCopyWithImpl<$Res>;
+      _$CuisinesCopyWithImpl<$Res, Cuisines>;
+  @useResult
   $Res call(
       {String cuisinesName,
       String cuisinesImage,
@@ -47,48 +48,51 @@ abstract class $CuisinesCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CuisinesCopyWithImpl<$Res> implements $CuisinesCopyWith<$Res> {
+class _$CuisinesCopyWithImpl<$Res, $Val extends Cuisines>
+    implements $CuisinesCopyWith<$Res> {
   _$CuisinesCopyWithImpl(this._value, this._then);
 
-  final Cuisines _value;
   // ignore: unused_field
-  final $Res Function(Cuisines) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cuisinesName = freezed,
-    Object? cuisinesImage = freezed,
-    Object? cuisinesDescription = freezed,
-    Object? cuisinesBanner = freezed,
-    Object? cuisinesStatus = freezed,
-    Object? cuisinesId = freezed,
+    Object? cuisinesName = null,
+    Object? cuisinesImage = null,
+    Object? cuisinesDescription = null,
+    Object? cuisinesBanner = null,
+    Object? cuisinesStatus = null,
+    Object? cuisinesId = null,
   }) {
     return _then(_value.copyWith(
-      cuisinesName: cuisinesName == freezed
+      cuisinesName: null == cuisinesName
           ? _value.cuisinesName
           : cuisinesName // ignore: cast_nullable_to_non_nullable
               as String,
-      cuisinesImage: cuisinesImage == freezed
+      cuisinesImage: null == cuisinesImage
           ? _value.cuisinesImage
           : cuisinesImage // ignore: cast_nullable_to_non_nullable
               as String,
-      cuisinesDescription: cuisinesDescription == freezed
+      cuisinesDescription: null == cuisinesDescription
           ? _value.cuisinesDescription
           : cuisinesDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      cuisinesBanner: cuisinesBanner == freezed
+      cuisinesBanner: null == cuisinesBanner
           ? _value.cuisinesBanner
           : cuisinesBanner // ignore: cast_nullable_to_non_nullable
               as String,
-      cuisinesStatus: cuisinesStatus == freezed
+      cuisinesStatus: null == cuisinesStatus
           ? _value.cuisinesStatus
           : cuisinesStatus // ignore: cast_nullable_to_non_nullable
               as bool,
-      cuisinesId: cuisinesId == freezed
+      cuisinesId: null == cuisinesId
           ? _value.cuisinesId
           : cuisinesId // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -98,6 +102,7 @@ abstract class _$$_CuisinesCopyWith<$Res> implements $CuisinesCopyWith<$Res> {
           _$_Cuisines value, $Res Function(_$_Cuisines) then) =
       __$$_CuisinesCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String cuisinesName,
       String cuisinesImage,
@@ -108,46 +113,45 @@ abstract class _$$_CuisinesCopyWith<$Res> implements $CuisinesCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CuisinesCopyWithImpl<$Res> extends _$CuisinesCopyWithImpl<$Res>
+class __$$_CuisinesCopyWithImpl<$Res>
+    extends _$CuisinesCopyWithImpl<$Res, _$_Cuisines>
     implements _$$_CuisinesCopyWith<$Res> {
   __$$_CuisinesCopyWithImpl(
       _$_Cuisines _value, $Res Function(_$_Cuisines) _then)
-      : super(_value, (v) => _then(v as _$_Cuisines));
+      : super(_value, _then);
 
-  @override
-  _$_Cuisines get _value => super._value as _$_Cuisines;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cuisinesName = freezed,
-    Object? cuisinesImage = freezed,
-    Object? cuisinesDescription = freezed,
-    Object? cuisinesBanner = freezed,
-    Object? cuisinesStatus = freezed,
-    Object? cuisinesId = freezed,
+    Object? cuisinesName = null,
+    Object? cuisinesImage = null,
+    Object? cuisinesDescription = null,
+    Object? cuisinesBanner = null,
+    Object? cuisinesStatus = null,
+    Object? cuisinesId = null,
   }) {
     return _then(_$_Cuisines(
-      cuisinesName: cuisinesName == freezed
+      cuisinesName: null == cuisinesName
           ? _value.cuisinesName
           : cuisinesName // ignore: cast_nullable_to_non_nullable
               as String,
-      cuisinesImage: cuisinesImage == freezed
+      cuisinesImage: null == cuisinesImage
           ? _value.cuisinesImage
           : cuisinesImage // ignore: cast_nullable_to_non_nullable
               as String,
-      cuisinesDescription: cuisinesDescription == freezed
+      cuisinesDescription: null == cuisinesDescription
           ? _value.cuisinesDescription
           : cuisinesDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      cuisinesBanner: cuisinesBanner == freezed
+      cuisinesBanner: null == cuisinesBanner
           ? _value.cuisinesBanner
           : cuisinesBanner // ignore: cast_nullable_to_non_nullable
               as String,
-      cuisinesStatus: cuisinesStatus == freezed
+      cuisinesStatus: null == cuisinesStatus
           ? _value.cuisinesStatus
           : cuisinesStatus // ignore: cast_nullable_to_non_nullable
               as bool,
-      cuisinesId: cuisinesId == freezed
+      cuisinesId: null == cuisinesId
           ? _value.cuisinesId
           : cuisinesId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -192,33 +196,28 @@ class _$_Cuisines implements _Cuisines {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Cuisines &&
-            const DeepCollectionEquality()
-                .equals(other.cuisinesName, cuisinesName) &&
-            const DeepCollectionEquality()
-                .equals(other.cuisinesImage, cuisinesImage) &&
-            const DeepCollectionEquality()
-                .equals(other.cuisinesDescription, cuisinesDescription) &&
-            const DeepCollectionEquality()
-                .equals(other.cuisinesBanner, cuisinesBanner) &&
-            const DeepCollectionEquality()
-                .equals(other.cuisinesStatus, cuisinesStatus) &&
-            const DeepCollectionEquality()
-                .equals(other.cuisinesId, cuisinesId));
+            (identical(other.cuisinesName, cuisinesName) ||
+                other.cuisinesName == cuisinesName) &&
+            (identical(other.cuisinesImage, cuisinesImage) ||
+                other.cuisinesImage == cuisinesImage) &&
+            (identical(other.cuisinesDescription, cuisinesDescription) ||
+                other.cuisinesDescription == cuisinesDescription) &&
+            (identical(other.cuisinesBanner, cuisinesBanner) ||
+                other.cuisinesBanner == cuisinesBanner) &&
+            (identical(other.cuisinesStatus, cuisinesStatus) ||
+                other.cuisinesStatus == cuisinesStatus) &&
+            (identical(other.cuisinesId, cuisinesId) ||
+                other.cuisinesId == cuisinesId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(cuisinesName),
-      const DeepCollectionEquality().hash(cuisinesImage),
-      const DeepCollectionEquality().hash(cuisinesDescription),
-      const DeepCollectionEquality().hash(cuisinesBanner),
-      const DeepCollectionEquality().hash(cuisinesStatus),
-      const DeepCollectionEquality().hash(cuisinesId));
+  int get hashCode => Object.hash(runtimeType, cuisinesName, cuisinesImage,
+      cuisinesDescription, cuisinesBanner, cuisinesStatus, cuisinesId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CuisinesCopyWith<_$_Cuisines> get copyWith =>
       __$$_CuisinesCopyWithImpl<_$_Cuisines>(this, _$identity);
 

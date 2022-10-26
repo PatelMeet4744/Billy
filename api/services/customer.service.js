@@ -2,6 +2,9 @@ const { customer } = require("../models/customer.model");
 const bcrypt = require('bcryptjs');
 const auth = require("../middleware/auth");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
+const otpGenerator = require("otp-generator");
+const crypto = require("crypto");
+const key = "otp-secret-key";
 
 async function createCustomer(params, callback, req, res) {
     // return console.log(params); 
@@ -129,31 +132,6 @@ async function loginCustomer({ customerEmailID, customerPassword }, callback) {
     }
 }
 
-async function updateCustomerEmailVerify({ customerId, customerRandomstring }, callback) {
-    customer.findById(customerId)
-    const customerModel = await customer.findById(customerId, { customerRandomstring: 1 });
-    if (customerModel != null) {
-        if (customerModel.customerRandomstring === customerRandomstring) {
-            customer.findByIdAndUpdate(customerId, { customerEmailVerify: true }, { useFindAndModify: false })
-                .then((response) => {
-                    if (!response) callback("Not Found Customer with ID " + customerId);
-                    else callback(null, response);
-                })
-                .catch((error) => {
-                    return callback(error);
-                });
-        } else {
-            return callback({
-                message: "The Random String was wrong"
-            });
-        }
-    } else {
-        return callback({
-            message: "Not Found Customer with ID " + customerId
-        });
-    }
-}
-
 async function updateCustomerPassword(params, callback) {
 
     if (!params.customerId || !params.customerPassword || !params.newpassword) {
@@ -190,6 +168,65 @@ async function updateCustomerPassword(params, callback) {
     }
 }
 
+async function createOTP(params, callback) {
+    try {
+        if (!params.customerContact) {
+            return callback({
+                name: "RequiredField", message: "Customer Contact Number is Required!"
+            }, "");
+        }
+
+        // Check Customer Mobile Number is Valid or InValid
+        const customerModel = await customer.findOne({ customerContact: params.customerContact }, { billingAddress: 0, customerPassword: 0 });
+        if (customerModel != null) {
+            // OTP Generate Logic
+            const otp = otpGenerator.generate(4, { alphabets: false, upperCase: false, specialChars: false });
+            const ttl = 5 * 60 * 1000;
+            const expires = Date.now() + ttl;
+            const data = `${params.customerContact}.${otp}.${expires}`;
+            const hash = crypto.createHmac("sha256", key).update(data).digest("hex");
+            const fullHash = `${hash}.${expires}`;
+
+            console.log(`Your OTP is ${otp}`);
+            await customer.findOneAndUpdate({ customerContact: params.customerContact }, { customerOTP: otp, customerHash: fullHash }, { useFindAndModify: false });
+
+            // SEND SMS Function Call Here
+            return callback(null, fullHash);
+        }
+        else {
+            return callback({
+                name: "UnauthorizedOTP", message: "Mobile Number Not Registered!"
+            });
+        }
+    } catch (error) {
+        return callback(error);
+    }
+
+}
+
+async function verifyOTP(params, callback) {
+    try {
+        const customerModel = await customer.findOne({ customerContact: params.customerContact }, { billingAddress: 0, customerEmailVerify: 0, customerPassword: 0 });
+        // Token Generate Logic
+        const token = auth.generateAccessToken(customerModel.toJSON());
+
+        let [hashValue, expires] = params.hash.split('.');
+
+        let now = Date.now();
+        if (now > parseInt(expires)) return callback({ name: "UnauthorizedOTP", message: "OTP Expired" }, "");
+
+        let data = `${params.customerContact}.${params.otp}.${expires}`;
+        let newCalculateHash = crypto.createHmac("sha256", key).update(data).digest("hex");
+        var temp = customerModel.toJSON();
+        temp['token'] = token
+        if (newCalculateHash === hashValue) return callback(null, temp);
+
+        return callback({ name: "UnauthorizedOTP", message: "Invalid OTP" }, "");
+    } catch (error) {
+        return callback(error);
+    }
+
+}
 module.exports = {
     createCustomer,
     getCustomerById,
@@ -198,6 +235,7 @@ module.exports = {
     deleteCustomer,
     updateCustomerStatus,
     loginCustomer,
-    updateCustomerEmailVerify,
-    updateCustomerPassword
+    updateCustomerPassword,
+    createOTP,
+    verifyOTP
 };
