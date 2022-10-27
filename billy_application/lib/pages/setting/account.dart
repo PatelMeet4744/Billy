@@ -1,5 +1,8 @@
 import 'package:billy_application/providers/providers.dart';
+import 'package:billy_application/utils/shared_service.dart';
 import 'package:flutter/material.dart';
+
+bool isLoggedIn = false;
 
 class Account extends StatefulWidget {
   const Account({super.key});
@@ -14,10 +17,14 @@ class _AccountState extends State<Account> {
   @override
   void initState() {
     super.initState();
-
+    checkLogin();
     Providers().getOnboardState().then((value) => setState(() {
           _info = value;
         }));
+  }
+
+  checkLogin() async {
+    isLoggedIn = await SharedService.isLoggedIn();
   }
 
   @override
@@ -43,9 +50,23 @@ class _AccountState extends State<Account> {
                     Providers().setOnboardState(value);
                   }),
             ),
+            const SizedBox(
+              height: 16,
+            ),
+            SizedBox(
+              height: 50,
+              child: TextButton(
+                onPressed: () => isLoggedIn ? doUserLogout() : () {},
+                child: const Text('Logout'),
+              ),
+            )
           ],
         ),
       ),
     );
+  }
+
+  void doUserLogout() async {
+    await SharedService.logout(context);
   }
 }

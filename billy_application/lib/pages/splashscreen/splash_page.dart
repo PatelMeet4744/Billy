@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:billy_application/pages/layout/navbar.dart';
+import 'package:billy_application/pages/login/otp_login_page.dart';
 import 'package:billy_application/pages/onboard/onboarding.dart';
 import 'package:billy_application/providers/providers.dart';
+import 'package:billy_application/utils/shared_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 bool? info;
+Widget _defaultHome = const LoginPage();
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -17,8 +20,24 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   startSplashScreenTimer() async {
-    var _duration = new Duration(seconds: 5);
-    return new Timer(_duration, navigateToPage);
+    var duration = const Duration(seconds: 5);
+    return Timer(duration, navigateToPage);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkLogin();
+    Providers().getOnboardState().then((value) {
+      info = value;
+    });
+    startSplashScreenTimer();
+  }
+
+  checkLogin() async {
+    bool result = await SharedService.isLoggedIn();
+
+    if (result) _defaultHome = const Navbar();
   }
 
   void navigateToPage() {
@@ -26,17 +45,8 @@ class _SplashPageState extends State<SplashPage> {
       (context),
       MaterialPageRoute(
           builder: (context) =>
-              info == true ? const Onboarding() : const Navbar()),
+              info == true ? const Onboarding() : _defaultHome),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Providers().getOnboardState().then((value) {
-      info = value;
-    });
-    startSplashScreenTimer();
   }
 
   @override

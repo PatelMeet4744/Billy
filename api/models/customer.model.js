@@ -19,7 +19,8 @@ const customer = mongoose.model(
             },
             customerContact: {
                 type: Number,
-                require: true
+                require: true,
+                unique: true
             },
             billingAddress: [
                 {
@@ -27,19 +28,21 @@ const customer = mongoose.model(
                     ref: 'BillingAddress'
                 }
             ],
-            customerEmailVerify: {
-                type: Boolean,
-                default: false // true -> verify & false -> notverify
-            },
-            customerRandomstring: {
+            customerOTP: {
                 type: String,
-                unique: true
+                default: ''
+            },
+            customerHash: {
+                type: String,
+                default: ''
             },
             customerReferralcode: {
-                type: String
+                type: String,
+                default: ''
             },
             customerFromReferralcode: {
-                type: String
+                type: String,
+                default: ''
             },
             customerStatus: {
                 type: Boolean,
