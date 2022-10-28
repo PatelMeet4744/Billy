@@ -202,6 +202,26 @@ async function updateRestaurantStatus({ restaurantId, restaurantStatus }, callba
         });
 }
 
+async function getAllRestauranByCustomer(params, callback) {
+    const restaurantName = params.restaurantName;
+    var condition = restaurantName ? { restaurantName: { $regex: new RegExp(restaurantName), $options: "i" }, restaurantStatus: true } : { restaurantStatus: true };
+
+    let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
+    let page = (Math.abs(params.page) || 1) - 1;
+
+    restaurant.find(condition, "").populate("cuisines", "cuisinesName")
+        .limit(perPage)
+        .skip(perPage * page)
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+
+    // ex totalRecord = 20, pageSize = 10. Page 1 =>
+}
+
 module.exports = {
     createRestaurant,
     attachDocumentRestaurant,
@@ -210,5 +230,6 @@ module.exports = {
     updateRestaurantBasicDetailsByPartner,
     getRestaurantDocumentByAdmin,
     udpdateRestaurantDocumentByAdmin,
-    updateRestaurantStatus
+    updateRestaurantStatus,
+    getAllRestauranByCustomer
 };

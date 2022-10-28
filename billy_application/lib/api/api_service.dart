@@ -15,7 +15,15 @@ class APIService {
   static var client = http.Client();
 
   Future<List<Cuisines>?> getCuisines(page, pageSize) async {
-    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+    // get Token From Login Customer
+    String? token;
+    Future<VerifyOTPResponseModel?> loginDetails = SharedService.loginDetails();
+    await loginDetails.then((value) => {token = 'bear ${value?.data.token}'});
+
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': token.toString()
+    };
 
     Map<String, String> queryString = {
       'page': page.toString(),
