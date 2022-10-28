@@ -62,6 +62,25 @@ async function getCuisines(params, callback) {
 
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
+async function getCuisinesByCustomer(params, callback) {
+    const cuisinesName = params.cuisinesName;
+    var condition = cuisinesName ? { cuisinesName: { $regex: new RegExp(cuisinesName), $options: "i" }, cuisinesStatus: true } : { cuisinesStatus: true };
+
+    let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
+    let page = (Math.abs(params.page) || 1) - 1;
+
+    cuisines.find(condition, "")
+        .limit(perPage)
+        .skip(perPage * page)
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+
+    // ex totalRecord = 20, pageSize = 10. Page 1 =>
+}
 
 async function deleteCuisines({ cuisinesId }, callback) {
     cuisines.findByIdAndDelete(cuisinesId)
@@ -94,5 +113,6 @@ module.exports = {
     updateCuisines,
     getCuisines,
     deleteCuisines,
-    updateCuisinesStatus
+    updateCuisinesStatus,
+    getCuisinesByCustomer
 };

@@ -127,6 +127,25 @@ exports.findAll = (req, res, next) => {
         }
     });
 }
+// Retrieve all Cuisines from the database.
+exports.findAllCuisines = (req, res, next) => {
+    var model = {
+        cuisinesName: req.query.cuisinesName,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    cuisinesService.getCuisinesByCustomer(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
 
 // Delete a Cuisines with the specified id in the request
 exports.delete = (req, res, next) => {

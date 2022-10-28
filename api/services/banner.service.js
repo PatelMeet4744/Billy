@@ -54,6 +54,27 @@ async function getBanner(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+//Get All Banners By Customer
+async function getBannerByCustomer(params, callback) {
+    const bannerName = params.bannerName;
+    var condition = bannerName ? { bannerName: { $regex: new RegExp(bannerName), $options: "i" }, approvalStatus: 3 } : { approvalStatus: 3 };
+
+    let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
+    let page = (Math.abs(params.page) || 1) - 1;
+
+    banner.find(condition, "").populate("restaurant", "restaurantName")
+        .limit(perPage)
+        .skip(perPage * page)
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+
+    // ex totalRecord = 20, pageSize = 10. Page 1 =>
+}
+
 //Delete Banner Using Id
 async function deleteBanner({ bannerId }, callback) {
     banner.findByIdAndDelete(bannerId)
@@ -119,5 +140,6 @@ module.exports = {
     getBanner,
     deleteBanner,
     updateBannerStatus,
-    updateBannerApprovalStatus
+    updateBannerApprovalStatus,
+    getBannerByCustomer
 };
