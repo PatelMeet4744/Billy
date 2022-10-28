@@ -1,3 +1,4 @@
+import 'package:billy_application/widgets/widget_home_banner.dart';
 import 'package:billy_application/widgets/widget_home_cuisines.dart';
 import 'package:flutter/material.dart';
 
@@ -8,11 +9,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Dashboard"),
+          title: const Text(
+            "Dashboard",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         body: Container(
           child: ListView(
-            children: const [HomeCuisinesWidget()],
+            children: const [HomeBannerWidget(), HomeCuisinesWidget()],
           ),
         ));
   }
