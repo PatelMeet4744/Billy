@@ -6,6 +6,7 @@ class Config {
   static const String customerAPI = "api/customer";
   static const String createOTPAPI = "api/createotp";
   static const String verifyOTPAPI = "api/verifyotp";
+  static const String bannerAPI = "api/banner";
   static const int pageSize = 10;
   static const String currency = "₹";
 }

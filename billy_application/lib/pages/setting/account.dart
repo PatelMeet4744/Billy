@@ -25,6 +25,8 @@ class _AccountState extends State<Account> {
 
   checkLogin() async {
     isLoggedIn = await SharedService.isLoggedIn();
+    // ignore: use_build_context_synchronously
+    if (isLoggedIn) SharedService.checkExpiredToken(context, isLoggedIn);
   }
 
   @override
@@ -32,7 +34,10 @@ class _AccountState extends State<Account> {
     return Scaffold(
       appBar: AppBar(
         elevation: 20,
-        title: const Text('Account Settings'),
+        title: const Text(
+          'Account Settings',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
@@ -57,7 +62,10 @@ class _AccountState extends State<Account> {
               height: 50,
               child: TextButton(
                 onPressed: () => isLoggedIn ? doUserLogout() : () {},
-                child: const Text('Logout'),
+                child: const Text(
+                  'Logout',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                ),
               ),
             )
           ],

@@ -46,6 +46,7 @@ dependencies:
   snippet_coder_utils: ^1.0.12
   sms_autofill: ^2.2.0
   api_cache_manager: ^1.0.2
+  carousel_slider: ^4.1.1
 
 dev_dependencies:
   flutter_test:

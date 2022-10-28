@@ -27,7 +27,11 @@ class _OnboardingState extends State<Onboarding> {
   checkLogin() async {
     bool result = await SharedService.isLoggedIn();
 
-    if (result) _defaultHome = const Navbar();
+    if (result) {
+      // ignore: use_build_context_synchronously
+      await SharedService.checkExpiredToken(context, result);
+      _defaultHome = const Navbar();
+    }
   }
 
   @override
