@@ -33,6 +33,7 @@ class Data {
   late final int customerContact;
   late final String customerId;
   late final String token;
+  late final String? expirdAt;
 
   Data({
     required this.customerName,
@@ -41,6 +42,7 @@ class Data {
     required this.customerContact,
     required this.customerId,
     required this.token,
+    this.expirdAt,
   });
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -50,6 +52,7 @@ class Data {
     customerContact = json['customerContact'];
     customerId = json['customerId'];
     token = json['token'];
+    expirdAt = DateTime.now().add(const Duration(hours: 24)).toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -61,6 +64,7 @@ class Data {
     _data['customerContact'] = customerContact;
     _data['customerId'] = customerId;
     _data['token'] = token;
+    _data['expirdAt'] = expirdAt;
 
     return _data;
   }

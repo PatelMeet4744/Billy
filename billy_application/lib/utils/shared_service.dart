@@ -10,8 +10,24 @@ class SharedService {
 
   static Future<bool> isLoggedIn() async {
     var isCacheKeyExist = await APICacheManager().isAPICacheKeyExist(KEY_NAME);
-
     return isCacheKeyExist;
+  }
+
+  static Future<void> checkExpiredToken(
+      BuildContext context, bool isCacheKeyExist) async {
+    if (isCacheKeyExist) {
+      DateTime nowDateTime = DateTime.now();
+      String? expirdAt = DateTime.now().toString();
+
+      Future<VerifyOTPResponseModel?> loginDetails =
+          SharedService.loginDetails();
+      await loginDetails.then((value) => {expirdAt = (value!.data.expirdAt)});
+
+      DateTime _expirdAt = DateTime.parse(expirdAt!);
+      if (_expirdAt.compareTo(nowDateTime) < 0) {
+        await SharedService.logout(context);
+      }
+    }
   }
 
   static Future<void> setLoginDetails(VerifyOTPResponseModel model) async {
@@ -37,7 +53,6 @@ class SharedService {
 
   static Future<void> logout(BuildContext context) async {
     await APICacheManager().deleteCache(KEY_NAME);
-    // ignore: use_build_context_synchronously
     Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
   }
 }

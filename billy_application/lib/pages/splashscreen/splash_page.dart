@@ -37,7 +37,11 @@ class _SplashPageState extends State<SplashPage> {
   checkLogin() async {
     bool result = await SharedService.isLoggedIn();
 
-    if (result) _defaultHome = const Navbar();
+    if (result) {
+      // ignore: use_build_context_synchronously
+      await SharedService.checkExpiredToken(context, result);
+      _defaultHome = const Navbar();
+    }
   }
 
   void navigateToPage() {

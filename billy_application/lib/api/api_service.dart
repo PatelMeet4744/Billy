@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:billy_application/config/config.dart';
+import 'package:billy_application/models/bannerResponse.dart';
 import 'package:billy_application/models/createotp_response_model.dart';
 import 'package:billy_application/models/cuisines.dart';
 import 'package:billy_application/models/verifyotp_response_model.dart';
@@ -13,8 +14,16 @@ final apiService = Provider((ref) => APIService());
 class APIService {
   static var client = http.Client();
 
-  Future<List<Cuisines>?> getCategories(page, pageSize) async {
-    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+  Future<List<Cuisines>?> getCuisines(page, pageSize) async {
+    // get Token From Login Customer
+    String? token;
+    Future<VerifyOTPResponseModel?> loginDetails = SharedService.loginDetails();
+    await loginDetails.then((value) => {token = 'bear ${value?.data.token}'});
+
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': token.toString()
+    };
 
     Map<String, String> queryString = {
       'page': page.toString(),
@@ -106,5 +115,27 @@ class APIService {
     } else {
       return false;
     }
+  }
+
+  Future<BannerResponse> getBannerResponse(page, pageSize) async {
+    // get Token From Login Customer
+    String? token;
+    Future<VerifyOTPResponseModel?> loginDetails = SharedService.loginDetails();
+    await loginDetails.then((value) => {token = 'bear ${value?.data.token}'});
+
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': token.toString()
+    };
+
+    Map<String, String> queryString = {
+      'page': page.toString(),
+      'pageSize': pageSize.toString()
+    };
+
+    var url = Uri.http(Config.apiURL, Config.bannerAPI, queryString);
+
+    var response = await client.get(url, headers: requestHeaders);
+    return bannerResponseJson(response.body);
   }
 }

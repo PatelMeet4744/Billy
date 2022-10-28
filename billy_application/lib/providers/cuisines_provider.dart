@@ -8,7 +8,7 @@ final cuisinesProvider =
   (ref, paginationModel) {
     final apiRepository = ref.watch(apiService);
 
-    return apiRepository.getCategories(
+    return apiRepository.getCuisines(
       paginationModel.page,
       paginationModel.pageSize,
     );

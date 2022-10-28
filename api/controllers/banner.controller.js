@@ -14,7 +14,7 @@ exports.create = (req, res, next) => {
             var model = {
                 restaurant: req.body.restaurant,
                 bannerName: req.body.bannerName,
-                bannerImage: path != "" ? "/" + path : "",                
+                bannerImage: path != "" ? "/" + path : "",
             };
 
             bannerService.createBanner(model, (error, results) => {
@@ -67,6 +67,26 @@ exports.findAll = (req, res, next) => {
     });
 }
 
+// Retrieve all Banner By Customer from the database.
+exports.findAllBanner = (req, res, next) => {
+    var model = {
+        bannerName: req.query.bannerName,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    bannerService.getBannerByCustomer(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results
+            });
+        }
+    });
+}
+
 // Update a Banner by the id in the request
 exports.updateBannerDetails = (req, res, next) => {
     // return console.log(req.body);
@@ -77,7 +97,7 @@ exports.updateBannerDetails = (req, res, next) => {
             next(err);
         } else {
             if (req.file != undefined) {
-                const bannerImagepath = req.file!= undefined ? req.file.path.replace(/\\/g, "/") : "";
+                const bannerImagepath = req.file != undefined ? req.file.path.replace(/\\/g, "/") : "";
                 bannerImage = "/" + bannerImagepath;
 
                 try {

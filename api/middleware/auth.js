@@ -20,7 +20,7 @@ function authenticateToken(req, res, next) {
 
 function generateAccessToken(userModel) {
     return jwt.sign({ data: userModel }, TOKEN_KEY, {
-        expiresIn: "1h"
+        expiresIn: "24h"
     });
 }
 
