@@ -231,3 +231,23 @@ exports.updateStatus = (req, res, next) => {
         }
     });
 }
+
+// Retrive All Restaurant By Customer
+exports.findAllRestaurant = (req, res, next) => {
+    var model = {
+        restaurantName: req.query.restaurantName,
+        pageSize: req.query.pageSize,
+        page: req.query.page
+    };
+
+    restaurantService.getAllRestauranByCustomer(model, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
