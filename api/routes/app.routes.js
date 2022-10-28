@@ -218,7 +218,7 @@ router.delete("/banner/:bannerId", [authenticateToken], bannerController.delete)
 // Update Banner Status
 router.put("/banner/:bannerId/:bannerStatus", [authenticateToken], bannerController.updateStatus);
 // Update Banner Approval Status
-router.put("/banner/Aprove/:bannerId/:approvalStatus", [authenticateToken], bannerController.updateApprovalStatus);
+router.put("/banner/aprove/:bannerId/:approvalStatus", [authenticateToken], bannerController.updateApprovalStatus);
 
 /* Complain */
 // Create a new Complain
