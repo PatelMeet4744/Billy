@@ -1,13 +1,18 @@
+import 'package:billy_application/controllers/bannercontroller.dart';
+import 'package:billy_application/controllers/cuisines_controller.dart';
+import 'package:billy_application/pages/home/main_food_page.dart';
 import 'package:billy_application/pages/layout/navbar.dart';
 import 'package:billy_application/pages/login/otp_login_page.dart';
 import 'package:billy_application/pages/register/register_page.dart';
 import 'package:billy_application/pages/splashscreen/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:billy_application/helper/dependencies.dart' as dep;
 
-void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -35,15 +40,17 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    Get.find<BannerController>().getBannerList();
+    Get.find<CuisinesController>().getCuisinesList();
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Billy',
       darkTheme: ThemeData(brightness: Brightness.dark),
       theme: ThemeData(
         primarySwatch: MaterialColor(0xfff6881f, color),
       ),
-      home: const SplashPage(),
-      // home: const RegisterPage(),
+      // home: const SplashPage(),
+      home: const MainFoodPage(),
       routes: <String, WidgetBuilder>{
         '/register': ((context) => const RegisterPage()),
         '/login': ((context) => const LoginPage()),
