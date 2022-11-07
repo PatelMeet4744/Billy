@@ -1,10 +1,7 @@
-import 'package:billy_application/controllers/bannercontroller.dart';
+import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
-import 'package:billy_application/pages/home/main_food_page.dart';
-import 'package:billy_application/pages/layout/navbar.dart';
-import 'package:billy_application/pages/login/otp_login_page.dart';
-import 'package:billy_application/pages/register/register_page.dart';
-import 'package:billy_application/pages/splashscreen/splash_page.dart';
+import 'package:billy_application/pages/splash/splash_page.dart';
+import 'package:billy_application/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -42,6 +39,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Get.find<BannerController>().getBannerList();
     Get.find<CuisinesController>().getCuisinesList();
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Billy',
@@ -50,12 +48,8 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: MaterialColor(0xfff6881f, color),
       ),
       // home: const SplashPage(),
-      home: const MainFoodPage(),
-      routes: <String, WidgetBuilder>{
-        '/register': ((context) => const RegisterPage()),
-        '/login': ((context) => const LoginPage()),
-        '/nav': ((context) => const Navbar())
-      },
+      initialRoute: RouteHelper.getSplashPage(),
+      getPages: RouteHelper.routes,
     );
   }
 }

@@ -1,11 +1,10 @@
-import 'package:billy_application/config/config.dart';
-import 'package:billy_application/controllers/bannercontroller.dart';
-import 'package:billy_application/controllers/cuisines_controller.dart';
+import 'package:billy_application/utils/app_constants.dart';
 import 'package:billy_application/models/banner_model.dart';
+import 'package:billy_application/controllers/banner_controller.dart';
+import 'package:billy_application/controllers/cuisines_controller.dart';
 import 'package:billy_application/utils/colors.dart';
+import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/big_text.dart';
-import 'package:billy_application/widgets/dimensions.dart';
-import 'package:billy_application/widgets/small_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,8 +35,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   void dispose() {
-    super.dispose();
     pageController.dispose();
+    super.dispose();
   }
 
   @override

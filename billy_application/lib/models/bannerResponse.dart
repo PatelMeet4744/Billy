@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:billy_application/config/config.dart';
+import 'package:billy_application/utils/app_constants.dart';
 
 BannerResponse bannerResponseJson(String str) =>
     BannerResponse.fromJson(json.decode(str));

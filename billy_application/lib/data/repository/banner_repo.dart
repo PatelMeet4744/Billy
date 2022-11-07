@@ -1,4 +1,4 @@
-import 'package:billy_application/config/config.dart';
+import 'package:billy_application/utils/app_constants.dart';
 import 'package:billy_application/data/api/api_client.dart';
 import 'package:get/get.dart';
 

@@ -1,5 +1,5 @@
 import 'package:billy_application/api/api_service.dart';
-import 'package:billy_application/config/config.dart';
+import 'package:billy_application/utils/app_constants.dart';
 import 'package:billy_application/pages/login/otp_verify_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

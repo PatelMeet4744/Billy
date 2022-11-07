@@ -17,7 +17,7 @@ class _AccountState extends State<Account> {
   @override
   void initState() {
     super.initState();
-    checkLogin();
+    // checkLogin();
     Providers().getOnboardState().then((value) => setState(() {
           _info = value;
         }));

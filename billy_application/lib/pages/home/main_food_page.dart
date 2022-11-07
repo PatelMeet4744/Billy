@@ -1,7 +1,7 @@
 import 'package:billy_application/pages/home/food_page_body.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/widgets/big_text.dart';
-import 'package:billy_application/widgets/dimensions.dart';
+import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/small_text.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +15,8 @@ class MainFoodPage extends StatefulWidget {
 class _MainFoodPageState extends State<MainFoodPage> {
   @override
   Widget build(BuildContext context) {
-    print("current height is ${MediaQuery.of(context).size.height}");
-    print("current width is ${MediaQuery.of(context).size.width}");
+    // print("current height is ${MediaQuery.of(context).size.height}");
+    // print("current width is ${MediaQuery.of(context).size.width}");
     return Scaffold(
       body: Column(
         children: [

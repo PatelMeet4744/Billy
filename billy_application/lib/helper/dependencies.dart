@@ -1,5 +1,5 @@
-import 'package:billy_application/config/config.dart';
-import 'package:billy_application/controllers/bannercontroller.dart';
+import 'package:billy_application/utils/app_constants.dart';
+import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
 import 'package:billy_application/data/api/api_client.dart';
 import 'package:billy_application/data/repository/banner_repo.dart';
