@@ -1,6 +1,5 @@
 import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
-import 'package:billy_application/pages/splash/splash_page.dart';
 import 'package:billy_application/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,19 +36,20 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.find<BannerController>().getBannerList();
-    Get.find<CuisinesController>().getCuisinesList();
-
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Billy',
-      darkTheme: ThemeData(brightness: Brightness.dark),
-      theme: ThemeData(
-        primarySwatch: MaterialColor(0xfff6881f, color),
-      ),
-      // home: const SplashPage(),
-      initialRoute: RouteHelper.getSplashPage(),
-      getPages: RouteHelper.routes,
-    );
+    return GetBuilder<BannerController>(builder: (_) {
+      return GetBuilder<CuisinesController>(builder: (_) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Billy',
+          darkTheme: ThemeData(brightness: Brightness.dark),
+          theme: ThemeData(
+            primarySwatch: MaterialColor(0xfff6881f, color),
+          ),
+          // home: const SplashPage(),
+          initialRoute: RouteHelper.getSplashPage(),
+          getPages: RouteHelper.routes,
+        );
+      });
+    });
   }
 }
