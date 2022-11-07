@@ -5,8 +5,12 @@ import 'package:billy_application/data/api/api_client.dart';
 import 'package:billy_application/data/repository/banner_repo.dart';
 import 'package:billy_application/data/repository/cuisines_repo.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> init() async {
+  final sharedPreferences = await SharedPreferences.getInstance();
+
+  Get.lazyPut(() => sharedPreferences);
   //api client
   Get.lazyPut(() => ApiClient(appBaseUrl: Config.baseURL));
 
