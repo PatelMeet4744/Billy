@@ -34,13 +34,13 @@ async function loginAdmin({ adminEmailID, adminPassword }, callback) {
             delete admin.adminPassword;
             return callback(null, { admin, token });
         } else {
-            return callback({
+            return callback(null,{
                 message: "Invalid Password"
             });
         }
     }
     else {
-        return callback({
+        return callback(null,{
             message: "Invalid Email ID"
         });
     }
