@@ -1,5 +1,5 @@
 import 'package:billy_application/api/api_service.dart';
-import 'package:billy_application/config/config.dart';
+import 'package:billy_application/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';

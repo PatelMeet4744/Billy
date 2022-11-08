@@ -1,4 +1,4 @@
-import 'package:billy_application/config/config.dart';
+import 'package:billy_application/utils/app_constants.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'cuisines.freezed.dart';
