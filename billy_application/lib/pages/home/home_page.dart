@@ -1,5 +1,5 @@
+import 'package:billy_application/pages/account/account_page.dart';
 import 'package:billy_application/pages/home/main_food_page.dart';
-import 'package:billy_application/pages/setting/account.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         child: Text('Cart'),
       ),
     ),
-    const Account(),
+    const AccountPage(),
   ];
 
   @override
