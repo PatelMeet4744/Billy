@@ -1,7 +1,8 @@
 class Config {
   static const String appName = "Billy App";
-  static const String apiURL = "192.168.1.4:4000";
-  static const String imageURL = "http://192.168.1.4:4000";
+  static const String apiURL = "192.168.0.103:4000";
+  static const String baseURL = "http://192.168.0.103:4000/";
+  static const String imageURL = "http://192.168.0.103:4000";
   static const String cuisinesAPI = "api/customer/customer/cuisines";
   static const String customerAPI = "api/customer";
   static const String createOTPAPI = "api/createotp";

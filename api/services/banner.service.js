@@ -1,4 +1,5 @@
 const { banner } = require("../models/banner.model");
+const { MONGO_DB_CONFIG } = require("../config/app.config");
 
 //Create and Save Banner
 async function createBanner(params, callback) {

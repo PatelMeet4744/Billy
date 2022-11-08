@@ -1,66 +1,57 @@
-import 'dart:convert';
+class BannerModel {
+  String? _message;
+  late List<Data> _data;
+  List<Data> get data => _data;
 
-import 'package:billy_application/utils/app_constants.dart';
+  BannerModel({required message, required data}) {
+    _message = message;
+    _data = data;
+  }
 
-BannerResponse bannerResponseJson(String str) =>
-    BannerResponse.fromJson(json.decode(str));
-
-class BannerResponse {
-  late final String message;
-  List<Data>? data;
-
-  BannerResponse({
-    required this.message,
-    this.data,
-  });
-
-  BannerResponse.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
+  BannerModel.fromJson(Map<String, dynamic> json) {
+    _message = json['message'];
     if (json['data'] != null) {
-      data = <Data>[];
+      _data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['message'] = message;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
+    data['message'] = _message;
+    data['data'] = this.data.map((v) => v.toJson()).toList();
     return data;
   }
 }
 
 class Data {
-  late final Restaurant restaurant;
-  late final String bannerName;
-  late final String bannerImage;
-  late final bool bannerStatus;
-  late final int approvalStatus;
-  late final String createdAt;
-  late final String updatedAt;
-  late final String bannerId;
+  Restaurant? restaurant;
+  String? bannerName;
+  String? bannerImage;
+  bool? bannerStatus;
+  int? approvalStatus;
+  String? createdAt;
+  String? updatedAt;
+  String? bannerId;
 
-  Data({
-    required this.restaurant,
-    required this.bannerName,
-    required this.bannerImage,
-    required this.bannerStatus,
-    required this.approvalStatus,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.bannerId,
-  });
+  Data(
+      {this.restaurant,
+      this.bannerName,
+      this.bannerImage,
+      this.bannerStatus,
+      this.approvalStatus,
+      this.createdAt,
+      this.updatedAt,
+      this.bannerId});
 
   Data.fromJson(Map<String, dynamic> json) {
-    restaurant = (json['restaurant'] != null
+    restaurant = json['restaurant'] != null
         ? Restaurant.fromJson(json['restaurant'])
-        : null)!;
+        : null;
     bannerName = json['bannerName'];
-    bannerImage = Config.baseURL + json['bannerImage'];
+    bannerImage = json['bannerImage'];
     bannerStatus = json['bannerStatus'];
     approvalStatus = json['approvalStatus'];
     createdAt = json['createdAt'];
@@ -70,7 +61,9 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['restaurant'] = restaurant.toJson();
+    if (restaurant != null) {
+      data['restaurant'] = restaurant!.toJson();
+    }
     data['bannerName'] = bannerName;
     data['bannerImage'] = bannerImage;
     data['bannerStatus'] = bannerStatus;

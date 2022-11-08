@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:billy_application/config/config.dart';
+import 'package:billy_application/utils/app_constants.dart';
 import 'package:billy_application/models/bannerResponse.dart';
 import 'package:billy_application/models/createotp_response_model.dart';
 import 'package:billy_application/models/cuisines.dart';
