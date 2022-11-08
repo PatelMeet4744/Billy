@@ -1,3 +1,5 @@
+<div align="center">
+
 **BILLY**
 
 A project submitted to
@@ -42,39 +44,9 @@ Guided by
 
 **Bardoli – 394350**
 
-`	`**October 2022**
+`	`**November 2022**
 (201906100110032, 201906100110015)
-
-**CERTIFICATE**
-
-![](Resources/readme/Aspose.Words.29dbb199-cc49-4382-a527-5eeacf08e8a2.002.png)
-
-This is to certify that **CHOKSI ABHISHEK PREMALKUMAR (201906100110032) and PATEL MEET DHIRAJBHAI (201906100110015)** have submitted a project entitled “**BILLY”** as the partial fulfillment for the award of the degree of Master of Science in Information Technology for 5 Years Integrated M.Sc. (IT) in 2022– 2023. 
-
-
-**Date: 17-10-2022**
-
-**Place:** **Uka Tarsadia University**
-
-**Bardoli – 394350**
-
-
-
-
-**Ms. Jigna Solanky		                                                  Dr. Jitendra Nasriwala**
-
-Guide					                                                   Programme Coordinator
-
-
-**External Examiner**
-
-![](Resources/readme/Aspose.Words.29dbb199-cc49-4382-a527-5eeacf08e8a2.003.png)
-
-**Babu Madhav Institute of Information Technology,**
-
-**Uka Tarsadia University,**
-
-**Bardoli – 394350**
+</div>
 
 **Acknowledgment**
 
@@ -128,8 +100,6 @@ Last but not the least, I would also like to thank my colleagues, who give their
 ||||
 ||**Bibliography**|**30**|
 
-**
-
 **List of Figures**
 
 |**Figure no.**|**Figure Description**|**Page no.**|
@@ -171,21 +141,21 @@ In earlier days, all restaurants can use manual ways to store their data and rec
 |Req #6|The admin shall be able to manage the Customer.|
 |Req #7|The admin shall be able to manage the Help.|
 |Req #8|The admin shall be able to view all the customer orders.|
-|`  `Req #9|The admin shall be able to manage the questions.|
+|Req #9|The admin shall be able to manage the questions.|
 |Req #10|The admin shall be able to view the rating of a particular item or a restaurant.|
 |Req #11|The admin shall be able to manage complaints.|
 |Req #12|The admin shall be able to manage the referral amount.|
-|`  `Req #13|The partner shall be able to view orders details like (new orders, preparing orders, ready orders, and past orders)|
-|`  `Req #14|The partner shall be able to the manage category.|
-|`  `Req #15|The partner shall be able to the manage item.|
-|`  `Req #16|The partner shall be able to the manage added-on.|
-|`  `Req #17|The partner shall be able to the manage added extra.|
-|`  `Req #18|The partner shall be able to see their profile and also edit them.|
-|`  `Req #19|The partner shall be able to see menu history like (in-review, approved, canceled)|
-|`  `Req #20|The partner shall be able to manage the banner.|
-|`  `Req #21|The partner shall be able to manage the setting.|
-|`  `Req #22|The partner shall be able to communicate with Billy’s admin using Help.|
-|`  `Req #23|The partner shall be able to see all the customer reviews.|
+|Req #13|The partner shall be able to view orders details like (new orders, preparing orders, ready orders, and past orders)|
+|Req #14|The partner shall be able to the manage category.|
+|Req #15|The partner shall be able to the manage item.|
+|Req #16|The partner shall be able to the manage added-on.|
+|Req #17|The partner shall be able to the manage added extra.|
+|Req #18|The partner shall be able to see their profile and also edit them.|
+|Req #19|The partner shall be able to see menu history like (in-review, approved, canceled)|
+|Req #20|The partner shall be able to manage the banner.|
+|Req #21|The partner shall be able to manage the setting.|
+|Req #22|The partner shall be able to communicate with Billy’s admin using Help.|
+|Req #23|The partner shall be able to see all the customer reviews.|
 |Req #24|The partner shall be able to set the order status and also allocate the delivery boy.|
 |Req #25|The partner shall be able to View the matric(report).|
 |Req #26|The customer shall be able to view the cuisines and select the cuisines on the home page.|
@@ -353,6 +323,7 @@ The developer gains experience and insight by developing prototyping thereby res
 |**FR4**|<p>To manage this module, the Partner will be able to perform the following operations:</p><p>- Add new Item</p><p>- Update an existing Item</p>|<p>Add Item Page </p><p>Update Item Page</p>|
 |**FR5**|<p>To manage this module, the Partner will be able to perform the following operations:</p><p>- Active/De-active Item</p><p>- View/Search Item</p>|View/Search and Active/Deactivate Item Page|
 |**FR6**|<p>The customer will be able to:</p><p>- View/Search Item (Filter wise)</p>|Customer View Item Page|
+
 4.1.8.	Functional Requirement for Manage Variant
 
 |**RN**|**Description**|**Comments**|
@@ -393,6 +364,7 @@ The developer gains experience and insight by developing prototyping thereby res
 |**FR2**|The system will assign a unique id (wish list ID) to each wish list customer id and item id.|Add Wishlist Page|
 |**FR3**|The customer can add there like item in wish list.|Add Wishlist Page|
 |**FR4**|<p>To manage this module, the customer will be able to perform the following operations:</p><p>- Add new wish list</p><p>- View/Search wish list</p><p>- Delete wish list</p>|<p>Add Wishlist Page</p><p>View/Search Wishlist Page</p><p>Delete Wishlist Page</p>|
+
 4.1.12. Functional requirement for Manage Cart
 
 |**RN**|**Description**|**Comments**|
@@ -489,8 +461,6 @@ The developer gains experience and insight by developing prototyping thereby res
 |**FR3**|<p>Whenever the admin updates the Referral, the admin is allowed to record the following details of the Referral Like...</p><p>Referral Amount</p>|Add Referral Page|
 |**FR4**|<p>To manage this module, the partner will be able to perform the following operations:</p><p>- Add new Referral</p><p>- Update an existing Referral</p>|<p>Add Referral Page</p><p>Update Referral Page</p>|
 
-**
-
 **4.2 Non-Functional Requirement**
 
 |**RN**|**Description**|**Comments**|
@@ -522,8 +492,6 @@ The developer gains experience and insight by developing prototyping thereby res
 5.1.4 Use Case Diagram for Billy Delivery Boy
 
 ![](Resources/readme/Aspose.Words.29dbb199-cc49-4382-a527-5eeacf08e8a2.008.png)
-**
-
 
 **5.2 Activity Diagram**
 
@@ -544,8 +512,6 @@ The developer gains experience and insight by developing prototyping thereby res
 3. Activity Diagram for Change Password
 
 ![](Resources/readme/Aspose.Words.29dbb199-cc49-4382-a527-5eeacf08e8a2.012.png)
-**
-
 
 **6. System Design**
 
@@ -559,13 +525,13 @@ admin (ID[PK], Name, Username, Password, Email, createdAt, updatedAt)
 
 FD: ID-> {Name, Username, Password, Email, createdAt, updatedAt}
 
-1. **Cuisines Table** 
+2. **Cuisines Table** 
 
 cuisines (ID[PK], Name, Image, Description, Banner, Status, createdAt, updatedAt)
 
-` `FD: ID-> {Name, Image, Description, Banner, Status, createdAt, updatedAt}
+FD: ID-> {Name, Image, Description, Banner, Status, createdAt, updatedAt}
 
-1. **Restaurant Table**
+3. **Restaurant Table**
 
 restaurant (ID[PK], Restaurant Name, Restaurant Image, Restaurant Address, Restaurant City, Restaurant Contact No., Owner Name, Owner Contact No., Owner Email ID, Owner Password, Restaurant Documents, Restaurant Timing, cuisines [FK], Status, createdAt, updatedAt)
 
@@ -575,13 +541,13 @@ FD: Documents-> {GST Certificate, FSSAI Certificate, Sample Bill, Sample Menu, O
 
 FD: Restaurant Timing-> {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday}
 
-1. **Added-On Table**
+4. **Added-On Table**
 
 addedon (ID[PK], restaurant [FK], Name, Type, Price, Additional Price, Final Price, Approval Status, Status, createdAt, updatedAt)
 
 FD: ID-> {restaurant [FK], Name, Type, Price, Additional Price, Final Price, Approval Status, Status, createdAt, updatedAt}
 
-1. **Add Extra Table**
+5. **Add Extra Table**
 
 addextra (ID[PK], restaurant [FK], Name, Type, Price, Additional Price, Final Price, Approval Status, Status, createdAt, updatedAt)
 
@@ -589,129 +555,125 @@ FD: ID-> {restaurant [FK], Name, Type, Price, Additional Price, Final Price, App
 **
 
 
-1. **Category Table**
+6. **Category Table**
 
 category (ID[PK], restaurant [FK], Name, Approval Status, Status, createdAt, updatedAt)
 
 FD: ID-> {restaurant [FK], Name, Approval Status, Status, createdAt, updatedAt}
 
-1. **Item Added-On Table**
+7. **Item Added-On Table**
 
 itemaddedon (ID[PK], title, Customer Selection, addedon [FK], createdAt, updatedAt)
 
 FD: ID-> {title, Customer Selection, addedon [FK], createdAt, updatedAt}
 
-1. **Item Add Extra Table**
+8. **Item Add Extra Table**
 
 itemaddextra (ID[PK], title, Customer Selection, addextra [FK], createdAt, updatedAt)
 
 FD: ID-> {title, Customer Selection, addextra [FK], createdAt, updatedAt}
 
-1. **Variant Table**
+9. **Variant Table**
 
 variant (ID[PK], Name, UOM, Price, Sales Price, Status, createdAt, updatedAt)
 
 FD:ID -> {Name, UOM, Price, Sales Price, Status, createdAt, updatedAt}
 
-1. **Item Table**
+10. **Item Table**
 
 item (ID[PK], restaurant [FK], category [FK], variant [FK], Name, Type, Description, itemaddedon [FK], itemaddextra [FK], Image, Approval Status, Status, createdAt, updatedAt)
 
 FD: ID-> {restaurant [FK], category [FK], variant [FK], Name, Type, Description, itemaddedon [FK], itemaddextra [FK], Image, Approval Status, Status, createdAt, updatedAt}
 
-1. **Banner Table**
+11. **Banner Table**
 
 banner (ID[PK], restaurant [FK], Name, Image, Approval Status, Status, createdAt, updatedAt)
 
 FD: ID-> {restaurant [FK], Name, Image, Approval Status, Status, createdAt, updatedAt}
 
-1. **Delivery Boy Table** 
+12. **Delivery Boy Table** 
 
 deliveryboy (ID[PK], Name, Mobile, Password, Status, Added on)
 
 FD: ID-> {Name, Mobile, Password, Status, Added on}
 
-1. **Coupon Code Table**
+13. **Coupon Code Table**
 
 couponcode (ID[PK], Coupon code, Coupon type, Coupon value, Cart min value, Expired on, Status, createdAt, updatedAt)
 
 FD: ID-> {Coupon code, Coupon type, Coupon value, Cart min value, Expired on, Status, createdAt, updatedAt}
 
-1. **Billing Address Table**
+14. **Billing Address Table**
 
 billingaddress (ID[PK], Title, Address, Country, State, City, Pin Code, createdAt, updatedAt)
 
 FD: ID-> {Title, Address, Country, State, City, Pin Code, createdAt, updatedAt}
 
-1. **Customer Table**
+15. **Customer Table**
 
 customer (ID[PK], Name, Email ID, Password, Contact No., Billing Address [FK], Email Verify, Random String, Referral Code, From Referral Code, Status, createdAt, updatedAt)
 
 FD: ID-> {Name, Email ID, Password, Contact No., Billing Address [FK], Email Verify, Random String, Referral Code, From Referral Code, Status, createdAt, updatedAt}
 
-1. **Wishlist Table**
+16. **Wishlist Table**
 
 wishlist (ID[PK], customer [FK], item [FK], addedon [FK], addextra [FK], createdAt, updatedAt)
 
 FD: ID-> {customer [FK], item [FK], createdAt, updatedAt}
 
-1. **Cart Table**
+17. **Cart Table**
 
 cart (ID[PK], customer [FK], item [FK], Qty, createdAt, updatedAt)
 
 FD: ID-> {customer [FK], item [FK], addedon [FK], addextra [FK], Qty, createdAt, updatedAt}
 
-1. **Order Table**
+18. **Order Table**
 
 Order (ID[PK], customer [FK], Billing Address [FK], Price, Coupon Code [FK], Total Price, Delivery Boy [FK], Payment Status, Payment Type, Payment ID, Order Status, Cancel By, Cancel At, Delivered On, Refund Status, item [FK], Qty, createdAt, updatedAt)
 
 FD: ID-> {customer [FK], Billing Address [FK], Price, Coupon Code [FK], Total Price, Delivery Boy [FK], Payment Status, Payment Type, Payment ID, Order Status, Cancel By, Cancel At, Delivered On, Refund Status, item [FK], addedon [FK], addextra [FK], Qty, createdAt, updatedAt}
 
-1. **Get Touch Table**
+19. **Get Touch Table**
 
 gettouch (ID [PK], restaurant [FK], Subject, Message, Status, createdAt, updatedAt)
 
 FD: ID-> {restaurant [FK], Subject, Message, Status, createdAt, updatedAt}
-**
 
-
-1. **Setting Table (For Partner)**
+20. **Setting Table (For Partner)**
 
 setting (ID [PK], Cart Min Price, Cart Min Price Message, Delivery charge, GST, createdAt, updatedAt)
 
 FD: ID-> {Cart Min Price, Cart Min Price Message, Delivery charge, GST, createdAt, updatedAt}
 
-1. **Question Table**
+21. **Question Table**
 
 Question (ID[PK], Question, createdAt, updatedAt)
 
 FD: ID-> {question, createdAt, updatedAt}
 
-1. **Complain Table**
+22. **Complain Table**
 
 complain (ID[PK], customer [FK], order [FK], question [FK], Message, Status, createdAt, updatedAt,)
 
 FD: ID-> {customer [FK], order [FK], question [FK], Message, Status, createdAt, updatedAt}
 
-1. **Referral Amount Table**
+23. **Referral Amount Table**
 
 referral (ID[PK], Referral Amount, createdAt, updatedAt) 
 
 FD: ID-> {Referral Amount, createdAt, updatedAt)
 
-1. **Review Table**
+24. **Review Table**
 
 review (ID[PK], customer [FK], order [FK], item [FK], ratting, comment, createdAt, updatedAt)
 
 FD: ID-> {customer [FK], order [FK], item [FK], ratting, comment, createdAt, updatedAt}
 
-1. **Wallet Table** 
+25. **Wallet Table** 
 
 wallet (ID[PK], customer [FK], amount, message, type, payment id, createdAt, updatedAt)
 
 FD: ID-> {customer [FK], amount, message, type, payment id, createdAt, updatedAt}
-**
-
 
 **Future Enhancement**
 
@@ -737,4 +699,3 @@ A billy is proposed, useful in small family-run restaurants. This also helps res
   - [How To Order Food From Swiggy App | Swiggy App Se Khana Order Kaise Karen | GagTech](https://youtu.be/AOHrEPHy6Hw)
   - [React and node js project in Hindi (MERN stack)](https://youtube.com/playlist?list=PL8p2I9GklV45Oiq7svCLT2xmOoCogUgrO)
   - [Getting Started with MERN Stack Application](https://youtube.com/playlist?list=PLynWqC6VC9KMJ7ffdoGM3LjnYlJPK4kiR)
-1 **|** Page		(201906100110032, 201906100110015)
