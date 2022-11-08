@@ -44,8 +44,7 @@ Guided by
 
 **Bardoli – 394350**
 
-`	`**November 2022**
-(201906100110032, 201906100110015)
+**November 2022**
 </div>
 
 **Acknowledgment**
