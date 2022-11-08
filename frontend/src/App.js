@@ -4,6 +4,7 @@ import './App.css';
 import Registration from './component/pages/partner/Registration';
 import AttachDocument from './component/pages/partner/AttachDocument';
 import PageNotFound from './component/layout/notfound/notfound';
+import AdminLogin from './component/pages/Login';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/Resturant/Registration" element={<Registration/>}></Route>
       <Route path="/Resturant/AttachDocument" element={<AttachDocument/>}></Route>
       <Route path="*" element={<PageNotFound/>}/>
+      <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>
       </Router> 
   );
