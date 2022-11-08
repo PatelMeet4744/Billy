@@ -27,56 +27,54 @@ class _MainFoodPageState extends State<MainFoodPage> {
     // print("current width is ${MediaQuery.of(context).size.width}");
     return RefreshIndicator(
       onRefresh: _loadResources,
-      child: Material(
-        child: Column(
-          children: [
-            // showing the header
-            Container(
-              margin: EdgeInsets.only(
-                  top: Dimensions.height45, bottom: Dimensions.height15),
-              padding: EdgeInsets.only(
-                  left: Dimensions.width20, right: Dimensions.width20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      BigText(text: "Gujarat", color: AppColors.mainColor),
-                      Row(
-                        children: [
-                          SmallText(text: "Bardoli", color: Colors.black54),
-                          const Icon(Icons.arrow_drop_down_rounded)
-                        ],
-                      )
-                    ],
-                  ),
-                  Center(
-                    child: Container(
-                      width: Dimensions.width45,
-                      height: Dimensions.height45,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: AppColors.mainColor,
-                      ),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: Dimensions.iconSize24,
-                      ),
+      child: Column(
+        children: [
+          // showing the header
+          Container(
+            margin: EdgeInsets.only(
+                top: Dimensions.height45, bottom: Dimensions.height15),
+            padding: EdgeInsets.only(
+                left: Dimensions.width20, right: Dimensions.width20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    BigText(text: "Gujarat", color: AppColors.mainColor),
+                    Row(
+                      children: [
+                        SmallText(text: "Bardoli", color: Colors.black54),
+                        const Icon(Icons.arrow_drop_down_rounded)
+                      ],
+                    )
+                  ],
+                ),
+                Center(
+                  child: Container(
+                    width: Dimensions.width45,
+                    height: Dimensions.height45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: AppColors.mainColor,
+                    ),
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                      size: Dimensions.iconSize24,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            // showing the body
-            const Expanded(
-              child: SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
-                child: FoodPageBody(),
-              ),
+          ),
+          // showing the body
+          const Expanded(
+            child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              child: FoodPageBody(),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -12,6 +12,7 @@ class Dimensions {
 
   //dynamic height padding and margin
   static double height2 = screenHeight / 390.55;
+  static double height5 = screenHeight / 156.22;
   static double height10 = screenHeight / 78.11;
   static double height15 = screenHeight / 52.07;
   static double height20 = screenHeight / 39.05;
@@ -37,11 +38,16 @@ class Dimensions {
 
   //dynamic font size
   static double font12 = screenHeight / 65.09;
+  static double font14 = screenHeight / 55.79;
+  static double font15 = screenHeight / 52.07;
   static double font16 = screenHeight / 48.82;
   static double font20 = screenHeight / 39.05;
+  static double font24 = screenHeight / 32.55;
   static double font26 = screenHeight / 30.04;
+  static double font30 = screenHeight / 26.04;
 
   //dynamic icon size
   static double iconSize16 = screenHeight / 48.82;
   static double iconSize24 = screenHeight / 32.55;
+  static double iconSize75 = screenHeight / 10.41;
 }
