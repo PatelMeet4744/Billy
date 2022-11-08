@@ -1,6 +1,5 @@
 import 'package:billy_application/pages/login/otp_login_page.dart';
 import 'package:billy_application/pages/onboard/content_model.dart';
-import 'package:billy_application/pages/layout/navbar.dart';
 import 'package:billy_application/utils/shared_service.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +29,7 @@ class _OnboardingState extends State<Onboarding> {
     if (result) {
       // ignore: use_build_context_synchronously
       await SharedService.checkExpiredToken(context, result);
-      _defaultHome = const Navbar();
+      // _defaultHome = const Navbar();
     }
   }
 

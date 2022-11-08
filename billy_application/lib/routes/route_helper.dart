@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:billy_application/pages/home/home_page.dart';
 import 'package:billy_application/pages/home/main_food_page.dart';
 import 'package:billy_application/pages/login/otp_login_page.dart';
 import 'package:billy_application/pages/register/register_page.dart';
@@ -19,7 +20,7 @@ class RouteHelper {
 
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashPage()),
-    GetPage(name: initial, page: () => MainFoodPage()),
+    GetPage(name: initial, page: () => HomePage()),
     GetPage(name: register, page: () => RegisterPage()),
     GetPage(name: login, page: () => LoginPage()),
   ];
