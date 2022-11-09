@@ -23,7 +23,8 @@ class AccountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+      padding:
+          EdgeInsets.only(left: Dimensions.width5, right: Dimensions.width5),
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
           blurRadius: 1,
@@ -38,7 +39,7 @@ class AccountWidget extends StatelessWidget {
         },
         title: BigText(
           text: optionTitle,
-          size: Dimensions.font20,
+          size: Dimensions.font18,
         ),
         // title: Text(
         //   optionTitle,
