@@ -25,24 +25,27 @@ class AccountPage extends StatelessWidget {
       body: Container(
         width: double.maxFinite,
         margin: EdgeInsets.only(top: Dimensions.height20),
-        child: Column(
-          children: [
-            // profile icon
-            AppIcon(
-              // icon: LineIcons.user,
-              icon: Icons.person,
-              backgroundColor: AppColors.mainColor,
-              iconColor: Colors.white,
-              iconSize: Dimensions.iconSize75,
-              size: Dimensions.height150,
-            ),
-            SizedBox(
-              height: Dimensions.height10,
-            ),
-            // Option List
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
+        child: Expanded(
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // profile icon
+                AppIcon(
+                  // icon: LineIcons.user,
+                  icon: Icons.person,
+                  backgroundColor: AppColors.mainColor,
+                  iconColor: Colors.white,
+                  iconSize: Dimensions.height121 / 2,
+                  size: Dimensions.height121,
+                ),
+                SizedBox(
+                  height: Dimensions.height10,
+                ),
+                // Option List
+                Column(
                   children: [
                     // Option 1
                     AccountWidget(
@@ -62,10 +65,10 @@ class AccountPage extends StatelessWidget {
                     ),
                     // Option 2
                     AccountWidget(
-                      optionTitle: "Edit Profile",
-                      optionSubTitle: "Update your profile",
+                      optionTitle: "Coupons",
+                      optionSubTitle: "Discounts And Gifts",
                       optionIcon: AppIcon(
-                        icon: LineIcons.userEdit,
+                        icon: LineIcons.gift,
                         iconSize: Dimensions.height45 / 2,
                         size: Dimensions.height45,
                         backgroundColor: AppColors.mainColor,
@@ -80,15 +83,15 @@ class AccountPage extends StatelessWidget {
                     ),
                     // Option 3
                     AccountWidget(
-                      optionTitle: "Fill in your address",
-                      optionSubTitle: "change your address",
+                      optionTitle: "Edit Profile",
+                      optionSubTitle: "Update your profile",
                       optionIcon: AppIcon(
-                        icon: LineIcons.mapMarked,
+                        icon: LineIcons.userEdit,
                         iconSize: Dimensions.height45 / 2,
                         size: Dimensions.height45,
                       ),
                       optiononTap: () => {
-                        Get.offNamed(RouteHelper.splashPage),
+                        // Get.offNamed(RouteHelper.splashPage),
                       },
                     ),
                     SizedBox(
@@ -96,10 +99,10 @@ class AccountPage extends StatelessWidget {
                     ),
                     // Option 4
                     AccountWidget(
-                      optionTitle: "Reviews",
-                      optionSubTitle: "Review on order",
+                      optionTitle: "Save Addresses",
+                      optionSubTitle: "change your address",
                       optionIcon: AppIcon(
-                        icon: Icons.reviews,
+                        icon: LineIcons.mapMarked,
                         iconSize: Dimensions.height45 / 2,
                         size: Dimensions.height45,
                         backgroundColor: AppColors.mainColor,
@@ -130,7 +133,41 @@ class AccountPage extends StatelessWidget {
                     ),
                     // Option 6
                     AccountWidget(
-                      optionTitle: "Refer and Earn",
+                      optionTitle: "Select Language",
+                      optionSubTitle: "Localization Support",
+                      optionIcon: AppIcon(
+                        icon: LineIcons.language,
+                        iconSize: Dimensions.height45 / 2,
+                        size: Dimensions.height45,
+                        backgroundColor: AppColors.mainColor,
+                        iconColor: Colors.white,
+                      ),
+                      optiononTap: () => {
+                        // Get.offNamed(RouteHelper.splashPage),
+                      },
+                    ),
+                    SizedBox(
+                      height: Dimensions.height10,
+                    ),
+                    // Option 7
+                    AccountWidget(
+                      optionTitle: "Reviews",
+                      optionSubTitle: "Review on order",
+                      optionIcon: AppIcon(
+                        icon: Icons.reviews,
+                        iconSize: Dimensions.height45 / 2,
+                        size: Dimensions.height45,
+                      ),
+                      optiononTap: () => {
+                        Get.offNamed(RouteHelper.splashPage),
+                      },
+                    ),
+                    SizedBox(
+                      height: Dimensions.height10,
+                    ),
+                    // Option 8
+                    AccountWidget(
+                      optionTitle: "Refer & Earn",
                       optionSubTitle:
                           "Refer the apps to your friends or family members",
                       optionIcon: AppIcon(
@@ -147,7 +184,7 @@ class AccountPage extends StatelessWidget {
                     SizedBox(
                       height: Dimensions.height10,
                     ),
-                    // Option 7
+                    // Option 9
                     AccountWidget(
                       optionTitle: "Setting",
                       optionSubTitle: "Change billy setting",
@@ -163,8 +200,7 @@ class AccountPage extends StatelessWidget {
                     SizedBox(
                       height: Dimensions.height10,
                     ),
-
-                    // Option 8
+                    // Option 10
                     AccountWidget(
                       optionTitle: "Terms and Conditions",
                       optionSubTitle: "Rewords on your Wallet",
@@ -180,13 +216,13 @@ class AccountPage extends StatelessWidget {
                       },
                     ),
                     SizedBox(
-                      height: Dimensions.height20,
+                      height: Dimensions.height10,
                     ),
                   ],
                 ),
-              ),
-            )
-          ],
+              ],
+            ),
+          ),
         ),
       ),
     );
