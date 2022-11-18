@@ -29,7 +29,7 @@ async function createCustomer(params, callback, req, res) {
     const model = new customer(params);
     model.save()
         .then((response) => {
-            return callback(null, response);
+            return callback(null, { message: "Customer Registration is done successfully!" });
         })
         .catch((error) => {
             return callback(error);
