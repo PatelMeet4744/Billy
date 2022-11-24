@@ -110,15 +110,15 @@ async function updateCustomerStatus({ customerId, customerStatus }, callback) {
         });
 }
 
-async function loginCustomer({ customerEmailID, customerPassword }, callback) {
-    const customerModel = await customer.findOne({ customerEmailID }, { customerName: 1, customerPassword: 1 });
+async function loginCustomer({ customerContact, customerPassword }, callback) {
+    const customerModel = await customer.findOne({ customerContact }, { customerName: 1, customerPassword: 1 });
     // console.log(customerModel);
     if (customerModel != null) {
         if (bcrypt.compareSync(customerPassword, customerModel.customerPassword)) {
             const token = auth.generateAccessToken(customerModel.toJSON());
             let customer = { ...customerModel.toJSON() }
             delete customer.customerPassword;
-            return callback(null, { customer, token });
+            return callback(null, customer, token);
         } else {
             return callback({
                 message: "Invalid Password"

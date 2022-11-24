@@ -13,10 +13,10 @@ class AppFormHelper {
     String initialValue = "",
     obscureText = false,
     Widget? suffixIcon,
-    Color borderColor = const Color(0xFFF6881F),
-    Color borderFocusColor = const Color(0xFFF6881F),
-    // Color borderColor = Colors.white,
-    // Color borderFocusColor = Colors.white,
+    // Color borderColor = const Color(0xFFF6881F),
+    // Color borderFocusColor = const Color(0xFFF6881F),
+    Color borderColor = Colors.white,
+    Color borderFocusColor = Colors.white,
     double focusedBorderWidth = 1.0,
     double enabledBorderWidth = 1.0,
     required IconData prefixIcon,
@@ -32,18 +32,18 @@ class AppFormHelper {
         left: Dimensions.width20,
         right: Dimensions.width20,
       ),
-      // decoration: BoxDecoration(
-      //   color: Colors.white,
-      //   borderRadius: BorderRadius.circular(Dimensions.radius30),
-      //   boxShadow: [
-      //     BoxShadow(
-      //       blurRadius: 10,
-      //       spreadRadius: 7,
-      //       offset: const Offset(1, 10),
-      //       color: Colors.grey.withOpacity(0.2),
-      //     ),
-      //   ],
-      // ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(Dimensions.radius15),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 3,
+            spreadRadius: 1,
+            offset: const Offset(1, 1),
+            color: Colors.grey.withOpacity(0.2),
+          ),
+        ],
+      ),
       child: TextFormField(
         initialValue: initialValue,
         key: Key(initialValue.toString()),
@@ -68,7 +68,7 @@ class AppFormHelper {
             // fontWeight: FontWeight.bold,
             fontSize: Dimensions.font12,
           ),
-          // errorBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
           // focusedErrorBorder: InputBorder.none,
           // hintText
           hintText: hintText,
@@ -81,7 +81,7 @@ class AppFormHelper {
           // focusedBorder
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(
-              Dimensions.radius30,
+              Dimensions.radius15,
             ),
             borderSide: BorderSide(
               width: focusedBorderWidth,
@@ -90,7 +90,7 @@ class AppFormHelper {
           ),
           // enabledBorder
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(Dimensions.radius30),
+            borderRadius: BorderRadius.circular(Dimensions.radius15),
             borderSide: BorderSide(
               width: enabledBorderWidth,
               color: borderColor,
@@ -99,7 +99,7 @@ class AppFormHelper {
           // border
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(
-              Dimensions.radius30,
+              Dimensions.radius15,
             ),
           ),
         ),

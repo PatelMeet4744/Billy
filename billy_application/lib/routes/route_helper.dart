@@ -20,7 +20,11 @@ class RouteHelper {
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashPage()),
     GetPage(name: initial, page: () => HomePage()),
-    GetPage(name: register, page: () => SignUpPage()),
+    GetPage(
+      name: register,
+      page: () => SignUpPage(),
+      transition: Transition.leftToRight,
+    ),
     GetPage(name: login, page: () => SignInPage()),
   ];
 }

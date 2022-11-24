@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
@@ -11,6 +12,7 @@ class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SplashPageState createState() => _SplashPageState();
 }
 
@@ -27,13 +29,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _loadResources();
-    // checkLogin();
-    // controller =
-    //     AnimationController(vsync: this, duration: const Duration(seconds: 2))
-    //       ..forward();
-    // animation = CurvedAnimation(parent: controller, curve: Curves.linear);
-    Timer(const Duration(seconds: 4),
-        () => Get.offNamed(RouteHelper.getInitial()));
+    Timer(const Duration(seconds: 4), () {
+      if (Get.find<AuthController>().userLoggedIn()) {
+        Get.offNamed(RouteHelper.getInitial());
+      } else {
+        Get.offNamed(RouteHelper.getLogin());
+      }
+    });
   }
 
   @override
@@ -49,24 +51,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
         ),
       ),
     );
-    /*
-    return Scaffold(
-      backgroundColor: AppColors.mainColor,
-      body: ScaleTransition(
-        scale: animation,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fitHeight,
-              image: ExactAssetImage("assets/image/splashscreen.png"),
-            ),
-          ),
-        ),
-      ),
-    );
-    */
   }
 
   @override

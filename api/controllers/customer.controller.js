@@ -24,6 +24,23 @@ exports.create = (req, res, next) => {
     });
 }
 
+// Login Customer
+exports.login = (req, res, next) => {
+    const { customerContact, customerPassword } = req.body;
+
+    customerService.loginCustomer({ customerContact, customerPassword }, (error, results, token) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            customer: results,
+            token: token
+        });
+    });
+}
+
 // Find a single Customer with an id
 exports.findOne = (req, res, next) => {
     const customerId = req.params.id;
@@ -111,22 +128,6 @@ exports.updateStatus = (req, res, next) => {
                 data: results,
             });
         }
-    });
-}
-
-// Login Customer
-exports.login = (req, res, next) => {
-    const { customerEmailID, customerPassword } = req.body;
-
-    customerService.loginCustomer({ customerEmailID, customerPassword }, (error, results) => {
-        if (error) {
-            return next(error);
-        }
-
-        return res.status(200).send({
-            message: "Success",
-            data: results
-        });
     });
 }
 

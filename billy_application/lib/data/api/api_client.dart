@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/utils/app_constants.dart';
 import 'package:get/get.dart';
 
@@ -23,8 +26,15 @@ class ApiClient extends GetConnect implements GetxService {
     };
   }
 
+  void userLoggedIn() {
+    if (Get.find<AuthController>().userLoggedIn()) {
+      updateHeader(Get.find<AuthController>().getUserToken());
+    }
+  }
+
   Future<Response> getData(String uri) async {
     try {
+      userLoggedIn();
       Response response = await get(uri, headers: mainHeaders);
       return response;
     } catch (e) {
