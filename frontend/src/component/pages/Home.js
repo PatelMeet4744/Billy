@@ -1,10 +1,12 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
+import Sidebar from '../layout/Sidebar1';
 
 const Home = () => {
     return (
         <div className="row">
+        <Sidebar/>
                 <div className="col-lg-8 mx-auto">
                     <div className="auth-form-light text-left" style={{ padding: '10% 10% 10% 10%' }}>
                         <div className="brand-logo">

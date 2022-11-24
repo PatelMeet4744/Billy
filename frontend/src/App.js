@@ -6,6 +6,7 @@ import AttachDocument from './component/pages/partner/AttachDocument';
 import PageNotFound from './component/layout/notfound/notfound';
 import AdminLogin from './component/pages/Login';
 import Home from "./component/pages/Home";
+import AdminMaster from "./component/AdminMaster";
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
       <Route path="/Resturant/AttachDocument" element={<AttachDocument/>}></Route>
       <Route path="*" element={<PageNotFound/>}/>
       <Route path="/admin/login" element={<AdminLogin />} />
+
+
+      <Route exact path="/admin/dashboard" element={<AdminMaster name="dashboard"/>} />
       </Routes>
       </Router> 
   );
