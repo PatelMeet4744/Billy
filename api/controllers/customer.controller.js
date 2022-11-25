@@ -159,22 +159,23 @@ exports.createOTP = (req, res, next) => {
         }
 
         return res.status(200).send({
-            message: "Success",
-            data: results
+            status: true,
+            fullhash: results
         });
     });
 }
 
 // Verify OTP
 exports.verifyOTP = (req, res, next) => {
-    customerService.verifyOTP(req.body, (error, results) => {
+    customerService.verifyOTP(req.body, (error, results, token) => {
         if (error) {
             return next(error);
         }
 
         return res.status(200).send({
-            message: "Success",
-            data: results
+            status: true,
+            customer: results,
+            token: token
         });
     });
 }
