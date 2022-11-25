@@ -110,15 +110,15 @@ async function updateCustomerStatus({ customerId, customerStatus }, callback) {
         });
 }
 
-async function loginCustomer({ customerEmailID, customerPassword }, callback) {
-    const customerModel = await customer.findOne({ customerEmailID }, { customerName: 1, customerPassword: 1 });
+async function loginCustomer({ customerContact, customerPassword }, callback) {
+    const customerModel = await customer.findOne({ customerContact }, { customerName: 1, customerPassword: 1 });
     // console.log(customerModel);
     if (customerModel != null) {
         if (bcrypt.compareSync(customerPassword, customerModel.customerPassword)) {
             const token = auth.generateAccessToken(customerModel.toJSON());
             let customer = { ...customerModel.toJSON() }
             delete customer.customerPassword;
-            return callback(null, { customer, token });
+            return callback(null, customer, token);
         } else {
             return callback({
                 message: "Invalid Password"
@@ -206,20 +206,20 @@ async function createOTP(params, callback) {
 
 async function verifyOTP(params, callback) {
     try {
-        const customerModel = await customer.findOne({ customerContact: params.customerContact }, { billingAddress: 0, customerEmailVerify: 0, customerPassword: 0 });
+        const customerModel = await customer.findOne({ customerContact: params.customerContact }, { customerName: 1, customerPassword: 1 });
         // Token Generate Logic
         const token = auth.generateAccessToken(customerModel.toJSON());
+        let customerJson = { ...customerModel.toJSON() }
+        delete customerJson.customerPassword;
 
         let [hashValue, expires] = params.hash.split('.');
-
         let now = Date.now();
         if (now > parseInt(expires)) return callback({ name: "UnauthorizedOTP", message: "OTP Expired" }, "");
 
         let data = `${params.customerContact}.${params.otp}.${expires}`;
         let newCalculateHash = crypto.createHmac("sha256", key).update(data).digest("hex");
-        var temp = customerModel.toJSON();
-        temp['token'] = token
-        if (newCalculateHash === hashValue) return callback(null, temp);
+
+        if (newCalculateHash === hashValue) return callback(null, customerJson, token);
 
         return callback({ name: "UnauthorizedOTP", message: "Invalid OTP" }, "");
     } catch (error) {

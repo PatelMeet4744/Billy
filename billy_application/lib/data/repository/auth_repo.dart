@@ -17,9 +17,54 @@ class AuthRepo {
     return await apiClient.postData(Config.customerAPI, signUpBody.toJson());
   }
 
-  saveUserToken(String token) async {
-    apiClient.token = token;
-    apiClient.updateHeader(token);
-    return await sharedPreferences.setString(Config.token, token);
+  bool userLoggedIn() {
+    return sharedPreferences.containsKey(Config.token);
+  }
+
+  String getUserToken() {
+    return sharedPreferences.getString(Config.token) ?? "";
+  }
+
+  Future<Response> login(
+      String customerContact, String customerPassword) async {
+    return await apiClient.postData(Config.loginAPI, {
+      "customerContact": int.parse(customerContact),
+      "customerPassword": customerPassword
+    });
+  }
+
+  Future<Response> createOTPLogin(String customerContact) async {
+    return await apiClient.postData(
+      Config.createOTPAPI,
+      {
+        "customerContact": int.parse(customerContact),
+      },
+    );
+  }
+
+  Future<Response> verifyOTPLogin(
+      String customerContact, String otp, String hash) async {
+    return await apiClient.postData(Config.verifyOTPAPI, {
+      "customerContact": int.parse(customerContact),
+      "otp": otp,
+      "hash": hash,
+    });
+  }
+
+  Future<void> saveUser(
+    String token,
+    String customerName,
+    String customerId,
+  ) async {
+    try {
+      apiClient.token = token;
+      apiClient.updateHeader(token);
+      await sharedPreferences.setString(Config.token, token);
+      // await sharedPreferences.setString(Config.customerName, customerName);
+      // await sharedPreferences.setString(Config.customerId, customerId);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e.toString());
+    }
   }
 }

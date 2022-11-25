@@ -1,6 +1,8 @@
 import 'package:billy_application/base/show_custom_snackbar.dart';
 import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/models/signup_body_model.dart';
+import 'package:billy_application/pages/auth/sign_in_page.dart';
+import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/app_form_helper.dart';
@@ -19,7 +21,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  static final GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   // bool isAsyncCallProcess = false;
   late String customerName;
   late String customerEmailID;
@@ -55,10 +57,10 @@ class _SignUpPageState extends State<SignUpPage> {
             title: "Customer Registration",
           );
           Navigator.of(context).pop();
-          Get.toNamed('/login');
+          Get.toNamed(RouteHelper.getLogin());
         } else {
           showCustomSnackBar(
-            isError: response.status,
+            isError: !response.status,
             message: response.message,
             title: "Customer Registration",
           );
@@ -284,7 +286,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     RichText(
                       text: TextSpan(
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () => Get.back(),
+                          ..onTap = () => Get.to(
+                                () => const SignInPage(),
+                                transition: Transition.rightToLeft,
+                              ),
                         text: "Have an account already?",
                         style: TextStyle(
                           color: Colors.grey[500],
@@ -299,7 +304,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     RichText(
                       text: TextSpan(
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () => Get.back(),
+                          ..onTap = () => const SignInPage(),
                         text: "Sign up using one of the following methods",
                         style: TextStyle(
                           color: Colors.grey[500],

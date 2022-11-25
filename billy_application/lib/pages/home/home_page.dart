@@ -1,5 +1,4 @@
 import 'package:billy_application/pages/account/account_page.dart';
-import 'package:billy_application/pages/auth/sign_up_page.dart';
 import 'package:billy_application/pages/home/main_food_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -17,14 +16,13 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     const MainFoodPage(),
-    const SignUpPage(),
-    // Container(
-    //   child: const Center(
-    //     child: Text(
-    //       'Likes',
-    //     ),
-    //   ),
-    // ),
+    Container(
+      child: const Center(
+        child: Text(
+          'Likes',
+        ),
+      ),
+    ),
     Container(
       child: const Center(
         child: Text('Cart'),
