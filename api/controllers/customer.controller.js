@@ -17,10 +17,27 @@ exports.create = (req, res, next) => {
             return next(error);
         } else {
             return res.status(200).send({
-                message: "Success",
-                data: results,
+                status: true,
+                message: results,
             });
         }
+    });
+}
+
+// Login Customer
+exports.login = (req, res, next) => {
+    const { customerContact, customerPassword } = req.body;
+
+    customerService.loginCustomer({ customerContact, customerPassword }, (error, results, token) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            customer: results,
+            token: token
+        });
     });
 }
 
@@ -114,22 +131,6 @@ exports.updateStatus = (req, res, next) => {
     });
 }
 
-// Login Customer
-exports.login = (req, res, next) => {
-    const { customerEmailID, customerPassword } = req.body;
-
-    customerService.loginCustomer({ customerEmailID, customerPassword }, (error, results) => {
-        if (error) {
-            return next(error);
-        }
-
-        return res.status(200).send({
-            message: "Success",
-            data: results
-        });
-    });
-}
-
 // Customer Password Update
 exports.PasswordUpdate = (req, res, next) => {
 
@@ -158,22 +159,23 @@ exports.createOTP = (req, res, next) => {
         }
 
         return res.status(200).send({
-            message: "Success",
-            data: results
+            status: true,
+            fullhash: results
         });
     });
 }
 
 // Verify OTP
 exports.verifyOTP = (req, res, next) => {
-    customerService.verifyOTP(req.body, (error, results) => {
+    customerService.verifyOTP(req.body, (error, results, token) => {
         if (error) {
             return next(error);
         }
 
         return res.status(200).send({
-            message: "Success",
-            data: results
+            status: true,
+            customer: results,
+            token: token
         });
     });
 }

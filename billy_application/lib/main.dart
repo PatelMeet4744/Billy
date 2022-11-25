@@ -1,6 +1,5 @@
 import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
-import 'package:billy_application/pages/auth/sign_in_page.dart';
 import 'package:billy_application/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,9 +45,8 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
             primarySwatch: MaterialColor(0xfff6881f, color),
           ),
-          home: const SignInPage(),
-          // home: const SplashPage(),
-          // initialRoute: RouteHelper.getSplashPage(),
+          // home: const SignInPage(),
+          initialRoute: RouteHelper.getSplashPage(),
           getPages: RouteHelper.routes,
         );
       });

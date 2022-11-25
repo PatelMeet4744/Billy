@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:billy_application/controllers/auth_controller.dart';
+import 'package:billy_application/utils/app_constants.dart';
 import 'package:get/get.dart';
 
 class ApiClient extends GetConnect implements GetxService {
@@ -8,19 +12,34 @@ class ApiClient extends GetConnect implements GetxService {
   ApiClient({required this.appBaseUrl}) {
     baseUrl = appBaseUrl;
     timeout = const Duration(seconds: 30);
-    token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InJlc3RhdXJhbnROYW1lIjoiRG9taW5vcyIsIm93bmVyTmFtZSI6Ik5hbWUiLCJvd25lclBhc3N3b3JkIjoiJDJhJDEwJEpEaVRjVTFhSmZEeHNwUUtCcGRSRk9pMGk0ZmExQVpJa0FmN0EwbjF1QXNEMGNzdnF3SWFtIiwicmVzdGF1cmFudElkIjoiNjJkZTQyYzY3NjVlYWQ2N2QzM2MzZmMwIn0sImlhdCI6MTY2ODA4NDIzNSwiZXhwIjoxNjY4MTcwNjM1fQ.dITR48RXlYln-5IZupITKwpLKUdaev2F_civ8O_esxM";
+    token = Config.token;
     mainHeaders = {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Bearer $token',
     };
   }
 
+  void updateHeader(String token) {
+    mainHeaders = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token',
+    };
+  }
+
+  void userLoggedIn() {
+    if (Get.find<AuthController>().userLoggedIn()) {
+      updateHeader(Get.find<AuthController>().getUserToken());
+    }
+  }
+
   Future<Response> getData(String uri) async {
     try {
+      userLoggedIn();
       Response response = await get(uri, headers: mainHeaders);
       return response;
     } catch (e) {
+      // ignore: avoid_print
+      print(e.toString());
       return Response(statusCode: 1, statusText: e.toString());
     }
   }
@@ -30,6 +49,19 @@ class ApiClient extends GetConnect implements GetxService {
       Response response = await get(uri);
       return response;
     } catch (e) {
+      // ignore: avoid_print
+      print(e.toString());
+      return Response(statusCode: 1, statusText: e.toString());
+    }
+  }
+
+  Future<Response> postData(String uri, dynamic body) async {
+    try {
+      Response response = await post(uri, body, headers: mainHeaders);
+      return response;
+    } catch (e) {
+      // ignore: avoid_print
+      print(e.toString());
       return Response(statusCode: 1, statusText: e.toString());
     }
   }

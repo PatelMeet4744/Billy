@@ -22,6 +22,12 @@ class _MainFoodPageState extends State<MainFoodPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _loadResources();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // print("current height is ${MediaQuery.of(context).size.height}");
     // print("current width is ${MediaQuery.of(context).size.width}");

@@ -2,9 +2,9 @@ import 'package:billy_application/widgets/big_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void showCustomSnackBar(
-  String message, {
-  bool isError = true,
+void showCustomSnackBar({
+  bool isError = false,
+  String message = "",
   String title = "Error",
 }) {
   Get.snackbar(
