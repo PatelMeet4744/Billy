@@ -19,10 +19,14 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(userModel) {
-    return jwt.sign({ data: userModel }, TOKEN_KEY, {
-        expiresIn: "24h"
-    });
+    return jwt.sign({ data: userModel }, TOKEN_KEY);
 }
+
+// function generateAccessToken(userModel) {
+//     return jwt.sign({ data: userModel }, TOKEN_KEY, {
+//         expiresIn: "24h"
+//     });
+// }
 
 module.exports = {
     authenticateToken,
