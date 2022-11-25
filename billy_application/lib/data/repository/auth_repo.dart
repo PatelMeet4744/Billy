@@ -33,6 +33,24 @@ class AuthRepo {
     });
   }
 
+  Future<Response> createOTPLogin(String customerContact) async {
+    return await apiClient.postData(
+      Config.createOTPAPI,
+      {
+        "customerContact": int.parse(customerContact),
+      },
+    );
+  }
+
+  Future<Response> verifyOTPLogin(
+      String customerContact, String otp, String hash) async {
+    return await apiClient.postData(Config.verifyOTPAPI, {
+      "customerContact": int.parse(customerContact),
+      "otp": otp,
+      "hash": hash,
+    });
+  }
+
   Future<void> saveUser(
     String token,
     String customerName,

@@ -169,8 +169,8 @@ class _LoginPageState extends State<LoginPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => OTPVerifyPage(
-                            otpHash: response.data,
-                            mobileNo: mobileNumber,
+                            customerContact: mobileNumber,
+                            hash: response.data,
                           ),
                         ),
                         (route) => false,

@@ -54,7 +54,7 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
-  void _otpGenerate() {
+  void _otpGenerate(AuthController authController) {
     setState(() {
       passwordValidate = false;
     });
@@ -62,6 +62,26 @@ class _SignInPageState extends State<SignInPage> {
     final form = globalFormKey.currentState;
     if (form!.validate()) {
       form.save();
+      authController.createOTPLogin(customerContact).then((response) {
+        if (response.status) {
+          // showCustomSnackBar(
+          //   message: response.message,
+          //   title: "Customer Login",
+          // );
+          Get.toNamed(
+            RouteHelper.getOTPLogin(
+              customerContact,
+              response.message,
+            ),
+          );
+        } else {
+          showCustomSnackBar(
+            isError: !response.status,
+            message: response.message,
+            title: "Customer Login",
+          );
+        }
+      });
     }
   }
 
@@ -215,9 +235,10 @@ class _SignInPageState extends State<SignInPage> {
                         width: Dimensions.screenWidth / 2,
                         height: Dimensions.screenHeight / 13,
                         decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radius30),
-                            color: AppColors.mainColor),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius30),
+                          color: AppColors.mainColor,
+                        ),
                         child: Center(
                           child: BigText(
                             text: "Sign In",
@@ -241,7 +262,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     // Genrate OTP
                     GestureDetector(
-                      onTap: (() => _otpGenerate()),
+                      onTap: (() => _otpGenerate(authController)),
                       child: Container(
                         width: Dimensions.screenWidth / 2,
                         height: Dimensions.screenHeight / 13,
