@@ -2,9 +2,16 @@ import React from 'react';
 import Header from './layout/Header';
 import Sidebar from './layout/Sidebar1';
 import Footer from './layout/Footer';
+import Dashbord from './pages/Admin/Dashbord';
 import '../App.css';
 
-const AdminMaster = () => {
+const AdminMaster = (props) => {
+    const urlname = props.name;
+    const getstat = () =>{
+    if (urlname === "dashboard") {
+        return <Dashbord/>
+    }
+    }   
     return (
         <>
             <div className="container-scroller">
@@ -14,6 +21,7 @@ const AdminMaster = () => {
                     <div class="main-panel">
                         <div class="content-wrapper">
                             {/* <Sidebar> */}
+                            {getstat()}
                             {/* </Sidebar> */}
                             {/* <Customer />                            
                             <AdminLogin/> */}
