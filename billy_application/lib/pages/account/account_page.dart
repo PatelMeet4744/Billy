@@ -218,6 +218,45 @@ class AccountPage extends StatelessWidget {
                     SizedBox(
                       height: Dimensions.height10,
                     ),
+                    //  Logout
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius30),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 10,
+                            spreadRadius: 7,
+                            offset: const Offset(1, 10),
+                            color: Colors.grey.withOpacity(0.1),
+                          ),
+                        ],
+                      ),
+                      height: Dimensions.height60,
+                      width: Dimensions.width160,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              color: AppColors.mainColor,
+                              Icons.logout,
+                              size: Dimensions.height25,
+                            ),
+                            SizedBox(
+                              width: Dimensions.width10,
+                            ),
+                            BigText(text: "Log Out"),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: Dimensions.height10,
+                    ),
                   ],
                 ),
               ],
