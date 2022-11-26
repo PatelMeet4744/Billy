@@ -41,7 +41,7 @@ class _SignInPageState extends State<SignInPage> {
             message: response.message,
             title: "Customer Login",
           );
-          Navigator.of(context).pop();
+          // Navigator.of(context).pop();
           Get.toNamed(RouteHelper.getInitial());
         } else {
           showCustomSnackBar(

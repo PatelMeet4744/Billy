@@ -1,3 +1,4 @@
+import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
@@ -236,7 +237,12 @@ class AccountPage extends StatelessWidget {
                       height: Dimensions.height60,
                       width: Dimensions.width160,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (Get.find<AuthController>().userLoggedIn()) {
+                            Get.find<AuthController>().clearSharedData();
+                            Get.offNamed(RouteHelper.getLogin());
+                          }
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,

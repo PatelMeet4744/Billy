@@ -57,14 +57,23 @@ class AuthRepo {
     String customerId,
   ) async {
     try {
+      sharedPreferences.setString(Config.customerName, customerName);
+      sharedPreferences.setString(Config.customerId, customerId);
+      sharedPreferences.setString(Config.token, token);
       apiClient.token = token;
       apiClient.updateHeader(token);
-      await sharedPreferences.setString(Config.token, token);
-      // await sharedPreferences.setString(Config.customerName, customerName);
-      // await sharedPreferences.setString(Config.customerId, customerId);
     } catch (e) {
       // ignore: avoid_print
       print(e.toString());
     }
+  }
+
+  bool clearSharedData() {
+    sharedPreferences.remove(Config.customerName);
+    sharedPreferences.remove(Config.customerId);
+    sharedPreferences.remove(Config.token);
+    apiClient.token = '';
+    apiClient.updateHeader('');
+    return true;
   }
 }
