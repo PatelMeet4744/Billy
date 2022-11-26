@@ -105,4 +105,8 @@ class AuthController extends GetxController implements GetxService {
   String getUserToken() {
     return authRepo.getUserToken();
   }
+
+  bool clearSharedData() {
+    return authRepo.clearSharedData();
+  }
 }
