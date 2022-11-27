@@ -14,20 +14,20 @@ class AuthRepo {
   });
 
   Future<Response> registration(SignUpBody signUpBody) async {
-    return await apiClient.postData(Config.customerAPI, signUpBody.toJson());
+    return await apiClient.postData(AppConstants.customerAPI, signUpBody.toJson());
   }
 
   bool userLoggedIn() {
-    return sharedPreferences.containsKey(Config.token);
+    return sharedPreferences.containsKey(AppConstants.token);
   }
 
   String getUserToken() {
-    return sharedPreferences.getString(Config.token) ?? "";
+    return sharedPreferences.getString(AppConstants.token) ?? "";
   }
 
   Future<Response> login(
       String customerContact, String customerPassword) async {
-    return await apiClient.postData(Config.loginAPI, {
+    return await apiClient.postData(AppConstants.loginAPI, {
       "customerContact": int.parse(customerContact),
       "customerPassword": customerPassword
     });
@@ -35,7 +35,7 @@ class AuthRepo {
 
   Future<Response> createOTPLogin(String customerContact) async {
     return await apiClient.postData(
-      Config.createOTPAPI,
+      AppConstants.createOTPAPI,
       {
         "customerContact": int.parse(customerContact),
       },
@@ -44,7 +44,7 @@ class AuthRepo {
 
   Future<Response> verifyOTPLogin(
       String customerContact, String otp, String hash) async {
-    return await apiClient.postData(Config.verifyOTPAPI, {
+    return await apiClient.postData(AppConstants.verifyOTPAPI, {
       "customerContact": int.parse(customerContact),
       "otp": otp,
       "hash": hash,
@@ -57,9 +57,9 @@ class AuthRepo {
     String customerId,
   ) async {
     try {
-      sharedPreferences.setString(Config.customerName, customerName);
-      sharedPreferences.setString(Config.customerId, customerId);
-      sharedPreferences.setString(Config.token, token);
+      sharedPreferences.setString(AppConstants.customerName, customerName);
+      sharedPreferences.setString(AppConstants.customerId, customerId);
+      sharedPreferences.setString(AppConstants.token, token);
       apiClient.token = token;
       apiClient.updateHeader(token);
     } catch (e) {
@@ -69,9 +69,9 @@ class AuthRepo {
   }
 
   bool clearSharedData() {
-    sharedPreferences.remove(Config.customerName);
-    sharedPreferences.remove(Config.customerId);
-    sharedPreferences.remove(Config.token);
+    sharedPreferences.remove(AppConstants.customerName);
+    sharedPreferences.remove(AppConstants.customerId);
+    sharedPreferences.remove(AppConstants.token);
     apiClient.token = '';
     apiClient.updateHeader('');
     return true;

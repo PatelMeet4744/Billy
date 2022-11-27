@@ -1,9 +1,8 @@
-import 'package:billy_application/pages/login/otp_login_page.dart';
 import 'package:billy_application/pages/onboard/content_model.dart';
 import 'package:billy_application/utils/shared_service.dart';
 import 'package:flutter/material.dart';
 
-Widget _defaultHome = const LoginPage();
+// Widget _defaultHome = const LoginPage();
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -102,12 +101,12 @@ class _OnboardingState extends State<Onboarding> {
                   currentIndex == contents.length - 1 ? "Continue" : "Next"),
               onPressed: () {
                 if (currentIndex == contents.length - 1) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => _defaultHome,
-                    ),
-                  );
+                  // Navigator.pushReplacement(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (_) => _defaultHome,
+                  //   ),
+                  // );
                 }
                 _controller.nextPage(
                   duration: const Duration(milliseconds: 100),
