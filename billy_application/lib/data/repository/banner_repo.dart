@@ -7,6 +7,6 @@ class BannerRepo extends GetxService {
   BannerRepo({required this.apiClient});
 
   Future<Response> getBannerList() async{
-    return await apiClient.getData(Config.bannerAPI);
+    return await apiClient.getData(AppConstants.bannerAPI);
   }
 }

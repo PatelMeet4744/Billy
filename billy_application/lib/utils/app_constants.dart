@@ -1,6 +1,5 @@
-class Config {
+class AppConstants {
   static const String appName = "Billy App";
-  static const String apiURL = "192.168.0.103:4000";
   static const String baseURL = "http://192.168.0.103:4000/";
   static const String imageURL = "http://192.168.0.103:4000";
   static const String cuisinesAPI = "api/customer/customer/cuisines";
