@@ -122,7 +122,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                   height: Dimensions.height75,
                                   alignment: Alignment.center,
                                   child: Image.network(
-                                    Config.imageURL +
+                                    AppConstants.imageURL +
                                         cuisines
                                             .cuisinesList[index].cuisinesImage!,
                                     height: Dimensions.height75,
@@ -213,7 +213,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ],
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(Config.imageURL + banners.bannerImage!),
+                image: NetworkImage(AppConstants.imageURL + banners.bannerImage!),
               ),
             ),
           ),

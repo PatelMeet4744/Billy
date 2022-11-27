@@ -7,6 +7,6 @@ class CuisinesRepo extends GetxService {
   CuisinesRepo({required this.apiClient});
 
   Future<Response> getCuisinesList() async {
-    return await apiClient.getData(Config.cuisinesAPI);
+    return await apiClient.getData(AppConstants.cuisinesAPI);
   }
 }
