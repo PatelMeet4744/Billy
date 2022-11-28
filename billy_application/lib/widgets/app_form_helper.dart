@@ -117,6 +117,8 @@ class AppFormHelper {
     obscureText = false,
     bool labelBold = true,
     Widget? suffixIcon,
+    // Color borderColor = const Color(0xFFF6881F),
+    // Color borderFocusColor = const Color(0xFFF6881F),
     Color borderColor = Colors.white,
     Color borderFocusColor = Colors.white,
     double focusedBorderWidth = 1.0,
