@@ -92,7 +92,7 @@ class AccountPage extends StatelessWidget {
                         size: Dimensions.height45,
                       ),
                       optiononTap: () => {
-                        // Get.offNamed(RouteHelper.splashPage),
+                        Get.offNamed(RouteHelper.getEditProfile()),
                       },
                     ),
                     SizedBox(
