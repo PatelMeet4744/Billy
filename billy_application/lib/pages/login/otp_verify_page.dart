@@ -24,7 +24,7 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
   bool enableResendBtn = false;
   String _otpCode = "";
   final int _otpCodeLength = 4;
-  bool _enableButton = false;
+  // bool _enableButton = false;
   //var autoFill;
   late FocusNode myFocusNode;
 
@@ -56,7 +56,9 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
   }
 
   void _otplogin(AuthController authController) {
-    authController.verifyOTPLogin(widget.customerContact!, _otpCode,widget.hash!).then((response) {
+    authController
+        .verifyOTPLogin(widget.customerContact!, _otpCode, widget.hash!)
+        .then((response) {
       if (response.status) {
         showCustomSnackBar(
           message: response.message,
@@ -132,7 +134,6 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
                     onCodeChanged: (code) {
                       if (code!.length == _otpCodeLength) {
                         _otpCode = code;
-                        _enableButton = true;
                         FocusScope.of(context).requestFocus(FocusNode());
                       }
                     },

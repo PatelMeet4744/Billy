@@ -16,17 +16,13 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     const MainFoodPage(),
-    Container(
-      child: const Center(
-        child: Text(
-          'Likes',
-        ),
+    const Center(
+      child: Text(
+        'Likes',
       ),
     ),
-    Container(
-      child: const Center(
-        child: Text('Cart'),
-      ),
+    const Center(
+      child: Text('Cart'),
     ),
     const AccountPage(),
   ];

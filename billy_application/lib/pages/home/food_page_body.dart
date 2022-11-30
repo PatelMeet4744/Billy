@@ -57,7 +57,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                               position, banners.bannerList[position]);
                         }),
                   )
-                : CircularProgressIndicator(
+                : const CircularProgressIndicator(
                     color: AppColors.mainColor,
                   );
           },
@@ -153,7 +153,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                           );
                         },
                       )
-                    : CircularProgressIndicator(
+                    : const CircularProgressIndicator(
                         color: AppColors.mainColor,
                       );
               },
