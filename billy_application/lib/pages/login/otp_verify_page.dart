@@ -1,18 +1,22 @@
-import 'package:billy_application/api/api_service.dart';
-import 'package:billy_application/config/config.dart';
+import 'package:billy_application/base/show_custom_snackbar.dart';
+import 'package:billy_application/controllers/auth_controller.dart';
+import 'package:billy_application/routes/route_helper.dart';
+import 'package:billy_application/utils/dimensions.dart';
+import 'package:billy_application/widgets/big_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:snippet_coder_utils/hex_color.dart';
 
 class OTPVerifyPage extends StatefulWidget {
-  final String? mobileNo;
-  final String? otpHash;
+  final String? customerContact;
+  final String? hash;
 
-  const OTPVerifyPage({super.key, this.mobileNo, this.otpHash});
+  const OTPVerifyPage({super.key, this.customerContact, this.hash});
 
   @override
+  // ignore: library_private_types_in_public_api
   _OTPVerifyPageState createState() => _OTPVerifyPageState();
 }
 
@@ -20,10 +24,9 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
   bool enableResendBtn = false;
   String _otpCode = "";
   final int _otpCodeLength = 4;
-  bool _enableButton = false;
+  // bool _enableButton = false;
   //var autoFill;
   late FocusNode myFocusNode;
-  bool isAPIcallProcess = false;
 
   @override
   void initState() {
@@ -52,125 +55,166 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
     // );
   }
 
+  void _otplogin(AuthController authController) {
+    authController
+        .verifyOTPLogin(widget.customerContact!, _otpCode, widget.hash!)
+        .then((response) {
+      if (response.status) {
+        showCustomSnackBar(
+          message: response.message,
+          title: "Customer Login",
+        );
+        Navigator.of(context).pop();
+        Get.toNamed(RouteHelper.getInitial());
+      } else {
+        showCustomSnackBar(
+          isError: !response.status,
+          message: response.message,
+          title: "Customer Login",
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: ProgressHUD(
-          inAsyncCall: isAPIcallProcess,
-          opacity: 0.3,
-          key: UniqueKey(),
-          child: otpVerify(),
-        ),
+        body: GetBuilder<AuthController>(builder: (authController) {
+          return ProgressHUD(
+            inAsyncCall: authController.isLoading,
+            opacity: 0.3,
+            key: UniqueKey(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.network(
+                  "https://i.imgur.com/6aiRpKT.png",
+                  height: Dimensions.height180,
+                  fit: BoxFit.contain,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: Dimensions.height20),
+                  child: Center(
+                    child: Text(
+                      "OTP Verification",
+                      style: TextStyle(
+                        fontSize: Dimensions.font20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: Dimensions.height10),
+                Center(
+                  child: Text(
+                    "Enter OTP code sent to you mobile \n+91-${widget.customerContact}",
+                    maxLines: 2,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      Dimensions.width25, 0, Dimensions.width25, 0),
+                  //child: autoFill,
+                  child: PinFieldAutoFill(
+                    decoration: UnderlineDecoration(
+                      textStyle: TextStyle(
+                          fontSize: Dimensions.font20, color: Colors.black),
+                      colorBuilder:
+                          FixedColorBuilder(Colors.black.withOpacity(0.3)),
+                    ),
+                    currentCode: _otpCode,
+                    codeLength: _otpCodeLength,
+                    onCodeSubmitted: (code) {},
+                    onCodeChanged: (code) {
+                      if (code!.length == _otpCodeLength) {
+                        _otpCode = code;
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      }
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: Dimensions.screenHeight * 0.05,
+                ),
+                GestureDetector(
+                  onTap: (() => _otplogin(authController)),
+                  child: Container(
+                    width: Dimensions.screenWidth / 2,
+                    height: Dimensions.screenHeight / 13,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Dimensions.radius30),
+                      color: HexColor("#78D0B1"),
+                    ),
+                    child: Center(
+                      child: BigText(
+                        text: "Sign In",
+                        size: Dimensions.font24,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                // Center(
+                //   child: FormHelper.submitButton(
+                //     "Continue",
+                //     () {
+                //       if (_enableButton) {
+                //         setState(() {
+                //           isAPIcallProcess = true;
+                //         });
+
+                //         APIService.verifyOtp(
+                //                 widget.customerContact!, widget.hash!, _otpCode)
+                //             .then((response) {
+                //           setState(() {
+                //             isAPIcallProcess = false;
+                //           });
+
+                //           if (response) {
+                //             FormHelper.showSimpleAlertDialog(
+                //               context,
+                //               Config.appName,
+                //               "Customer Login Successfully!",
+                //               "OK",
+                //               () {
+                //                 Navigator.of(context).pop();
+                //                 Navigator.pushNamedAndRemoveUntil(
+                //                     context, "/nav", (route) => false);
+                //               },
+                //             );
+                //           } else {
+                //             FormHelper.showSimpleAlertDialog(
+                //               context,
+                //               Config.appName,
+                //               "Invalid OTP",
+                //               "OK",
+                //               () {
+                //                 Navigator.pop(context);
+                //               },
+                //             );
+                //           }
+                //         });
+                //       }
+                //     },
+                //     btnColor: HexColor("#78D0B1"),
+                //     borderColor: HexColor("#78D0B1"),
+                //     txtColor: HexColor(
+                //       "#000000",
+                //     ),
+                //     borderRadius: 20,
+                //   ),
+                // ),
+              ],
+            ),
+          );
+        }),
       ),
-    );
-  }
-
-  Widget otpVerify() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.network(
-          "https://i.imgur.com/6aiRpKT.png",
-          height: 180,
-          fit: BoxFit.contain,
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 20),
-          child: Center(
-            child: Text(
-              "OTP Verification",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        Center(
-          child: Text(
-            "Enter OTP code sent to you mobile \n+91-${widget.mobileNo}",
-            maxLines: 2,
-            style: const TextStyle(
-              fontSize: 14,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-          //child: autoFill,
-          child: PinFieldAutoFill(
-            decoration: UnderlineDecoration(
-              textStyle: const TextStyle(fontSize: 20, color: Colors.black),
-              colorBuilder: FixedColorBuilder(Colors.black.withOpacity(0.3)),
-            ),
-            currentCode: _otpCode,
-            codeLength: _otpCodeLength,
-            onCodeSubmitted: (code) {},
-            onCodeChanged: (code) {
-              if (code!.length == _otpCodeLength) {
-                _otpCode = code;
-                _enableButton = true;
-                FocusScope.of(context).requestFocus(FocusNode());
-              }
-            },
-          ),
-        ),
-        const SizedBox(height: 20),
-        Center(
-          child: FormHelper.submitButton(
-            "Continue",
-            () {
-              if (_enableButton) {
-                setState(() {
-                  isAPIcallProcess = true;
-                });
-
-                APIService.verifyOtp(
-                        widget.mobileNo!, widget.otpHash!, _otpCode)
-                    .then((response) {
-                  setState(() {
-                    isAPIcallProcess = false;
-                  });
-
-                  if (response) {
-                    FormHelper.showSimpleAlertDialog(
-                      context,
-                      Config.appName,
-                      "Customer Login Successfully!",
-                      "OK",
-                      () {
-                        Navigator.of(context).pop();
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, "/nav", (route) => false);
-                      },
-                    );
-                  } else {
-                    FormHelper.showSimpleAlertDialog(
-                      context,
-                      Config.appName,
-                      "Invalid OTP",
-                      "OK",
-                      () {
-                        Navigator.pop(context);
-                      },
-                    );
-                  }
-                });
-              }
-            },
-            btnColor: HexColor("#78D0B1"),
-            borderColor: HexColor("#78D0B1"),
-            txtColor: HexColor(
-              "#000000",
-            ),
-            borderRadius: 20,
-          ),
-        ),
-      ],
     );
   }
 
@@ -186,6 +230,7 @@ class CodeAutoFillTestPage extends StatefulWidget {
   const CodeAutoFillTestPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CodeAutoFillTestPageState createState() => _CodeAutoFillTestPageState();
 }
 
@@ -221,7 +266,8 @@ class _CodeAutoFillTestPageState extends State<CodeAutoFillTestPage>
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(fontSize: 18);
+    // ignore: prefer_const_constructors
+    final textStyle = TextStyle(fontSize: Dimensions.font18);
 
     return Scaffold(
       appBar: AppBar(
@@ -231,14 +277,15 @@ class _CodeAutoFillTestPageState extends State<CodeAutoFillTestPage>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(32, 32, 32, 0),
+            padding: EdgeInsets.fromLTRB(
+                Dimensions.width32, Dimensions.height32, Dimensions.width32, 0),
             child: Text(
               "This is the current app signature: $appSignature",
             ),
           ),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
+            padding: EdgeInsets.symmetric(horizontal: Dimensions.width32),
             child: Builder(
               builder: (_) {
                 if (otpCode == null) {
