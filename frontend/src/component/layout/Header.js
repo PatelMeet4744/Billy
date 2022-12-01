@@ -24,13 +24,13 @@ function Header(){
         </li> */}
       </ul>
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a className="navbar-brand brand-logo" href="index.html"><img src="/assets/images/logo.png" alt="logo" /></a>
+        <a className="navbar-brand brand-logo" href="index.html"><img src="/assets/images/Billy_logo/BillyLogo.png" alt="logo" /></a>
         <a className="navbar-brand brand-logo-mini" href="index.html"><img src="/assets/images/logo.png" alt="logo" /></a>
       </div>
       <ul className="navbar-nav navbar-nav-right">
         <li className="nav-item nav-profile dropdown">
           <a className="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-            {/* <span className="nav-profile-name">{JSON.parse(adminauth).adminName}</span> */}
+            <span className="nav-profile-name">{JSON.parse(adminauth).adminName}</span>
           </a>
           <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <div className="dropdown-divider" />

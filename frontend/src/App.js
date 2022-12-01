@@ -7,6 +7,7 @@ import PageNotFound from './component/layout/notfound/notfound';
 import AdminLogin from './component/pages/Login';
 import Home from "./component/pages/Home";
 import AdminMaster from "./component/AdminMaster";
+import PrivateComponent from "./component/PrivateComponent";
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
       <Route path="*" element={<PageNotFound/>}/>
       <Route path="/admin/login" element={<AdminLogin />} />
 
-
-      <Route exact path="/admin/dashboard" element={<AdminMaster name="dashboard"/>} />
+      <Route element={<PrivateComponent />}>
+            <Route exact path="/admin/dashboard" element={<AdminMaster name="dashboard"/>} />
+      </Route>
       </Routes>
       </Router> 
   );
