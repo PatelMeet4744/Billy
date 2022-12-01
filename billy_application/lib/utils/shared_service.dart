@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names, use_build_context_synchronously, no_leading_underscores_for_local_identifiers
+
 import 'dart:convert';
 
 import 'package:api_cache_manager/api_cache_manager.dart';
