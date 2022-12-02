@@ -1,3 +1,5 @@
+import 'package:billy_application/controllers/auth_controller.dart';
+import 'package:billy_application/controllers/customer_controller.dart';
 import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
@@ -22,6 +24,10 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    bool userLoggedIn = Get.find<AuthController>().userLoggedIn();
+    if (userLoggedIn) {
+      Get.find<CustomerController>().getCustomerInfo();
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.mainColor,
@@ -47,190 +53,254 @@ class _EditProfileState extends State<EditProfile> {
           ),
         ],
       ),
-      body: Container(
-        width: double.maxFinite,
-        padding: EdgeInsets.only(
-          top: Dimensions.height20,
-        ),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: ListView(
-            children: [
-              Center(
-                child: Stack(
+      body: GetBuilder<CustomerController>(builder: (customerController) {
+        return userLoggedIn
+            ? (customerController.isLoading
+                ? Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.only(
+                      top: Dimensions.height20,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                      },
+                      child: ListView(
+                        children: [
+                          Center(
+                            child: Stack(
+                              children: [
+                                Container(
+                                  width: Dimensions.screenWidth / 3.02,
+                                  height: Dimensions.screenHeight / 6.0,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: Dimensions.width4,
+                                      color: Colors.white,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 10,
+                                        spreadRadius: 2,
+                                      ),
+                                    ],
+                                    shape: BoxShape.circle,
+                                    // image: const DecorationImage(
+                                    //   fit: BoxFit.cover,
+                                    //   image: ExactAssetImage("assets/image/g.png"),
+                                    // ),
+                                  ),
+                                  child: Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                    size: Dimensions.height100,
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Container(
+                                    height: Dimensions.height40,
+                                    width: Dimensions.width40,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: Dimensions.width4,
+                                        color: AppColors.mainColor,
+                                      ),
+                                      shape: BoxShape.circle,
+                                      color: AppColors.mainColor,
+                                    ),
+                                    child: const Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: Dimensions.height30),
+                          // Name
+                          AppFormHelper.inputFieldWidgetWithLabel(
+                            "customerName",
+                            "Name",
+                            "Customer Name",
+                            (onValidateVal) {
+                              if (onValidateVal.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
+                            (onSavedVal) => {
+                              customerName = onSavedVal.toString().trim(),
+                            },
+                            initialValue:
+                                customerController.customerModel.customerName,
+                            prefixIcon: LineIcons.userEdit,
+                            textInputType: TextInputType.name,
+                          ),
+                          SizedBox(
+                            height: Dimensions.height5,
+                          ),
+                          // Email ID
+                          AppFormHelper.inputFieldWidgetWithLabel(
+                            "customerEmailID",
+                            "Email ID",
+                            "Customer Email ID",
+                            (onValidateVal) {
+                              if (onValidateVal.isEmpty) {
+                                return '* Required';
+                              }
+                              bool emailValid =
+                                  RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
+                                      .hasMatch(onValidateVal);
+                              if (!emailValid) {
+                                return 'Invalid Customer Email ID.';
+                              }
+                              return null;
+                            },
+                            (onSavedVal) => {
+                              customerEmailID = onSavedVal.toString().trim(),
+                            },
+                            initialValue: customerController
+                                .customerModel.customerEmailID,
+                            prefixIcon: Icons.email_outlined,
+                            textInputType: TextInputType.emailAddress,
+                          ),
+                          SizedBox(
+                            height: Dimensions.height5,
+                          ),
+                          // Mobile No.
+                          AppFormHelper.inputFieldWidgetWithLabel(
+                            "customerContact",
+                            "Contact Number",
+                            "Customer Contact",
+                            (onValidateVal) {
+                              if (onValidateVal.isEmpty) {
+                                return '* Required';
+                              }
+                              return null;
+                            },
+                            (onSavedVal) => {
+                              customerContact = onSavedVal.toString().trim(),
+                            },
+                            initialValue: customerController
+                                .customerModel.customerContact,
+                            textInputType: TextInputType.phone,
+                            prefixIcon: Icons.phone,
+                          ),
+                          SizedBox(
+                            height: Dimensions.height30,
+                          ),
+                          // Buttons
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: Dimensions.width15,
+                                right: Dimensions.width15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                OutlinedButton(
+                                  onPressed: () {},
+                                  style: OutlinedButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: Dimensions.width50,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radius20),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "CANCEL",
+                                    style: TextStyle(
+                                      fontSize: Dimensions.font15,
+                                      letterSpacing: 2,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: Dimensions.width50,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radius20),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "SAVE",
+                                    style: TextStyle(
+                                      fontSize: Dimensions.font15,
+                                      letterSpacing: 2,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ))
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: Dimensions.screenWidth / 3.02,
-                      height: Dimensions.screenHeight / 6.0,
+                      width: double.maxFinite,
+                      height: Dimensions.height150 + Dimensions.height60,
+                      margin: EdgeInsets.only(
+                        left: Dimensions.width20,
+                        right: Dimensions.width20,
+                      ),
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          width: Dimensions.width4,
-                          color: Colors.white,
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius20),
+                        image: const DecorationImage(
+                          fit: BoxFit.cover,
+                          image:
+                              AssetImage("assets/image/signintocontinue.png"),
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 10,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                        shape: BoxShape.circle,
-                        // image: const DecorationImage(
-                        //   fit: BoxFit.cover,
-                        //   image: ExactAssetImage("assets/image/g.png"),
-                        // ),
-                      ),
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: Dimensions.height100,
                       ),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.getLogin());
+                      },
                       child: Container(
-                        height: Dimensions.height40,
-                        width: Dimensions.width40,
+                        width: double.maxFinite,
+                        height: Dimensions.height150 + Dimensions.height60,
+                        margin: EdgeInsets.only(
+                          left: Dimensions.width20,
+                          right: Dimensions.width20,
+                        ),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            width: Dimensions.width4,
-                            color: AppColors.mainColor,
-                          ),
-                          shape: BoxShape.circle,
                           color: AppColors.mainColor,
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius20),
                         ),
-                        child: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
+                        child: Center(
+                          child: BigText(
+                            text: "Sign in",
+                            color: Colors.white,
+                            size: Dimensions.font26,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: Dimensions.height30),
-              // Name
-              AppFormHelper.inputFieldWidgetWithLabel(
-                "customerName",
-                "Name",
-                "Customer Name",
-                (onValidateVal) {
-                  if (onValidateVal.isEmpty) {
-                    return '* Required';
-                  }
-                  return null;
-                },
-                (onSavedVal) => {
-                  customerName = onSavedVal.toString().trim(),
-                },
-                prefixIcon: LineIcons.userEdit,
-                textInputType: TextInputType.name,
-              ),
-              SizedBox(
-                height: Dimensions.height5,
-              ),
-              // Email ID
-              AppFormHelper.inputFieldWidgetWithLabel(
-                "customerEmailID",
-                "Email ID",
-                "Email ID",
-                (onValidateVal) {
-                  if (onValidateVal.isEmpty) {
-                    return '* Required';
-                  }
-                  bool emailValid = RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
-                      .hasMatch(onValidateVal);
-                  if (!emailValid) {
-                    return 'Invalid Customer Email ID.';
-                  }
-                  return null;
-                },
-                (onSavedVal) => {
-                  customerEmailID = onSavedVal.toString().trim(),
-                },
-                prefixIcon: Icons.email_outlined,
-                textInputType: TextInputType.emailAddress,
-              ),
-              SizedBox(
-                height: Dimensions.height5,
-              ),
-              // Mobile No.
-              AppFormHelper.inputFieldWidgetWithLabel(
-                "customerContact",
-                "Contact Number",
-                "Contact Number",
-                (onValidateVal) {
-                  if (onValidateVal.isEmpty) {
-                    return '* Required';
-                  }
-                  return null;
-                },
-                (onSavedVal) => {
-                  customerContact = onSavedVal.toString().trim(),
-                },
-                textInputType: TextInputType.phone,
-                prefixIcon: Icons.phone,
-              ),
-              SizedBox(
-                height: Dimensions.height30,
-              ),
-              // Buttons
-              Padding(
-                padding: EdgeInsets.only(
-                    left: Dimensions.width15, right: Dimensions.width15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    OutlinedButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: Dimensions.width50,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                        ),
-                      ),
-                      child: Text(
-                        "CANCEL",
-                        style: TextStyle(
-                          fontSize: Dimensions.font15,
-                          letterSpacing: 2,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: Dimensions.width50,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                        ),
-                      ),
-                      child: Text(
-                        "SAVE",
-                        style: TextStyle(
-                          fontSize: Dimensions.font15,
-                          letterSpacing: 2,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+              );
+      }),
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
 import 'package:billy_application/pages/home/food_page_body.dart';
@@ -22,13 +23,11 @@ class _MainFoodPageState extends State<MainFoodPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _loadResources();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    bool userLoggedIn = Get.find<AuthController>().userLoggedIn();
+    if (userLoggedIn) {
+      _loadResources();
+    }
     // print("current height is ${MediaQuery.of(context).size.height}");
     // print("current width is ${MediaQuery.of(context).size.width}");
     return RefreshIndicator(
