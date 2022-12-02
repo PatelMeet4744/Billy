@@ -10,7 +10,7 @@ class AppConstants {
   static const String bannerAPI = "api/customer/customer/banner";
   static const int pageSize = 10;
   static const String currency = "₹";
-  static const String token = "";
-  static const String customerName = "";
-  static const String customerId = "";
+  static const String token = "TOKEN";
+  static const String customerName = "CUSTOMERNAME";
+  static const String customerId = "CUSTOMERID";
 }
