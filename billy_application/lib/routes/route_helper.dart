@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:billy_application/pages/account/account_page.dart';
 import 'package:billy_application/pages/account/edit_profile.dart';
 import 'package:billy_application/pages/auth/sign_in_page.dart';
 import 'package:billy_application/pages/auth/sign_up_page.dart';
@@ -17,13 +16,13 @@ class RouteHelper {
   static const String otplogin = "/otp-login";
   static const String editprofile = "/edit-profile";
 
-  static String getSplashPage() => '$splashPage';
-  static String getInitial() => '$initial';
-  static String getRegister() => '$register';
-  static String getLogin() => '$login';
+  static String getSplashPage() => splashPage;
+  static String getInitial() => initial;
+  static String getRegister() => register;
+  static String getLogin() => login;
   static String getOTPLogin(String mobileNo, String otpHash) =>
       '$otplogin?mobileNo=$mobileNo&otpHash=$otpHash';
-  static String getEditProfile() => '$editprofile';
+  static String getEditProfile() => editprofile;
 
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashPage()),

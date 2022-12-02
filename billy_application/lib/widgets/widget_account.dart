@@ -1,4 +1,3 @@
-import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/app_icon.dart';
 import 'package:billy_application/widgets/big_text.dart';
