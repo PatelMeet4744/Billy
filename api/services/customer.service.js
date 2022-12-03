@@ -15,11 +15,11 @@ async function createCustomer(params, callback, req, res) {
         }, "");
     }
 
-    let isCustomerExist = await customer.findOne({ customerEmailID: params.customerEmailID });
+    let isCustomerExist = await customer.find({ "$or": [{ customerEmailID: params.customerEmailID }, { customerContact: params.customerContact }] });
 
-    if (isCustomerExist) {
+    if (isCustomerExist != 0) {
         return callback({
-            message: "Customer Email ID already Registered!"
+            message: "Customer Contact No OR Email ID already Registered!"
         });
     }
 
