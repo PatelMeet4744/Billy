@@ -51,11 +51,23 @@ async function getCustomerById({ customerId }, callback) {
 }
 
 async function updateCustomer(params, callback) {
-    const customerId = params.customerId;
 
-    customer.findByIdAndUpdate(customerId, params, { useFindAndModify: false })
+    let isCustomerExist = await customer.find({
+        $and: [
+            { _id: { $not: { $eq: params.customerId } } },
+            { "$or": [{ customerEmailID: params.customerEmailID }, { customerContact: params.customerContact }] },
+        ]
+    });
+
+    if (isCustomerExist != 0) {
+        return callback({
+            message: "Customer Contact No OR Email ID already Registered!"
+        });
+    }
+
+    customer.findByIdAndUpdate(params.customerId, params, { useFindAndModify: false })
         .then((response) => {
-            if (!response) callback("Not Found Customer with ID " + customerId);
+            if (!response) callback("Not Found Customer with ID " + params.customerId);
             else callback(null, response);
         })
         .catch((error) => {
