@@ -67,8 +67,8 @@ async function updateCustomer(params, callback) {
 
     customer.findByIdAndUpdate(params.customerId, params, { useFindAndModify: false })
         .then((response) => {
-            if (!response) callback("Not Found Customer with ID " + params.customerId);
-            else callback(null, response);
+            if (!response) return callback("Not Found Customer with ID " + params.customerId);
+            else return callback(null, "Customer Update is done successfully!");
         })
         .catch((error) => {
             return callback(error);
