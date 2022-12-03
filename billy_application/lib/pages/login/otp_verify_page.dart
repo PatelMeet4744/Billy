@@ -2,11 +2,11 @@ import 'package:billy_application/base/show_custom_snackbar.dart';
 import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/utils/dimensions.dart';
+import 'package:billy_application/widgets/app_progress_hub.dart';
 import 'package:billy_application/widgets/big_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:snippet_coder_utils/hex_color.dart';
 
 class OTPVerifyPage extends StatefulWidget {
@@ -81,7 +81,7 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
     return SafeArea(
       child: Scaffold(
         body: GetBuilder<AuthController>(builder: (authController) {
-          return ProgressHUD(
+          return AppProgressHUD(
             inAsyncCall: authController.isLoading,
             opacity: 0.3,
             key: UniqueKey(),

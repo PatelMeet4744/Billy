@@ -30,4 +30,21 @@ class CustomerController extends GetxController implements GetxService {
     update();
     return responseModel;
   }
+
+  Future<ResponseModel> updateProfile(CustomerModel customerModel) async {
+    _isLoading = true;
+    update();
+    Response response = await customerRepo.updateProfile(customerModel);
+    late ResponseModel responseModel;
+    if (response.statusCode == 200) {
+      responseModel =
+          ResponseModel(response.body["status"], response.body["message"]);
+    } else {
+      responseModel =
+          ResponseModel(response.body["status"], response.body["message"]!);
+    }
+    _isLoading = false;
+    update();
+    return responseModel;
+  }
 }

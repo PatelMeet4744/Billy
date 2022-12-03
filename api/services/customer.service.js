@@ -15,11 +15,11 @@ async function createCustomer(params, callback, req, res) {
         }, "");
     }
 
-    let isCustomerExist = await customer.findOne({ customerEmailID: params.customerEmailID });
+    let isCustomerExist = await customer.find({ "$or": [{ customerEmailID: params.customerEmailID }, { customerContact: params.customerContact }] });
 
-    if (isCustomerExist) {
+    if (isCustomerExist != 0) {
         return callback({
-            message: "Customer Email ID already Registered!"
+            message: "Customer Contact No OR Email ID already Registered!"
         });
     }
 
@@ -51,12 +51,24 @@ async function getCustomerById({ customerId }, callback) {
 }
 
 async function updateCustomer(params, callback) {
-    const customerId = params.customerId;
 
-    customer.findByIdAndUpdate(customerId, params, { useFindAndModify: false })
+    let isCustomerExist = await customer.find({
+        $and: [
+            { _id: { $not: { $eq: params.customerId } } },
+            { "$or": [{ customerEmailID: params.customerEmailID }, { customerContact: params.customerContact }] },
+        ]
+    });
+
+    if (isCustomerExist != 0) {
+        return callback({
+            message: "Customer Contact No OR Email ID already Registered!"
+        });
+    }
+
+    customer.findByIdAndUpdate(params.customerId, params, { useFindAndModify: false })
         .then((response) => {
-            if (!response) callback("Not Found Customer with ID " + customerId);
-            else callback(null, response);
+            if (!response) return callback("Not Found Customer with ID " + params.customerId);
+            else return callback(null, "Customer Update is done successfully!");
         })
         .catch((error) => {
             return callback(error);

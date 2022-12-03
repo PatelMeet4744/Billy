@@ -57,7 +57,7 @@ exports.findOne = (req, res, next) => {
     });
 }
 
-// Update a Customer status by the id in the request
+// Update a Customer Details by the id in the request
 exports.update = (req, res, next) => {
 
     var model = {
@@ -72,8 +72,8 @@ exports.update = (req, res, next) => {
             return next(error);
         } else {
             return res.status(200).send({
-                message: "Success",
-                data: results,
+                status: true,
+                message: results,
             });
         }
     });
