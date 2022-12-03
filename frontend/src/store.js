@@ -5,9 +5,11 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { legacy_createStore as createStore } from 'redux';
 
 import { adminReducer } from "./reducers/adminReducer";
+import { deliveryboyReducer } from "./reducers/deliveryBoyReducer";
 
 const reducer = combineReducers({
-    admin:adminReducer
+    admin:adminReducer,
+    deliveryboy:deliveryboyReducer
 });
 
 let initialState = {

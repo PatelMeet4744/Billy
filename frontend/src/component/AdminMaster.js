@@ -3,6 +3,7 @@ import Header from './layout/Header';
 import Sidebar from './layout/Sidebar1';
 import Footer from './layout/Footer';
 import Dashbord from './pages/Admin/Dashbord';
+import DeliveryBoy from './pages/Admin/DeliveryBoy';
 import '../App.css';
 
 const AdminMaster = (props) => {
@@ -10,6 +11,9 @@ const AdminMaster = (props) => {
     const getstat = () =>{
     if (urlname === "dashboard") {
         return <Dashbord/>
+    }
+    if (urlname === "deliveryBoy"){
+        return <DeliveryBoy/>
     }
     }   
     return (
