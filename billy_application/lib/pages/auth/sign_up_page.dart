@@ -6,12 +6,12 @@ import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/app_form_helper.dart';
+import 'package:billy_application/widgets/app_progress_hub.dart';
 import 'package:billy_application/widgets/big_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -76,7 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
       body: GetBuilder<AuthController>(
         builder: (authController) {
           // Register UI
-          return ProgressHUD(
+          return AppProgressHUD(
             inAsyncCall: authController.isLoading,
             opacity: 0.3,
             key: UniqueKey(),

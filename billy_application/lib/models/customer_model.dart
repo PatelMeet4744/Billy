@@ -19,4 +19,12 @@ class CustomerModel {
       customerContact: json['customerContact'].toString(),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["customerName"] = customerName;
+    data["customerEmailID"] = customerEmailID;
+    data["customerContact"] = int.parse(customerContact);
+    return data;
+  }
 }
