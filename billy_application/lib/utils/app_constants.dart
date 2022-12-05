@@ -13,4 +13,5 @@ class AppConstants {
   static const String token = "TOKEN";
   static const String customerName = "CUSTOMERNAME";
   static const String customerId = "CUSTOMERID";
+  static const String onboard = "ONBOARD";
 }
