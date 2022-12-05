@@ -1,6 +1,10 @@
+import 'package:billy_application/controllers/auth_controller.dart';
+import 'package:billy_application/controllers/banner_controller.dart';
+import 'package:billy_application/controllers/cuisines_controller.dart';
 import 'package:billy_application/pages/onboard/content_model.dart';
-import 'package:billy_application/utils/shared_service.dart';
+import 'package:billy_application/routes/route_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // Widget _defaultHome = const LoginPage();
 
@@ -15,21 +19,16 @@ class _OnboardingState extends State<Onboarding> {
   int currentIndex = 0;
   late PageController _controller;
 
+  Future<void> _loadResources() async {
+    await Get.find<BannerController>().getBannerList();
+    await Get.find<CuisinesController>().getCuisinesList();
+  }
+
   @override
   void initState() {
     _controller = PageController(initialPage: 0);
-    checkLogin();
+    _loadResources();
     super.initState();
-  }
-
-  checkLogin() async {
-    bool result = await SharedService.isLoggedIn();
-
-    if (result) {
-      // ignore: use_build_context_synchronously
-      await SharedService.checkExpiredToken(context, result);
-      // _defaultHome = const Navbar();
-    }
   }
 
   @override
@@ -101,12 +100,11 @@ class _OnboardingState extends State<Onboarding> {
                   currentIndex == contents.length - 1 ? "Continue" : "Next"),
               onPressed: () {
                 if (currentIndex == contents.length - 1) {
-                  // Navigator.pushReplacement(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => _defaultHome,
-                  //   ),
-                  // );
+                  if (Get.find<AuthController>().userLoggedIn()) {
+                    Get.offNamed(RouteHelper.getInitial());
+                  } else {
+                    Get.offNamed(RouteHelper.getLogin());
+                  }
                 }
                 _controller.nextPage(
                   duration: const Duration(milliseconds: 100),
