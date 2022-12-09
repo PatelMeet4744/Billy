@@ -2,6 +2,7 @@ const { restaurant } = require("../models/restaurant.model");
 const bcrypt = require('bcryptjs');
 const auth = require("../middleware/auth");
 const sendEmail = require("../middleware/sendEmail");
+const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createRestaurant(params, callback) {
     if (!params.restaurantName || !params.restaurantAddress || !params.restaurantContact || !params.ownerName || !params.ownerContact || !params.ownerEmailID || !params.ownerPassword) {
@@ -84,9 +85,9 @@ async function attachDocumentRestaurant(params, callback) {
     restaurantFields.documents.sampleMenu = sampleMenu;
     restaurantFields.documents.ownerPan = ownerPan;
 
-    // return console.log(restaurantFields);
+    // return console.log("Fields: ", restaurantFields, "\nID: ", restaurantId);
 
-    restaurant.findOneAndUpdate({ restaurantId: restaurantId }, { $set: restaurantFields }, { new: true })
+    restaurant.findOneAndUpdate({ _id: restaurantId }, { $set: restaurantFields }, { new: true })
         .then((response) => {
             if (!response) callback(`Cannot update Restaurant with ID ${restaurantId}`);
             else callback(null, response);
@@ -178,7 +179,7 @@ async function udpdateRestaurantDocumentByAdmin(params, callback) {
 
     // return console.log(restaurantFields);
 
-    restaurant.findOneAndUpdate({ restaurantId: restaurantId }, { $set: restaurantFields }, { new: true })
+    restaurant.findOneAndUpdate({ _id: restaurantId }, { $set: restaurantFields }, { new: true })
         .then((response) => {
             if (!response) callback(`Cannot update Restaurant with ID ${restaurantId}`);
             else callback(null, response);

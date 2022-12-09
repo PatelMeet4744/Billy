@@ -245,7 +245,7 @@ exports.findAllRestaurant = (req, res, next) => {
             return next(error);
         } else {
             return res.status(200).send({
-                message: "Success",
+                status: true,
                 data: results,
             });
         }

@@ -5,12 +5,12 @@ import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/app_form_helper.dart';
+import 'package:billy_application/widgets/app_progress_hub.dart';
 import 'package:billy_application/widgets/big_text.dart';
 import 'package:billy_application/widgets/small_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -91,7 +91,7 @@ class _SignInPageState extends State<SignInPage> {
       backgroundColor: Colors.white,
       body: GetBuilder<AuthController>(
         builder: (authController) {
-          return ProgressHUD(
+          return AppProgressHUD(
             inAsyncCall: authController.isLoading,
             opacity: 0.3,
             key: UniqueKey(),

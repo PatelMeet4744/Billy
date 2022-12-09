@@ -75,7 +75,7 @@ async function updateItemAddon(params, callback) {
         .map((item) => item.trim());
     // return console.log(itemAddonFields);
 
-    itemAddon.findOneAndUpdate({ itemAddonId: itemAddonId }, { $set: itemAddonFields }, { new: true })
+    itemAddon.findOneAndUpdate({ _id: itemAddonId }, { $set: itemAddonFields }, { new: true })
         .then((response) => {
             if (!response) callback("Not Found Item Add-On with ID " + itemAddonId);
             else callback(null, response);

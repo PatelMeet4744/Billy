@@ -21,6 +21,7 @@ function App() {
 
       <Route element={<PrivateComponent />}>
             <Route exact path="/admin/dashboard" element={<AdminMaster name="dashboard"/>} />
+            <Route exact path="/admin/deliveryBoy" element={<AdminMaster name="deliveryBoy"/>} />
       </Route>
       </Routes>
       </Router> 

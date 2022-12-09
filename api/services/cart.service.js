@@ -94,7 +94,7 @@ async function updateCart(params, callback) {
         .map((element) => element.trim());
     // return console.log(cartFields);
 
-    cart.findOneAndUpdate({ cartId: cartId }, { $set: cartFields }, { new: true })
+    cart.findOneAndUpdate({ _id: cartId }, { $set: cartFields }, { new: true })
         .then((response) => {
             if (!response) callback("Not Found Item Cart Id with ID " + cartId);
             else callback(null, response);

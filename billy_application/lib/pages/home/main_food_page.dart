@@ -1,6 +1,7 @@
 import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
+import 'package:billy_application/controllers/restaurant_controller.dart';
 import 'package:billy_application/pages/home/food_page_body.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/widgets/big_text.dart';
@@ -20,6 +21,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
   Future<void> _loadResources() async {
     await Get.find<BannerController>().getBannerList();
     await Get.find<CuisinesController>().getCuisinesList();
+    await Get.find<RestaurantController>().getRestaurantList();
   }
 
   @override

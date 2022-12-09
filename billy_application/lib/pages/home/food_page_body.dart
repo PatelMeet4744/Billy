@@ -1,3 +1,4 @@
+import 'package:billy_application/controllers/restaurant_controller.dart';
 import 'package:billy_application/utils/app_constants.dart';
 import 'package:billy_application/models/banner_model.dart';
 import 'package:billy_application/controllers/banner_controller.dart';
@@ -77,11 +78,13 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             ),
           );
         }),
+        // Cuisines
         SizedBox(
           height: Dimensions.height10,
         ),
         Container(
-          margin: EdgeInsets.only(left: Dimensions.width30, bottom: 2),
+          margin: EdgeInsets.only(
+              left: Dimensions.width30, bottom: Dimensions.height2),
           child: Row(
             children: [
               BigText(text: "Cuisines"),
@@ -93,13 +96,13 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         ),
         // list of Cuisines
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
           child: Container(
             margin: EdgeInsets.only(
-              top: Dimensions.height2,
+              // top: Dimensions.height2,
               left: Dimensions.width15,
               right: Dimensions.width20,
-              bottom: Dimensions.height10,
+              // bottom: Dimensions.height10,
             ),
             height: Dimensions.height150,
             alignment: Alignment.centerLeft,
@@ -160,6 +163,149 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             ),
           ),
         ),
+        // Restaurant
+        Container(
+          margin: EdgeInsets.only(left: Dimensions.width30),
+          child: Row(
+            children: [
+              BigText(text: "Restaurant"),
+              // SizedBox(
+              //   width: Dimensions.width10,
+              // ),
+            ],
+          ),
+        ),
+        // list of Restaurant
+        GetBuilder<RestaurantController>(builder: (restaurant) {
+          return restaurant.isLoaded
+              ? ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: restaurant.restaurantList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        // Get.toNamed(RouteHelper.getRecommendedFood(index));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          left: Dimensions.width20,
+                          right: Dimensions.width20,
+                          bottom: Dimensions.height10,
+                        ),
+                        child: Row(
+                          children: [
+                            //image section
+                            Container(
+                              width: Dimensions.listViewImgSize,
+                              height: Dimensions.listViewImgSize,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(Dimensions.radius20),
+                                color: Colors.white38,
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Color(0xFFe8e8e8),
+                                      //blurRadius: 5.0,
+                                      offset: Offset(0, 5)),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(-5, 0)),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      offset: Offset(5, 0)),
+                                ],
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(AppConstants.imageURL +
+                                      restaurant.restaurantList[index]
+                                          .restaurantImage!),
+                                ),
+                              ),
+                            ),
+                            //text container
+                            Expanded(
+                              child: Container(
+                                margin:
+                                    EdgeInsets.only(left: Dimensions.width5),
+                                height: Dimensions.listViewImgSize,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(Dimensions.radius20),
+                                  ),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 7,
+                                      spreadRadius: 1,
+                                      offset: const Offset(1, 10),
+                                      color: Colors.grey.withOpacity(0.2),
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: Dimensions.width10,
+                                    right: Dimensions.width10,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      BigText(
+                                        text: restaurant.restaurantList[index]
+                                            .restaurantName!,
+                                        color: AppColors.mainColor,
+                                      ),
+                                      SizedBox(height: Dimensions.height10),
+                                      Text(
+                                        restaurant.restaurantList[index]
+                                            .restaurantAddress!,
+                                        style: TextStyle(
+                                          color: AppColors.textColor,
+                                          fontFamily: 'Roboto',
+                                          fontSize: Dimensions.font12,
+                                          height: 1.2,
+                                          // fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      // SizedBox(height: Dimensions.height10),
+                                      //   Row(
+                                      //       mainAxisAlignment:
+                                      //           MainAxisAlignment.spaceBetween,
+                                      //       children: [
+                                      //         IconAndTextWidget(
+                                      //             icon: Icons.circle_sharp,
+                                      //             text: "Normal",
+                                      //             iconColor:
+                                      //                 AppColors.iconColor1),
+                                      //         IconAndTextWidget(
+                                      //             icon: Icons.location_on,
+                                      //             text: "1.7km",
+                                      //             iconColor: AppColors.mainColor),
+                                      //         IconAndTextWidget(
+                                      //             icon: Icons.access_time_rounded,
+                                      //             text: "32min",
+                                      //             iconColor: AppColors.iconColor2)
+                                      //       ]),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  })
+              : const CircularProgressIndicator(
+                  color: AppColors.mainColor,
+                );
+        }),
+        SizedBox(
+          height: Dimensions.height10,
+        ),
       ],
     );
   }
@@ -213,7 +359,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ],
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(AppConstants.imageURL + banners.bannerImage!),
+                image:
+                    NetworkImage(AppConstants.imageURL + banners.bannerImage!),
               ),
             ),
           ),

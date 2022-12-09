@@ -1,31 +1,42 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:billy_application/pages/account/edit_profile.dart';
+import 'package:billy_application/pages/account/setting_page.dart';
 import 'package:billy_application/pages/auth/sign_in_page.dart';
 import 'package:billy_application/pages/auth/sign_up_page.dart';
 import 'package:billy_application/pages/home/home_page.dart';
 import 'package:billy_application/pages/login/otp_verify_page.dart';
+import 'package:billy_application/pages/onboard/onboarding.dart';
 import 'package:billy_application/pages/splash/splash_page.dart';
 import 'package:get/get.dart';
 
 class RouteHelper {
   static const String splashPage = "/splash-page";
+  static const String onboardPage = "/onboard-page";
   static const String initial = "/";
   static const String register = "/register";
   static const String login = "/login";
   static const String otplogin = "/otp-login";
   static const String editprofile = "/edit-profile";
+  static const String setting = "/setting-profile";
 
   static String getSplashPage() => splashPage;
+  static String getOnboardPage() => onboardPage;
   static String getInitial() => initial;
   static String getRegister() => register;
   static String getLogin() => login;
   static String getOTPLogin(String mobileNo, String otpHash) =>
       '$otplogin?mobileNo=$mobileNo&otpHash=$otpHash';
   static String getEditProfile() => editprofile;
+  static String getSetting() => setting;
 
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashPage()),
+    GetPage(
+      name: onboardPage,
+      page: () => Onboarding(),
+      transition: Transition.leftToRight,
+    ),
     GetPage(
       name: initial,
       page: () => HomePage(),
@@ -56,6 +67,11 @@ class RouteHelper {
     GetPage(
       name: editprofile,
       page: () => EditProfile(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: setting,
+      page: () => SettingPage(),
       transition: Transition.rightToLeft,
     ),
   ];
