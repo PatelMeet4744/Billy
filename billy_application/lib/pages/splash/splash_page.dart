@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:billy_application/controllers/auth_controller.dart';
+import 'package:billy_application/controllers/onboard_controller.dart';
 import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
@@ -30,7 +31,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     super.initState();
     _loadResources();
     Timer(const Duration(seconds: 4), () {
-      if (Get.find<AuthController>().userLoggedIn()) {
+      if (Get.find<OnboardController>().getOnboardState()) {
+        Get.offNamed(RouteHelper.getOnboardPage());
+      } else if (Get.find<AuthController>().userLoggedIn()) {
         Get.offNamed(RouteHelper.getInitial());
       } else {
         Get.offNamed(RouteHelper.getLogin());
@@ -55,7 +58,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
     super.dispose();
   }
 }
