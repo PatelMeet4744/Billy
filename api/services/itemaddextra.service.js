@@ -75,7 +75,7 @@ async function updateItemAddExtra(params, callback) {
         .map((item) => item.trim());
     // return console.log(itemAddExtraFields);
 
-    itemAddExtra.findOneAndUpdate({ itemAddExtraId: itemAddExtraId }, { $set: itemAddExtraFields }, { new: true })
+    itemAddExtra.findOneAndUpdate({ _id: itemAddExtraId }, { $set: itemAddExtraFields }, { new: true })
         .then((response) => {
             if (!response) callback("Not Found Item Add-Extra with ID " + itemAddExtraId);
             else callback(null, response);

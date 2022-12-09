@@ -84,9 +84,9 @@ async function attachDocumentRestaurant(params, callback) {
     restaurantFields.documents.sampleMenu = sampleMenu;
     restaurantFields.documents.ownerPan = ownerPan;
 
-    // return console.log(restaurantFields);
+    // return console.log("Fields: ", restaurantFields, "\nID: ", restaurantId);
 
-    restaurant.findOneAndUpdate({ restaurantId: restaurantId }, { $set: restaurantFields }, { new: true })
+    restaurant.findOneAndUpdate({ _id: restaurantId }, { $set: restaurantFields }, { new: true })
         .then((response) => {
             if (!response) callback(`Cannot update Restaurant with ID ${restaurantId}`);
             else callback(null, response);
@@ -178,7 +178,7 @@ async function udpdateRestaurantDocumentByAdmin(params, callback) {
 
     // return console.log(restaurantFields);
 
-    restaurant.findOneAndUpdate({ restaurantId: restaurantId }, { $set: restaurantFields }, { new: true })
+    restaurant.findOneAndUpdate({ _id: restaurantId }, { $set: restaurantFields }, { new: true })
         .then((response) => {
             if (!response) callback(`Cannot update Restaurant with ID ${restaurantId}`);
             else callback(null, response);
