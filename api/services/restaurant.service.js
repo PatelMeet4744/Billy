@@ -2,6 +2,7 @@ const { restaurant } = require("../models/restaurant.model");
 const bcrypt = require('bcryptjs');
 const auth = require("../middleware/auth");
 const sendEmail = require("../middleware/sendEmail");
+const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createRestaurant(params, callback) {
     if (!params.restaurantName || !params.restaurantAddress || !params.restaurantContact || !params.ownerName || !params.ownerContact || !params.ownerEmailID || !params.ownerPassword) {
