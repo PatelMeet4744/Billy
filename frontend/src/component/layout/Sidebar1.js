@@ -14,29 +14,29 @@ const Sidebar = ({children}) => {
         },
         {
             path:"/admin/user",
-            name:"User",
-            icon:<i className="mdi mdi-view-headline menu-icon" />
+            name:"Customer",
+            icon:<i className="mdi mdi-account menu-icon" />
         },
         {
             path:"/admin/deliveryBoy",
             name:"DeliveryBoy",
-            icon:<i className="mdi mdi-view-headline menu-icon" />
+            icon:<i className="mdi mdi-truck-delivery menu-ico" />
         },
         {
-            path:"/admin/table",
-            name:"Table",
+            path:"/admin/getTouch",
+            name:"GetTocuh",
             icon:<i className="mdi mdi-view-headline menu-icon" />
         },
         {
             path:"/product",
-            name:"Product",
+            name:"Get Touch",
             icon:<i className="mdi mdi-view-headline menu-icon" />
         },
-        {
-            path:"/productList",
-            name:"Product List",
-            icon:<i className="mdi mdi-view-headline menu-icon" />
-        }
+        // {
+        //     path:"/productList",
+        //     name:"Product List",
+        //     icon:<i className="mdi mdi-view-headline menu-icon" />
+        // }
     ]
   return (
     <div className="containerfsf">
