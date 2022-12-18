@@ -4,6 +4,7 @@ import Sidebar from './layout/Sidebar1';
 import Footer from './layout/Footer';
 import Dashbord from './pages/Admin/Dashbord';
 import DeliveryBoy from './pages/Admin/DeliveryBoy';
+import GetTouch from './pages/Admin/GetTouch'
 import '../App.css';
 
 const AdminMaster = (props) => {
@@ -14,6 +15,9 @@ const AdminMaster = (props) => {
     }
     if (urlname === "deliveryBoy"){
         return <DeliveryBoy/>
+    }
+    if (urlname === "getTocuh"){
+        return <GetTouch/>
     }
     }   
     return (
