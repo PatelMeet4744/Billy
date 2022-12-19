@@ -13,7 +13,7 @@ const Sidebar = ({children}) => {
             icon:<i className="mdi mdi-view-quilt menu-icon" />
         },
         {
-            path:"/admin/user",
+            path:"/admin/customer",
             name:"Customer",
             icon:<i className="mdi mdi-account menu-icon" />
         },
