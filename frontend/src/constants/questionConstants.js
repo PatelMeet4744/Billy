@@ -1,0 +1,5 @@
+export const All_QUESTION_REQUEST = "All_QUESTION_REQUEST";
+export const All_QUESTION_SUCCESS = "All_QUESTION_SUCCESS";
+export const All_QUESTION_FAIL = "All_QUESTION_FAIL";
+
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
