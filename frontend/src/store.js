@@ -6,10 +6,16 @@ import { legacy_createStore as createStore } from 'redux';
 
 import { adminReducer } from "./reducers/adminReducer";
 import { deliveryboyReducer } from "./reducers/deliveryBoyReducer";
+import { getTouchReducer } from "./reducers/getTouchReducer";
+import { customerReducer } from "./reducers/customerReducer";
+import { questionReducer } from "./reducers/questionReducer";
 
 const reducer = combineReducers({
     admin:adminReducer,
-    deliveryboy:deliveryboyReducer
+    deliveryboy:deliveryboyReducer,
+    gettouch:getTouchReducer,
+    customer:customerReducer,
+    question:questionReducer,
 });
 
 let initialState = {
