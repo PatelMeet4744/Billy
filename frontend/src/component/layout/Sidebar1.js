@@ -31,7 +31,12 @@ const Sidebar = ({children}) => {
             path:"/admin/question",
             name:"Question",
             icon:<i className="mdi mdi-plus menu-icon" />
-        }
+        },
+        {
+            path:"/admin/cuisines",
+            name:"Cuisines",
+            icon:<i className="mdi mdi-view-headline menu-icon" />
+        },
         // {
         //     path:"/productList",
         //     name:"Product List",

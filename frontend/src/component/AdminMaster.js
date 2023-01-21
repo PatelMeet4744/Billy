@@ -6,7 +6,8 @@ import Dashbord from './pages/Admin/Dashbord';
 import DeliveryBoy from './pages/Admin/DeliveryBoy';
 import GetTouch from './pages/Admin/GetTouch';
 import Customer from './pages/Admin/customer';
-import Question from './pages/Admin/Question'
+import Question from './pages/Admin/Question';
+import Cuisines from './pages/Admin/Cuisines';
 import '../App.css';
 
 const AdminMaster = (props) => {
@@ -27,6 +28,9 @@ const AdminMaster = (props) => {
     if (urlname === "question")
     {
         return <Question/>
+    }
+    if (urlname === "cuisines"){
+        return <Cuisines/>
     }
     }   
     return (
