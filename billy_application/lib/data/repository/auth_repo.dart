@@ -14,7 +14,8 @@ class AuthRepo {
   });
 
   Future<Response> registration(SignUpBody signUpBody) async {
-    return await apiClient.postData(AppConstants.customerAPI, signUpBody.toJson());
+    return await apiClient.postData(
+        AppConstants.customerAPI, signUpBody.toJson());
   }
 
   bool userLoggedIn() {
@@ -49,6 +50,19 @@ class AuthRepo {
       "otp": otp,
       "hash": hash,
     });
+  }
+
+  Future<Response> loginWithSMS(
+      String customerContact, String otp, String verificationId) async {
+    return await apiClient.postData(AppConstants.loginWithSMS, {
+      "customerContact": int.parse(customerContact),
+      "otp": otp,
+      "verificationId": verificationId,
+    });
+  }
+
+  Future<Response> verifyCustomer(String customerContact) async {
+     return await apiClient.getData('${AppConstants.verifyCustomer}/$customerContact');
   }
 
   Future<void> saveUser(

@@ -307,6 +307,10 @@ router.put("/customer/password/password/:customerId", customerController.Passwor
 router.post("/createotp", customerController.createOTP);
 // Verify OTP
 router.post("/verifyotp", customerController.verifyOTP);
+// Login With SMS
+router.post("/loginwithsms", customerController.loginWithSMS);
+// Verify Customer
+router.get("/verifycustomer/:customercontact", customerController.verifyCustomer);
 
 /* Wallet Route */
 // Create a new Wallet

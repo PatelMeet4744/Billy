@@ -2,6 +2,7 @@ import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
 import 'package:billy_application/controllers/restaurant_controller.dart';
 import 'package:billy_application/routes/route_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:billy_application/helper/dependencies.dart' as dep;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await dep.init();
   runApp(const ProviderScope(child: MyApp()));
 }

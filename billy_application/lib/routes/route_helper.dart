@@ -25,8 +25,10 @@ class RouteHelper {
   static String getInitial() => initial;
   static String getRegister() => register;
   static String getLogin() => login;
-  static String getOTPLogin(String mobileNo, String otpHash) =>
-      '$otplogin?mobileNo=$mobileNo&otpHash=$otpHash';
+  static String getOTPLogin(String mobileNo, String verificationId) =>
+      '$otplogin?mobileNo=$mobileNo&verificationId=$verificationId';
+  // static String getOTPLogin(String mobileNo, String otpHash, String verificationId) =>
+  //     '$otplogin?mobileNo=$mobileNo&otpHash=$otpHash&verificationId=$verificationId';
   static String getEditProfile() => editprofile;
   static String getSetting() => setting;
 
@@ -54,13 +56,18 @@ class RouteHelper {
         // ignore: avoid_print
         print("otp verify page called");
         var mobileNo = Get.parameters['mobileNo'];
-        var otpHash = Get.parameters['otpHash'];
+        // var otpHash = Get.parameters['otpHash'];
+        var verificationId = Get.parameters['verificationId'];
 
         // ignore: avoid_print
         print("Get Parameter mobileNo $mobileNo");
         // ignore: avoid_print
-        print("Get Parameter otpHash $otpHash");
-        return OTPVerifyPage(customerContact: mobileNo, hash: otpHash);
+        // print("Get Parameter otpHash $otpHash");
+        // ignore: avoid_print
+        print("Get Parameter verificationId $verificationId");
+        // return OTPVerifyPage(customerContact: mobileNo, hash: otpHash,verificationId: verificationId);
+        return OTPVerifyPage(
+            customerContact: mobileNo, verificationId: verificationId);
       },
       transition: Transition.rightToLeft,
     ),

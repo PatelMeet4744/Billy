@@ -179,3 +179,33 @@ exports.verifyOTP = (req, res, next) => {
         });
     });
 }
+
+// Login With SMS
+exports.verifyCustomer = (req, res, next) => {
+    let customerContact = Number(req.params.customercontact)
+    customerService.verifyCustomer(customerContact, (error, results) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            message: results
+        });
+    });
+}
+
+// Login With SMS
+exports.loginWithSMS = (req, res, next) => {
+    customerService.loginWithSMS(req.body, (error, results, token) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            customer: results,
+            token: token
+        });
+    });
+}
