@@ -8,6 +8,7 @@ import 'package:billy_application/widgets/app_form_helper.dart';
 import 'package:billy_application/widgets/app_progress_hub.dart';
 import 'package:billy_application/widgets/big_text.dart';
 import 'package:billy_application/widgets/small_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,7 @@ class _SignInPageState extends State<SignInPage> {
   late String customerPassword;
   late bool hidePassword = true;
   late bool passwordValidate = true;
+  String? verify;
 
   void _login(AuthController authController) {
     setState(() {
@@ -62,18 +64,39 @@ class _SignInPageState extends State<SignInPage> {
     final form = globalFormKey.currentState;
     if (form!.validate()) {
       form.save();
-      authController.createOTPLogin(customerContact).then((response) {
+      // By default, the device waits for 30 seconds
+      // timeout: const Duration(seconds: 60),
+      authController.verifyCustomer(customerContact).then((response) async {
         if (response.status) {
-          // showCustomSnackBar(
-          //   message: response.message,
-          //   title: "Customer Login",
-          // );
-          Get.toNamed(
-            RouteHelper.getOTPLogin(
-              customerContact,
-              response.message,
-            ),
-          );
+          try {
+            await FirebaseAuth.instance.verifyPhoneNumber(
+              phoneNumber: '+91 $customerContact',
+              verificationCompleted: (PhoneAuthCredential credential) {},
+              verificationFailed: (FirebaseAuthException e) {
+                if (e.code == 'invalid-phone-number') {
+                  // ignore: avoid_print
+                  print('The provided phone number is not valid.');
+                } else {
+                  // ignore: avoid_print
+                  print(e.code);
+                }
+              },
+              codeSent: (String verificationId, int? resendToken) {
+                verify = verificationId;
+                // Navigator.of(context).pop();
+                Get.toNamed(
+                  RouteHelper.getOTPLogin(customerContact, verify ?? "", false),
+                );
+              },
+              codeAutoRetrievalTimeout: (String verificationId) {},
+            );
+          } catch (e) {
+            showCustomSnackBar(
+              isError: true,
+              message: e.toString(),
+              title: "Customer Login",
+            );
+          }
         } else {
           showCustomSnackBar(
             isError: !response.status,
@@ -82,11 +105,100 @@ class _SignInPageState extends State<SignInPage> {
           );
         }
       });
+
+      // authController.createOTPLogin(customerContact).then((response) async {
+      //   if (response.status) {
+      //     // showCustomSnackBar(
+      //     //   message: response.message,
+      //     //   title: "Customer Login",
+      //     // );
+      //
+      //   } else {
+      //     showCustomSnackBar(
+      //       isError: !response.status,
+      //       message: response.message,
+      //       title: "Customer Login",
+      //     );
+      //   }
+      // });
+    }
+  }
+
+  void _resetPassword(AuthController authController) {
+    setState(() {
+      passwordValidate = false;
+    });
+
+    final form = globalFormKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      // By default, the device waits for 30 seconds
+      // timeout: const Duration(seconds: 60),
+      authController.verifyCustomer(customerContact).then((response) async {
+        if (response.status) {
+          try {
+            await FirebaseAuth.instance.verifyPhoneNumber(
+              phoneNumber: '+91 $customerContact',
+              verificationCompleted: (PhoneAuthCredential credential) {},
+              verificationFailed: (FirebaseAuthException e) {
+                if (e.code == 'invalid-phone-number') {
+                  // ignore: avoid_print
+                  print('The provided phone number is not valid.');
+                } else {
+                  // ignore: avoid_print
+                  print(e.code);
+                }
+              },
+              codeSent: (String verificationId, int? resendToken) {
+                verify = verificationId;
+                // Navigator.of(context).pop();
+                Get.toNamed(
+                  RouteHelper.getOTPLogin(customerContact, verify ?? "", true),
+                );
+              },
+              codeAutoRetrievalTimeout: (String verificationId) {},
+            );
+          } catch (e) {
+            showCustomSnackBar(
+              isError: true,
+              message: e.toString(),
+              title: "Customer Login",
+            );
+          }
+        } else {
+          showCustomSnackBar(
+            isError: !response.status,
+            message: response.message,
+            title: "Customer Login",
+          );
+        }
+      });
+
+      // authController.createOTPLogin(customerContact).then((response) async {
+      //   if (response.status) {
+      //     // showCustomSnackBar(
+      //     //   message: response.message,
+      //     //   title: "Customer Login",
+      //     // );
+      //
+      //   } else {
+      //     showCustomSnackBar(
+      //       isError: !response.status,
+      //       message: response.message,
+      //       title: "Customer Login",
+      //     );
+      //   }
+      // });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    bool userLoggedIn = Get.find<AuthController>().userLoggedIn();
+    if (userLoggedIn) {
+      Navigator.of(context).pop();
+      Get.toNamed(RouteHelper.getInitial());
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: GetBuilder<AuthController>(
@@ -207,23 +319,26 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(
                       height: Dimensions.height20,
                     ),
-                    // Tag line
-                    Row(
-                      children: [
-                        Expanded(child: Container()),
-                        RichText(
-                          text: TextSpan(
-                            text: "Sign into your account",
-                            style: TextStyle(
-                              color: Colors.grey[500],
-                              fontSize: Dimensions.font18,
+                    // Reset Password
+                    GestureDetector(
+                      onTap: (() => _resetPassword(authController)),
+                      child: Row(
+                        children: [
+                          Expanded(child: Container()),
+                          RichText(
+                            text: TextSpan(
+                              text: "Reset Password?",
+                              style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: Dimensions.font18,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: Dimensions.width20,
-                        ),
-                      ],
+                          SizedBox(
+                            width: Dimensions.width20,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: Dimensions.screenHeight * 0.05,

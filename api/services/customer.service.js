@@ -124,7 +124,7 @@ async function updateCustomerStatus({ customerId, customerStatus }, callback) {
 
 async function loginCustomer({ customerContact, customerPassword }, callback) {
     const customerModel = await customer.findOne({ customerContact }, { customerName: 1, customerPassword: 1 });
-    // console.log(customerModel);
+    // return console.log(customerModel);
     if (customerModel != null) {
         if (bcrypt.compareSync(customerPassword, customerModel.customerPassword)) {
             const token = auth.generateAccessToken(customerModel.toJSON());
@@ -139,7 +139,7 @@ async function loginCustomer({ customerContact, customerPassword }, callback) {
     }
     else {
         return callback({
-            message: "Invalid Email"
+            message: "Invalid Contact No."
         });
     }
 }
@@ -239,6 +239,69 @@ async function verifyOTP(params, callback) {
     }
 
 }
+
+async function verifyCustomer(customerContact, callback) {
+    // return console.log({ customerContact });
+    const customerModel = await customer.findOne({ customerContact }, { customerName: 1 });
+    if (customerModel != null) {
+        return callback(null, "Customer have registered!")
+    }
+    else {
+        return callback({
+            message: "Billy does not have a registered contact number."
+        });
+    }
+}
+
+async function loginWithSMS(params, callback) {
+    try {
+        await customer.findOneAndUpdate({ customerContact: params.customerContact }, { customerOTP: params.otp, customerHash: params.verificationId }, { useFindAndModify: false })
+            .then((response) => {
+                if (!response) return callback("Not Found Customer " + params.customerContact);
+                else {
+                    // Token Generate Logic
+                    let customerJson = { ...response.toJSON() }
+                    delete customerJson.customerEmailID;
+                    delete customerJson.customerContact;
+                    delete customerJson.billingAddress;
+                    delete customerJson.customerOTP;
+                    delete customerJson.customerHash;
+                    delete customerJson.customerReferralcode;
+                    delete customerJson.customerFromReferralcode;
+                    delete customerJson.customerStatus;
+                    delete customerJson.createdAt;
+                    delete customerJson.updatedAt;
+                    const token = auth.generateAccessToken(customerJson);
+                    delete customerJson.customerPassword;
+                    return callback(null, customerJson, token);
+                }
+            })
+            .catch((error) => {
+                return callback(error);
+            });
+    } catch (error) {
+        return callback(error);
+    }
+}
+
+async function resetPassword(params, callback) {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const customerPassword = await bcrypt.hash(params.customerPassword, salt);
+
+        await customer.findOneAndUpdate({ customerContact: params.customerContact }, { customerPassword: customerPassword, customerOTP: params.customerOTP, customerHash: params.customerHash }, { useFindAndModify: false }).then((response) => {
+            if (!response) return callback("Not Found Customer " + params.customerContact);
+            else {
+                return callback(null, "Reset Password Successfully!");
+            }
+        })
+            .catch((error) => {
+                return callback(error);
+            });
+    } catch (error) {
+        return callback(error);
+    }
+}
 module.exports = {
     createCustomer,
     getCustomerById,
@@ -249,5 +312,8 @@ module.exports = {
     loginCustomer,
     updateCustomerPassword,
     createOTP,
-    verifyOTP
+    verifyOTP,
+    verifyCustomer,
+    loginWithSMS,
+    resetPassword
 };

@@ -179,3 +179,53 @@ exports.verifyOTP = (req, res, next) => {
         });
     });
 }
+
+// Login With SMS
+exports.verifyCustomer = (req, res, next) => {
+    let customerContact = Number(req.params.customercontact)
+    customerService.verifyCustomer(customerContact, (error, results) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            message: results
+        });
+    });
+}
+
+// Login With SMS
+exports.loginWithSMS = (req, res, next) => {
+    customerService.loginWithSMS(req.body, (error, results, token) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            customer: results,
+            token: token
+        });
+    });
+}
+// Reset Password
+exports.resetPassword = (req, res, next) => {
+    var model = {
+        customerContact: req.params.customercontact,
+        customerPassword: req.body.customerPassword,
+        customerOTP: req.body.otp,
+        customerHash: req.body.verificationId
+    };
+
+    customerService.resetPassword(model, (error, result) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            message: result
+        });
+    });
+}
