@@ -43,6 +43,10 @@ const restaurant = mongoose.model(
                 type: String,
                 require: true
             },
+            restPasswordToken: {
+                type: String,
+                default: ''
+            },
             documents: {
                 gstCertificate: {
                     type: String,
