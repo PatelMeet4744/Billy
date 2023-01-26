@@ -251,3 +251,22 @@ exports.findAllRestaurant = (req, res, next) => {
         }
     });
 }
+
+exports.updatePassword = (req, res, next) => {
+    var model = {
+        restaurantId: req.body.restaurantId,
+        ownerPassword: req.body.ownerPassword,
+        newpassword: req.body.newpassword,
+        confirmPassword: req.body.confirmPassword
+    };
+    restaurantService.updateRestaurantPassword(model, (error, results) => {
+         if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+}
