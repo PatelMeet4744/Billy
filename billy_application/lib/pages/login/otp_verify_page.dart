@@ -14,9 +14,11 @@ class OTPVerifyPage extends StatefulWidget {
   final String? customerContact;
   // final String? hash;
   final String? verificationId;
+  final bool? isResetPage;
 
   // const OTPVerifyPage({super.key, this.customerContact, this.hash, this.verificationId});
-  const OTPVerifyPage({super.key, this.customerContact, this.verificationId});
+  const OTPVerifyPage(
+      {super.key, this.customerContact, this.verificationId, this.isResetPage});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -118,8 +120,33 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
     }
   }
 
+  Future<void> _resetPassword(AuthController authController) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: widget.verificationId!, smsCode: _otpCode);
+      // Sign the user in (or link) with the credential
+      await auth.signInWithCredential(credential);
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pop();
+      Get.toNamed(RouteHelper.getResetPasswordPage(
+        widget.customerContact!,
+        _otpCode,
+        widget.verificationId!,
+      ));
+    } on Exception catch (e) {
+      // ignore: avoid_print
+      print(e);
+      showCustomSnackBar(
+        isError: true,
+        message: "Wrong OTP",
+        title: "Reset Password!",
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool isResetPage = widget.isResetPage!;
     return SafeArea(
       child: Scaffold(
         body: GetBuilder<AuthController>(builder: (authController) {
@@ -185,17 +212,19 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
                   height: Dimensions.screenHeight * 0.05,
                 ),
                 GestureDetector(
-                  onTap: (() => _otplogin(authController)),
+                  onTap: (() => isResetPage
+                      ? _resetPassword(authController)
+                      : _otplogin(authController)),
                   child: Container(
-                    width: Dimensions.screenWidth / 2,
-                    height: Dimensions.screenHeight / 13,
+                    width: (Dimensions.screenWidth / 2) + 16,
+                    height: Dimensions.screenHeight / 12,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius30),
                       color: HexColor("#78D0B1"),
                     ),
                     child: Center(
                       child: BigText(
-                        text: "Sign In",
+                        text: isResetPage ? "Reset Password" : "Sign In",
                         size: Dimensions.font24,
                         color: Colors.white,
                       ),

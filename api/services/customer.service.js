@@ -282,9 +282,26 @@ async function loginWithSMS(params, callback) {
     } catch (error) {
         return callback(error);
     }
-
 }
 
+async function resetPassword(params, callback) {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const customerPassword = await bcrypt.hash(params.customerPassword, salt);
+
+        await customer.findOneAndUpdate({ customerContact: params.customerContact }, { customerPassword: customerPassword, customerOTP: params.customerOTP, customerHash: params.customerHash }, { useFindAndModify: false }).then((response) => {
+            if (!response) return callback("Not Found Customer " + params.customerContact);
+            else {
+                return callback(null, "Reset Password Successfully!");
+            }
+        })
+            .catch((error) => {
+                return callback(error);
+            });
+    } catch (error) {
+        return callback(error);
+    }
+}
 module.exports = {
     createCustomer,
     getCustomerById,
@@ -297,5 +314,6 @@ module.exports = {
     createOTP,
     verifyOTP,
     verifyCustomer,
-    loginWithSMS
+    loginWithSMS,
+    resetPassword
 };

@@ -10,6 +10,7 @@ class AppConstants {
   static const String verifyOTPAPI = "api/verifyotp";
   static const String loginWithSMS = "api/loginwithsms";
   static const String verifyCustomer = "api/verifycustomer";
+  static const String resetPasswordAPI = "api/resetpassword";
   static const String bannerAPI = "api/customer/customer/banner";
   static const int pageSize = 10;
   static const String currency = "₹";

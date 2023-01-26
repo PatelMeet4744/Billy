@@ -311,6 +311,8 @@ router.post("/verifyotp", customerController.verifyOTP);
 router.post("/loginwithsms", customerController.loginWithSMS);
 // Verify Customer
 router.get("/verifycustomer/:customercontact", customerController.verifyCustomer);
+// Reset Password
+router.put("/resetpassword/:customercontact", customerController.resetPassword);
 
 /* Wallet Route */
 // Create a new Wallet

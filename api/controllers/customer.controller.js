@@ -209,3 +209,23 @@ exports.loginWithSMS = (req, res, next) => {
         });
     });
 }
+// Reset Password
+exports.resetPassword = (req, res, next) => {
+    var model = {
+        customerContact: req.params.customercontact,
+        customerPassword: req.body.customerPassword,
+        customerOTP: req.body.otp,
+        customerHash: req.body.verificationId
+    };
+
+    customerService.resetPassword(model, (error, result) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            message: result
+        });
+    });
+}

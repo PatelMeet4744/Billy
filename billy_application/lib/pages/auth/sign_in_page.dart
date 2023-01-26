@@ -27,6 +27,7 @@ class _SignInPageState extends State<SignInPage> {
   late bool hidePassword = true;
   late bool passwordValidate = true;
   String? verify;
+
   void _login(AuthController authController) {
     setState(() {
       passwordValidate = true;
@@ -84,7 +85,75 @@ class _SignInPageState extends State<SignInPage> {
                 verify = verificationId;
                 // Navigator.of(context).pop();
                 Get.toNamed(
-                  RouteHelper.getOTPLogin(customerContact, verify ?? ""),
+                  RouteHelper.getOTPLogin(customerContact, verify ?? "", false),
+                );
+              },
+              codeAutoRetrievalTimeout: (String verificationId) {},
+            );
+          } catch (e) {
+            showCustomSnackBar(
+              isError: true,
+              message: e.toString(),
+              title: "Customer Login",
+            );
+          }
+        } else {
+          showCustomSnackBar(
+            isError: !response.status,
+            message: response.message,
+            title: "Customer Login",
+          );
+        }
+      });
+
+      // authController.createOTPLogin(customerContact).then((response) async {
+      //   if (response.status) {
+      //     // showCustomSnackBar(
+      //     //   message: response.message,
+      //     //   title: "Customer Login",
+      //     // );
+      //
+      //   } else {
+      //     showCustomSnackBar(
+      //       isError: !response.status,
+      //       message: response.message,
+      //       title: "Customer Login",
+      //     );
+      //   }
+      // });
+    }
+  }
+
+  void _resetPassword(AuthController authController) {
+    setState(() {
+      passwordValidate = false;
+    });
+
+    final form = globalFormKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      // By default, the device waits for 30 seconds
+      // timeout: const Duration(seconds: 60),
+      authController.verifyCustomer(customerContact).then((response) async {
+        if (response.status) {
+          try {
+            await FirebaseAuth.instance.verifyPhoneNumber(
+              phoneNumber: '+91 $customerContact',
+              verificationCompleted: (PhoneAuthCredential credential) {},
+              verificationFailed: (FirebaseAuthException e) {
+                if (e.code == 'invalid-phone-number') {
+                  // ignore: avoid_print
+                  print('The provided phone number is not valid.');
+                } else {
+                  // ignore: avoid_print
+                  print(e.code);
+                }
+              },
+              codeSent: (String verificationId, int? resendToken) {
+                verify = verificationId;
+                // Navigator.of(context).pop();
+                Get.toNamed(
+                  RouteHelper.getOTPLogin(customerContact, verify ?? "", true),
                 );
               },
               codeAutoRetrievalTimeout: (String verificationId) {},
@@ -250,23 +319,26 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(
                       height: Dimensions.height20,
                     ),
-                    // Tag line
-                    Row(
-                      children: [
-                        Expanded(child: Container()),
-                        RichText(
-                          text: TextSpan(
-                            text: "Reset Password?",
-                            style: TextStyle(
-                              color: Colors.grey[500],
-                              fontSize: Dimensions.font18,
+                    // Reset Password
+                    GestureDetector(
+                      onTap: (() => _resetPassword(authController)),
+                      child: Row(
+                        children: [
+                          Expanded(child: Container()),
+                          RichText(
+                            text: TextSpan(
+                              text: "Reset Password?",
+                              style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: Dimensions.font18,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: Dimensions.width20,
-                        ),
-                      ],
+                          SizedBox(
+                            width: Dimensions.width20,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: Dimensions.screenHeight * 0.05,

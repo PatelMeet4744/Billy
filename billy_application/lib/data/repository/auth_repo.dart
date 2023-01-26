@@ -62,7 +62,18 @@ class AuthRepo {
   }
 
   Future<Response> verifyCustomer(String customerContact) async {
-     return await apiClient.getData('${AppConstants.verifyCustomer}/$customerContact');
+    return await apiClient
+        .getData('${AppConstants.verifyCustomer}/$customerContact');
+  }
+
+  Future<Response> resetPassword(String customerContact,
+      String customerPassword, String otp, String verificationId) async {
+    return await apiClient
+        .putData('${AppConstants.resetPasswordAPI}/$customerContact', {
+      "customerPassword": customerPassword,
+      "otp": otp,
+      "verificationId": verificationId,
+    });
   }
 
   Future<void> saveUser(

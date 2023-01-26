@@ -41,17 +41,19 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetBuilder<BannerController>(builder: (_) {
       return GetBuilder<CuisinesController>(builder: (_) {
-        return GetBuilder<RestaurantController>(builder: (_) {return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Billy',
-          darkTheme: ThemeData(brightness: Brightness.dark),
-          theme: ThemeData(
-            primarySwatch: MaterialColor(0xfff6881f, color),
-          ),
-          // home: const SignInPage(),
-          initialRoute: RouteHelper.getSplashPage(),
-          getPages: RouteHelper.routes,
-        );});
+        return GetBuilder<RestaurantController>(builder: (_) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Billy',
+            darkTheme: ThemeData(brightness: Brightness.dark),
+            theme: ThemeData(
+              primarySwatch: MaterialColor(0xfff6881f, color),
+            ),
+            // home: const ResetPasswordPage(),
+            initialRoute: RouteHelper.getSplashPage(),
+            getPages: RouteHelper.routes,
+          );
+        });
       });
     });
   }
