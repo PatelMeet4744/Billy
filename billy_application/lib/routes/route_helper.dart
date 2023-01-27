@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:billy_application/pages/account/change_password_page.dart';
 import 'package:billy_application/pages/account/edit_profile.dart';
 import 'package:billy_application/pages/account/setting_page.dart';
 import 'package:billy_application/pages/auth/reset_password_page.dart';
@@ -21,6 +22,7 @@ class RouteHelper {
   static const String resetPasswordPage = "/reset-password-page";
   static const String editprofile = "/edit-profile";
   static const String setting = "/setting-profile";
+  static const String changePasswordPage = "/change-password-page";
 
   static String getSplashPage() => splashPage;
   static String getOnboardPage() => onboardPage;
@@ -37,6 +39,7 @@ class RouteHelper {
       '$resetPasswordPage?mobileNo=$mobileNo&otp=$otp&verificationId=$verificationId';
   static String getEditProfile() => editprofile;
   static String getSetting() => setting;
+  static String getChangePasswordPage() => changePasswordPage;
 
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashPage()),
@@ -116,6 +119,11 @@ class RouteHelper {
     GetPage(
       name: setting,
       page: () => SettingPage(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: changePasswordPage,
+      page: () => ChangePasswordPage(),
       transition: Transition.rightToLeft,
     ),
   ];

@@ -61,7 +61,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       backgroundColor: Colors.white,
       body: GetBuilder<AuthController>(
         builder: (authController) {
-          // Register UI
+          // Reset Password UI
           return AppProgressHUD(
             inAsyncCall: authController.isLoading,
             opacity: 0.3,
@@ -86,7 +86,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     SizedBox(
                       height: Dimensions.screenHeight * 0.05,
                     ),
-                    // Hello Text
+                    // Reset Password Text
                     Container(
                       margin: EdgeInsets.only(left: Dimensions.width20),
                       width: double.maxFinite,
