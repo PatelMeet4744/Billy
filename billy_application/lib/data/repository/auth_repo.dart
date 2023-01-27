@@ -26,6 +26,10 @@ class AuthRepo {
     return sharedPreferences.getString(AppConstants.token) ?? "";
   }
 
+  String getUserId() {
+    return sharedPreferences.getString(AppConstants.customerId) ?? "";
+  }
+
   Future<Response> login(
       String customerContact, String customerPassword) async {
     return await apiClient.postData(AppConstants.loginAPI, {
@@ -74,6 +78,20 @@ class AuthRepo {
       "otp": otp,
       "verificationId": verificationId,
     });
+  }
+
+  Future<Response> changePassword(
+    String customerId,
+    String customerOldPassword,
+    String customerPassword,
+  ) async {
+    return await apiClient.putData(
+      '${AppConstants.changePasswordAPI}/$customerId',
+      {
+        "customerOldPassword": customerOldPassword,
+        "customerPassword": customerPassword
+      },
+    );
   }
 
   Future<void> saveUser(

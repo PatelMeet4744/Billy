@@ -158,6 +158,28 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
+  Future<ResponseModel> changePassword(
+    String customerId,
+    String customerOldPassword,
+    String customerPassword,
+  ) async {
+    _isLoading = true;
+    update();
+    Response response = await authRepo.changePassword(
+        customerId, customerOldPassword, customerPassword);
+    late ResponseModel responseModel;
+    if (response.statusCode == 200) {
+      responseModel =
+          ResponseModel(response.body["status"], response.body["message"]!);
+    } else {
+      responseModel =
+          ResponseModel(response.body["status"], response.body["message"]!);
+    }
+    _isLoading = false;
+    update();
+    return responseModel;
+  }
+
   void saveUser(String token, String customerName, String customerId) {
     authRepo.saveUser(token, customerName, customerId);
   }
@@ -168,6 +190,10 @@ class AuthController extends GetxController implements GetxService {
 
   String getUserToken() {
     return authRepo.getUserToken();
+  }
+
+  String getUserId() {
+    return authRepo.getUserId();
   }
 
   bool clearSharedData() {

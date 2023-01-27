@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: MaterialColor(0xfff6881f, color),
             ),
-            // home: const ResetPasswordPage(),
+            // home: const ChangePasswordPage(),
             initialRoute: RouteHelper.getSplashPage(),
             getPages: RouteHelper.routes,
           );

@@ -144,38 +144,37 @@ async function loginCustomer({ customerContact, customerPassword }, callback) {
     }
 }
 
-async function updateCustomerPassword(params, callback) {
+async function changeCustomerPassword(params, callback) {
 
-    if (!params.customerId || !params.customerPassword || !params.newpassword) {
+    if (!params.customerId || !params.customerOldPassword || !params.customerPassword) {
         return callback({
             message: "Some Fields are Required"
         }, "");
     }
 
-    const { customerId, customerPassword, newpassword } = params;
+    const { customerId, customerOldPassword, customerPassword } = params;
 
-    customer.findById(customerId)
     const customerModel = await customer.findById(customerId, { customerPassword: 1 });
     if (customerModel != null) {
-        if (bcrypt.compareSync(customerPassword, customerModel.customerPassword)) {
+        if (bcrypt.compareSync(customerOldPassword, customerModel.customerPassword)) {
             const salt = await bcrypt.genSalt(10);
-            hashpassword = await bcrypt.hash(newpassword, salt);
+            hashpassword = await bcrypt.hash(customerPassword, salt);
             customer.findByIdAndUpdate(customerId, { customerPassword: hashpassword }, { useFindAndModify: false })
                 .then((response) => {
-                    if (!response) callback("Not Found Customer with ID " + customerId);
-                    else callback(null, response);
+                    if (!response) callback("Not Found Customer ID " + customerId);
+                    else callback(null, "Change Customer Password Successfully!");
                 })
                 .catch((error) => {
                     return callback(error);
                 });
         } else {
             return callback({
-                message: "The Password was wrong"
+                message: "The Customer Password was wrong!"
             });
         }
     } else {
         return callback({
-            message: "The Email is not Found"
+            message: "Billy does not have a registered contact number."
         });
     }
 }
@@ -310,7 +309,7 @@ module.exports = {
     deleteCustomer,
     updateCustomerStatus,
     loginCustomer,
-    updateCustomerPassword,
+    changeCustomerPassword,
     createOTP,
     verifyOTP,
     verifyCustomer,

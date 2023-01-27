@@ -131,22 +131,23 @@ exports.updateStatus = (req, res, next) => {
     });
 }
 
-// Customer Password Update
-exports.PasswordUpdate = (req, res, next) => {
+// Change Customer Password
+exports.changePassword = (req, res, next) => {
 
     var model = {
         customerId: req.params.customerId,
-        customerPassword: req.body.customerPassword,
-        newpassword: req.body.newpassword
+        customerOldPassword: req.body.customerOldPassword,
+        customerPassword: req.body.customerPassword
     };
-    customerService.updateCustomerPassword(model, (error, results) => {
+
+    customerService.changeCustomerPassword(model, (error, results) => {
         if (error) {
             return next(error);
         }
 
         return res.status(200).send({
-            message: "Success",
-            data: results
+            status: true,
+            message: results
         });
     });
 }

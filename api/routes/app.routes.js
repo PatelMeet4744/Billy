@@ -301,8 +301,8 @@ router.get("/customer", [authenticateToken], customerController.findAll);
 router.delete("/customer/:customerId", [authenticateToken], customerController.delete);
 // Update Customer Status
 router.put("/customer/:customerId/:customerStatus", [authenticateToken], customerController.updateStatus);
-// Update Customer Password Update
-router.put("/customer/password/password/:customerId", customerController.PasswordUpdate);
+// Change Customer Password
+router.put("/customer/change/password/:customerId", customerController.changePassword);
 // Create OTP OR Generate OTP
 router.post("/createotp", customerController.createOTP);
 // Verify OTP
