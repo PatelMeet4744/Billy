@@ -47,6 +47,10 @@ router.get("/restaurant/getdocument/:id", [authenticateToken], restaurantControl
 router.put("/restaurant/updatedocument/:restaurantId", [authenticateToken], restaurantController.udpdateDocumentByAdmin);
 // Update Restaurant Status
 router.put("/restaurant/:restaurantId/:restaurantStatus", [authenticateToken], restaurantController.updateStatus);
+// Retrieve all Restaurant
+router.get("/restaurant", [authenticateToken], restaurantController.findAllRestaurant);
+// Update Restaurant Password
+router.get("/changePassword", [authenticateToken], restaurantController.updatePassword);
 
 /* Cuisines Route */
 // Create a new Cuisines
