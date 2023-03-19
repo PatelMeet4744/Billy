@@ -260,11 +260,24 @@ exports.updatePassword = (req, res, next) => {
         confirmPassword: req.body.confirmPassword
     };
     restaurantService.updateRestaurantPassword(model, (error, results) => {
-         if (error) {
+        if (error) {
             return next(error);
         } else {
             return res.status(200).send({
                 message: "Success",
+                data: results,
+            });
+        }
+    });
+}
+
+exports.getRestaurantbyCuisines = (req, res, next) => {
+    restaurantService.getRestaurantbyCuisines(req.params.id, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                status: true,
                 data: results,
             });
         }
