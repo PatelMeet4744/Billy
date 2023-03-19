@@ -17,5 +17,7 @@ router.get("/customer/cuisines", [authenticateToken], cuisinesController.findAll
 /* Restaurant Route */
 // Retrieve all Restaurant By Customer
 router.get("/customer/restaurant", [authenticateToken], restaurantController.findAllRestaurant);
+// Retrive Restaurant By Cuisines
+router.get("/customer/restaurant/cuisines/:id", [authenticateToken], restaurantController.getRestaurantbyCuisines);
 
 module.exports = router;

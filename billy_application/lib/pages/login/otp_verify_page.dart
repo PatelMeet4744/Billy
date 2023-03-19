@@ -100,7 +100,7 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
             title: "Customer Login",
           );
           Navigator.of(context).pop();
-          Get.toNamed(RouteHelper.getInitial());
+          Get.offAllNamed(RouteHelper.getInitial());
         } else {
           showCustomSnackBar(
             isError: !response.status,
