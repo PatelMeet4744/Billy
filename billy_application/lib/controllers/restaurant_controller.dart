@@ -23,4 +23,17 @@ class RestaurantController extends GetxController {
       update();
     } else {}
   }
+
+  Future<void> getRestaurantListByCusines(String cuisinesId) async {
+    Response response =
+        await restaurantRepo.getRestaurantListByCusines(cuisinesId);
+    if (response.statusCode == 200) {
+      //print("get Restaurant By Cusines");
+      _restaurantList = [];
+      _restaurantList.addAll(RestaurantModel.fromJson(response.body).data);
+      // print(_restaurantList);
+      _isLoaded = true;
+      update();
+    } else {}
+  }
 }

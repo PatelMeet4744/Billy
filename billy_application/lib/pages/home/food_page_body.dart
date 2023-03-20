@@ -1,4 +1,5 @@
 import 'package:billy_application/controllers/restaurant_controller.dart';
+import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/utils/app_constants.dart';
 import 'package:billy_application/models/banner_model.dart';
 import 'package:billy_application/controllers/banner_controller.dart';
@@ -116,7 +117,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                         itemCount: cuisines.cuisinesList.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(
+                                  RouteHelper.getRestaurantListPage(index));
+                            },
                             child: Column(
                               children: [
                                 Container(

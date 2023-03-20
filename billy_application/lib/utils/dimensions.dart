@@ -71,10 +71,13 @@ class Dimensions {
   //dynamic radius
   static double radius15 = screenHeight / 52.07;
   static double radius20 = screenHeight / 39.05;
+  static double radius25 = screenHeight / 31.24;
   static double radius30 = screenHeight / 26.04;
 
   //list view size
   static double listViewImgSize = screenWidth / 3.27; // width120
   static double listViewTextContSize = screenWidth / 3.93; // width100
 
+  // Cuisines Banner Size
+  static double cuisinesBannerImgSize = screenHeight / 6.51;
 }

@@ -9,6 +9,7 @@ import 'package:billy_application/pages/auth/sign_up_page.dart';
 import 'package:billy_application/pages/home/home_page.dart';
 import 'package:billy_application/pages/login/otp_verify_page.dart';
 import 'package:billy_application/pages/onboard/onboarding.dart';
+import 'package:billy_application/pages/restaurant/restaurant_list_page.dart';
 import 'package:billy_application/pages/splash/splash_page.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +24,7 @@ class RouteHelper {
   static const String editprofile = "/edit-profile";
   static const String setting = "/setting-profile";
   static const String changePasswordPage = "/change-password-page";
+  static const String restaurantListPage = "/restaurant-list-page";
 
   static String getSplashPage() => splashPage;
   static String getOnboardPage() => onboardPage;
@@ -40,7 +42,10 @@ class RouteHelper {
   static String getEditProfile() => editprofile;
   static String getSetting() => setting;
   static String getChangePasswordPage() => changePasswordPage;
-
+  // static String getRestaurantListPage(String cuisinesId) =>
+  //     '$restaurantListPage?cuisinesId=$cuisinesId';
+  static String getRestaurantListPage(int pageId) =>
+      '$restaurantListPage?pageId=$pageId';
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashPage()),
     GetPage(
@@ -126,5 +131,21 @@ class RouteHelper {
       page: () => ChangePasswordPage(),
       transition: Transition.rightToLeft,
     ),
+    // GetPage(
+    //   name: restaurantListPage,
+    //   page: () {
+    //     var cuisinesId = Get.parameters['cuisinesId'];
+    //     return RestaurantListPage(cuisinesId: cuisinesId);
+    //   },
+    //   transition: Transition.rightToLeft,
+    // ),
+    GetPage(
+      name: restaurantListPage,
+      page: () {
+        var pageId = Get.parameters['pageId'];
+        return RestaurantListPage(pageId: int.parse(pageId!));
+      },
+      transition: Transition.rightToLeft,
+    )
   ];
 }
