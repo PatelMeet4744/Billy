@@ -182,3 +182,29 @@ exports.updateApprovalStatus = (req, res, next) => {
         }
     });
 }
+
+exports.getItemByCategory = (req, res, next) => {
+    itemService.getItemByCategory((error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                status: true,
+                data: results,
+            });
+        }
+    });
+}
+
+exports.getItemByRestaurant = (req, res, next) => {
+    itemService.getItemByRestaurant(req.params.id, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                status: true,
+                data: results,
+            });
+        }
+    });
+}
