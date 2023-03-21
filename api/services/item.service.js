@@ -1,6 +1,6 @@
 const { item } = require("../models/item.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
-
+const mongodb = require('mongodb');
 async function createItem(params, callback) {
     if (!params.restaurant || !params.category || !params.itemName || !params.itemDescription || !params.variant || !params.itemImage) {
         return callback({
@@ -130,6 +130,66 @@ async function updateItemApprovalStatus({ itemId, approvalStatus }, callback) {
         });
 }
 
+async function getItemByCategory(callback) {
+    item.aggregate([{
+        $lookup: {
+            from: "categories",
+            localField: "category",
+            foreignField: "_id",
+            as: "category"
+        }
+    }, {
+        $unwind: "$category"
+    }, {
+        $group: {
+            _id: "$category.categoryName",
+            total: { $sum: 1 },
+            item: {
+                $push: "$$ROOT"
+            }
+        }
+    }])
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
+async function getItemByRestaurant(restaurantId, callback) {
+    const myId = new mongodb.ObjectID(restaurantId);
+    console.log(myId);
+    item.aggregate([
+        {
+            $match: { restaurant: myId }
+        },
+        {
+            $lookup: {
+                from: "categories",
+                localField: "category",
+                foreignField: "_id",
+                as: "category"
+            }
+        }, {
+            $unwind: "$category"
+        }, {
+            $group: {
+                _id: "$category.categoryName",
+                total: { $sum: 1 },
+                item: {
+                    $push: "$$ROOT"
+                }
+            }
+        }])
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createItem,
     getItem,
@@ -137,5 +197,7 @@ module.exports = {
     updateItem,
     deleteItem,
     updateItemStatus,
-    updateItemApprovalStatus
+    updateItemApprovalStatus,
+    getItemByCategory,
+    getItemByRestaurant
 };
