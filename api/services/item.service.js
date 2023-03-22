@@ -159,10 +159,9 @@ async function getItemByCategory(callback) {
 
 async function getItemByRestaurant(restaurantId, callback) {
     const myId = new mongodb.ObjectID(restaurantId);
-    console.log(myId);
     item.aggregate([
         {
-            $match: { restaurant: myId }
+            $match: { restaurant: myId, itemStatus: true, approvalStatus: 3 }
         },
         {
             $lookup: {
