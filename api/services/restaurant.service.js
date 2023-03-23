@@ -269,7 +269,7 @@ async function updateRestaurantPassword(params, callback) {
 
 async function getRestaurantbyCuisines(cuisinesId, callback) {
 
-    restaurant.find({ "cuisines": cuisinesId }, { restaurantName: 1, restaurantImage: 1, restaurantAddress: 1 }).populate({ path: "cuisines", match: { cuisinesStatus: true }, select: "cuisinesName" })
+    restaurant.find({ "cuisines": cuisinesId, "restaurantStatus": true }, { restaurantName: 1, restaurantImage: 1, restaurantAddress: 1 }).populate({ path: "cuisines", match: { cuisinesStatus: true }, select: "cuisinesName" })
         .then((response) => {
             return callback(null, response);
         })

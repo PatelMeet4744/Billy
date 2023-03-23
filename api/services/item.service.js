@@ -148,6 +148,7 @@ async function getItemByCategory(callback) {
                 $push: "$$ROOT"
             }
         }
+        ,
     }])
         .then((response) => {
             return callback(null, response);
@@ -159,28 +160,29 @@ async function getItemByCategory(callback) {
 
 async function getItemByRestaurant(restaurantId, callback) {
     const myId = new mongodb.ObjectID(restaurantId);
-    item.aggregate([
-        {
-            $match: { restaurant: myId, itemStatus: true, approvalStatus: 3 }
-        },
-        {
-            $lookup: {
-                from: "categories",
-                localField: "category",
-                foreignField: "_id",
-                as: "category"
+    item.aggregate([{
+        $match: { restaurant: myId, itemStatus: true, approvalStatus: 3 }
+    },
+    {
+        $lookup: {
+            from: "categories",
+            localField: "category",
+            foreignField: "_id",
+            as: "category"
+        }
+    },
+    {
+        $unwind: "$category"
+    },
+    {
+        $group: {
+            _id: "$category.categoryName",
+            item: {
+                $push: "$$ROOT"
             }
-        }, {
-            $unwind: "$category"
-        }, {
-            $group: {
-                _id: "$category.categoryName",
-                total: { $sum: 1 },
-                item: {
-                    $push: "$$ROOT"
-                }
-            }
-        }])
+        }
+    },
+    ])
         .then((response) => {
             return callback(null, response);
         })

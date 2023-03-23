@@ -7,6 +7,7 @@ import 'package:billy_application/pages/auth/reset_password_page.dart';
 import 'package:billy_application/pages/auth/sign_in_page.dart';
 import 'package:billy_application/pages/auth/sign_up_page.dart';
 import 'package:billy_application/pages/home/home_page.dart';
+import 'package:billy_application/pages/item/item_list_page.dart';
 import 'package:billy_application/pages/login/otp_verify_page.dart';
 import 'package:billy_application/pages/onboard/onboarding.dart';
 import 'package:billy_application/pages/restaurant/restaurant_list_page.dart';
@@ -25,6 +26,7 @@ class RouteHelper {
   static const String setting = "/setting-profile";
   static const String changePasswordPage = "/change-password-page";
   static const String restaurantListPage = "/restaurant-list-page";
+  static const String itemListPage = "/item-list-page";
 
   static String getSplashPage() => splashPage;
   static String getOnboardPage() => onboardPage;
@@ -46,6 +48,8 @@ class RouteHelper {
   //     '$restaurantListPage?cuisinesId=$cuisinesId';
   static String getRestaurantListPage(int pageId) =>
       '$restaurantListPage?pageId=$pageId';
+  static String getItemListPage(int pageId) => '$itemListPage?pageId=$pageId';
+
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashPage()),
     GetPage(
@@ -131,19 +135,19 @@ class RouteHelper {
       page: () => ChangePasswordPage(),
       transition: Transition.rightToLeft,
     ),
-    // GetPage(
-    //   name: restaurantListPage,
-    //   page: () {
-    //     var cuisinesId = Get.parameters['cuisinesId'];
-    //     return RestaurantListPage(cuisinesId: cuisinesId);
-    //   },
-    //   transition: Transition.rightToLeft,
-    // ),
     GetPage(
       name: restaurantListPage,
       page: () {
         var pageId = Get.parameters['pageId'];
         return RestaurantListPage(pageId: int.parse(pageId!));
+      },
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: itemListPage,
+      page: () {
+        var pageId = Get.parameters['pageId'];
+        return ItemListPage(pageId: int.parse(pageId!));
       },
       transition: Transition.rightToLeft,
     )
