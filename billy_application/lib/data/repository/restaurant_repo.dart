@@ -9,4 +9,9 @@ class RestaurantRepo extends GetxService {
   Future<Response> getRestaurantList() async {
     return await apiClient.getData(AppConstants.restaurantAPI);
   }
+
+  Future<Response> getRestaurantListByCusines(String cuisinesId) async {
+    return await apiClient
+        .getData('${AppConstants.restaurantAPI}/cuisines/$cuisinesId');
+  }
 }

@@ -4,6 +4,7 @@ import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/app_progress_hub.dart';
 import 'package:billy_application/widgets/big_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -11,9 +12,13 @@ import 'package:snippet_coder_utils/hex_color.dart';
 
 class OTPVerifyPage extends StatefulWidget {
   final String? customerContact;
-  final String? hash;
+  // final String? hash;
+  final String? verificationId;
+  final bool? isResetPage;
 
-  const OTPVerifyPage({super.key, this.customerContact, this.hash});
+  // const OTPVerifyPage({super.key, this.customerContact, this.hash, this.verificationId});
+  const OTPVerifyPage(
+      {super.key, this.customerContact, this.verificationId, this.isResetPage});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -23,10 +28,11 @@ class OTPVerifyPage extends StatefulWidget {
 class _OTPVerifyPageState extends State<OTPVerifyPage> {
   bool enableResendBtn = false;
   String _otpCode = "";
-  final int _otpCodeLength = 4;
+  final int _otpCodeLength = 6;
   // bool _enableButton = false;
   //var autoFill;
   late FocusNode myFocusNode;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -55,29 +61,92 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
     // );
   }
 
-  void _otplogin(AuthController authController) {
-    authController
-        .verifyOTPLogin(widget.customerContact!, _otpCode, widget.hash!)
-        .then((response) {
-      if (response.status) {
-        showCustomSnackBar(
-          message: response.message,
-          title: "Customer Login",
-        );
-        Navigator.of(context).pop();
-        Get.toNamed(RouteHelper.getInitial());
-      } else {
-        showCustomSnackBar(
-          isError: !response.status,
-          message: response.message,
-          title: "Customer Login",
-        );
-      }
-    });
+  // void _otplogin(AuthController authController) {
+  //   authController
+  //       .verifyOTPLogin(widget.customerContact!, _otpCode, widget.hash!)
+  //       .then((response) {
+  //     if (response.status) {
+  //       showCustomSnackBar(
+  //         message: response.message,
+  //         title: "Customer Login",
+  //       );
+  //       Navigator.of(context).pop();
+  //       Get.toNamed(RouteHelper.getInitial());
+  //     } else {
+  //       showCustomSnackBar(
+  //         isError: !response.status,
+  //         message: response.message,
+  //         title: "Customer Login",
+  //       );
+  //     }
+  //   });
+  // }
+
+  Future<void> _otplogin(AuthController authController) async {
+    // Create a PhoneAuthCredential with the code
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: widget.verificationId!, smsCode: _otpCode);
+      // Sign the user in (or link) with the credential
+      await auth.signInWithCredential(credential);
+
+      authController
+          .loginWithSMS(
+              widget.customerContact!, _otpCode, widget.verificationId!)
+          .then((response) {
+        if (response.status) {
+          showCustomSnackBar(
+            message: response.message,
+            title: "Customer Login",
+          );
+          Navigator.of(context).pop();
+          Get.offAllNamed(RouteHelper.getInitial());
+        } else {
+          showCustomSnackBar(
+            isError: !response.status,
+            message: response.message,
+            title: "Customer Login",
+          );
+        }
+      });
+    } on Exception catch (e) {
+      // ignore: avoid_print
+      print(e);
+      showCustomSnackBar(
+        isError: true,
+        message: "Wrong OTP",
+        title: "Customer Login",
+      );
+    }
+  }
+
+  Future<void> _resetPassword(AuthController authController) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: widget.verificationId!, smsCode: _otpCode);
+      // Sign the user in (or link) with the credential
+      await auth.signInWithCredential(credential);
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pop();
+      Get.toNamed(RouteHelper.getResetPasswordPage(
+        widget.customerContact!,
+        _otpCode,
+        widget.verificationId!,
+      ));
+    } on Exception catch (e) {
+      // ignore: avoid_print
+      print(e);
+      showCustomSnackBar(
+        isError: true,
+        message: "Wrong OTP",
+        title: "Reset Password!",
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isResetPage = widget.isResetPage!;
     return SafeArea(
       child: Scaffold(
         body: GetBuilder<AuthController>(builder: (authController) {
@@ -143,17 +212,19 @@ class _OTPVerifyPageState extends State<OTPVerifyPage> {
                   height: Dimensions.screenHeight * 0.05,
                 ),
                 GestureDetector(
-                  onTap: (() => _otplogin(authController)),
+                  onTap: (() => isResetPage
+                      ? _resetPassword(authController)
+                      : _otplogin(authController)),
                   child: Container(
-                    width: Dimensions.screenWidth / 2,
-                    height: Dimensions.screenHeight / 13,
+                    width: (Dimensions.screenWidth / 2) + 16,
+                    height: Dimensions.screenHeight / 12,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius30),
                       color: HexColor("#78D0B1"),
                     ),
                     child: Center(
                       child: BigText(
-                        text: "Sign In",
+                        text: isResetPage ? "Reset Password" : "Sign In",
                         size: Dimensions.font24,
                         color: Colors.white,
                       ),

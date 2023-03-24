@@ -131,22 +131,23 @@ exports.updateStatus = (req, res, next) => {
     });
 }
 
-// Customer Password Update
-exports.PasswordUpdate = (req, res, next) => {
+// Change Customer Password
+exports.changePassword = (req, res, next) => {
 
     var model = {
         customerId: req.params.customerId,
-        customerPassword: req.body.customerPassword,
-        newpassword: req.body.newpassword
+        customerOldPassword: req.body.customerOldPassword,
+        customerPassword: req.body.customerPassword
     };
-    customerService.updateCustomerPassword(model, (error, results) => {
+
+    customerService.changeCustomerPassword(model, (error, results) => {
         if (error) {
             return next(error);
         }
 
         return res.status(200).send({
-            message: "Success",
-            data: results
+            status: true,
+            message: results
         });
     });
 }
@@ -176,6 +177,56 @@ exports.verifyOTP = (req, res, next) => {
             status: true,
             customer: results,
             token: token
+        });
+    });
+}
+
+// Login With SMS
+exports.verifyCustomer = (req, res, next) => {
+    let customerContact = Number(req.params.customercontact)
+    customerService.verifyCustomer(customerContact, (error, results) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            message: results
+        });
+    });
+}
+
+// Login With SMS
+exports.loginWithSMS = (req, res, next) => {
+    customerService.loginWithSMS(req.body, (error, results, token) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            customer: results,
+            token: token
+        });
+    });
+}
+// Reset Password
+exports.resetPassword = (req, res, next) => {
+    var model = {
+        customerContact: req.params.customercontact,
+        customerPassword: req.body.customerPassword,
+        customerOTP: req.body.otp,
+        customerHash: req.body.verificationId
+    };
+
+    customerService.resetPassword(model, (error, result) => {
+        if (error) {
+            return next(error);
+        }
+
+        return res.status(200).send({
+            status: true,
+            message: result
         });
     });
 }

@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const auth = require("../middleware/auth");
 const sendEmail = require("../middleware/sendEmail");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
+const mongoose = require("mongoose");
+const { cuisines } = require("../models/cuisines.model");
 
 async function createRestaurant(params, callback) {
     if (!params.restaurantName || !params.restaurantAddress || !params.restaurantContact || !params.ownerName || !params.ownerContact || !params.ownerEmailID || !params.ownerPassword) {
@@ -21,7 +23,7 @@ async function createRestaurant(params, callback) {
         .then((response) => {
             const email = params.ownerEmailID;
             const subject = "Restaurant Registration";
-            const html = [];
+            const html = response._id.toString().split('"');
             sendEmail.send(email, subject, html)
             return callback(null, { message: "Restaurant Registration is done successfully and check the Email..!" });
         })
@@ -223,6 +225,59 @@ async function getAllRestauranByCustomer(params, callback) {
     // ex totalRecord = 20, pageSize = 10. Page 1 =>
 }
 
+async function updateRestaurantPassword(params, callback) {
+    // return console.log("The Parma",params)
+    // restaurant.findById(restaurantId)
+
+    const restaurantModel = await restaurant.findById(params.restaurantId, { ownerPassword: 1 });
+    if (restaurantModel != null) {
+        if (bcrypt.compareSync(params.ownerPassword, restaurantModel.ownerPassword)) {
+            if (params.newpassword == params.confirmPassword) {
+                if (params.newpassword == params.ownerPassword) {
+                    return callback({
+                        message: "The old password and new password is same"
+                    })
+                } else {
+                    const salt = await bcrypt.genSalt(10);
+                    hashpassword = await bcrypt.hash(params.newpassword, salt);
+                    restaurant.findByIdAndUpdate(params.restaurantId, { ownerPassword: hashpassword }, { useFindAndModify: false })
+                        .then((response) => {
+                            return callback({
+                                message: "The Password Change Sucessfully"
+                            });
+                        })
+                        .catch((error) => {
+                            return callback(error);
+                        });
+                }
+            } else {
+                return callback({
+                    message: "The new Passwords and confirm password are not Match"
+                });
+            }
+        } else {
+            return callback({
+                message: "The old Password was wrong"
+            });
+        }
+    } else {
+        return callback({
+            message: "The Email is not Found"
+        });
+    }
+}
+
+async function getRestaurantbyCuisines(cuisinesId, callback) {
+
+    restaurant.find({ "cuisines": cuisinesId, "restaurantStatus": true }, { restaurantName: 1, restaurantImage: 1, restaurantAddress: 1 }).populate({ path: "cuisines", match: { cuisinesStatus: true }, select: "cuisinesName" })
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createRestaurant,
     attachDocumentRestaurant,
@@ -232,5 +287,7 @@ module.exports = {
     getRestaurantDocumentByAdmin,
     udpdateRestaurantDocumentByAdmin,
     updateRestaurantStatus,
-    getAllRestauranByCustomer
+    getAllRestauranByCustomer,
+    updateRestaurantPassword,
+    getRestaurantbyCuisines
 };

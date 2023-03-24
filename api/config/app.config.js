@@ -1,5 +1,5 @@
 const MONGO_DB_CONFIG = {
-    DB: "mongodb://localhost:27017/billy",
+    DB: "mongodb://127.0.0.1:27017/billy",
     PAGE_SIZE: 10
 };
 

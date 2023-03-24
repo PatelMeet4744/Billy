@@ -14,7 +14,8 @@ class AuthRepo {
   });
 
   Future<Response> registration(SignUpBody signUpBody) async {
-    return await apiClient.postData(AppConstants.customerAPI, signUpBody.toJson());
+    return await apiClient.postData(
+        AppConstants.customerAPI, signUpBody.toJson());
   }
 
   bool userLoggedIn() {
@@ -23,6 +24,10 @@ class AuthRepo {
 
   String getUserToken() {
     return sharedPreferences.getString(AppConstants.token) ?? "";
+  }
+
+  String getUserId() {
+    return sharedPreferences.getString(AppConstants.customerId) ?? "";
   }
 
   Future<Response> login(
@@ -49,6 +54,44 @@ class AuthRepo {
       "otp": otp,
       "hash": hash,
     });
+  }
+
+  Future<Response> loginWithSMS(
+      String customerContact, String otp, String verificationId) async {
+    return await apiClient.postData(AppConstants.loginWithSMS, {
+      "customerContact": int.parse(customerContact),
+      "otp": otp,
+      "verificationId": verificationId,
+    });
+  }
+
+  Future<Response> verifyCustomer(String customerContact) async {
+    return await apiClient
+        .getData('${AppConstants.verifyCustomer}/$customerContact');
+  }
+
+  Future<Response> resetPassword(String customerContact,
+      String customerPassword, String otp, String verificationId) async {
+    return await apiClient
+        .putData('${AppConstants.resetPasswordAPI}/$customerContact', {
+      "customerPassword": customerPassword,
+      "otp": otp,
+      "verificationId": verificationId,
+    });
+  }
+
+  Future<Response> changePassword(
+    String customerId,
+    String customerOldPassword,
+    String customerPassword,
+  ) async {
+    return await apiClient.putData(
+      '${AppConstants.changePasswordAPI}/$customerId',
+      {
+        "customerOldPassword": customerOldPassword,
+        "customerPassword": customerPassword
+      },
+    );
   }
 
   Future<void> saveUser(

@@ -22,6 +22,13 @@ class AccountPage extends StatelessWidget {
           size: Dimensions.font24,
           color: Colors.white,
         ),
+        leading: IconButton(
+          onPressed: () => Get.offNamed(RouteHelper.getInitial()),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Container(
         width: double.maxFinite,

@@ -47,6 +47,10 @@ router.get("/restaurant/getdocument/:id", [authenticateToken], restaurantControl
 router.put("/restaurant/updatedocument/:restaurantId", [authenticateToken], restaurantController.udpdateDocumentByAdmin);
 // Update Restaurant Status
 router.put("/restaurant/:restaurantId/:restaurantStatus", [authenticateToken], restaurantController.updateStatus);
+// Retrieve all Restaurant
+router.get("/restaurant", [authenticateToken], restaurantController.findAllRestaurant);
+// Update Restaurant Password
+router.get("/changePassword", [authenticateToken], restaurantController.updatePassword);
 
 /* Cuisines Route */
 // Create a new Cuisines
@@ -301,12 +305,18 @@ router.get("/customer", [authenticateToken], customerController.findAll);
 router.delete("/customer/:customerId", [authenticateToken], customerController.delete);
 // Update Customer Status
 router.put("/customer/:customerId/:customerStatus", [authenticateToken], customerController.updateStatus);
-// Update Customer Password Update
-router.put("/customer/password/password/:customerId", customerController.PasswordUpdate);
+// Change Customer Password
+router.put("/customer/change/password/:customerId", customerController.changePassword);
 // Create OTP OR Generate OTP
 router.post("/createotp", customerController.createOTP);
 // Verify OTP
 router.post("/verifyotp", customerController.verifyOTP);
+// Login With SMS
+router.post("/loginwithsms", customerController.loginWithSMS);
+// Verify Customer
+router.get("/verifycustomer/:customercontact", customerController.verifyCustomer);
+// Reset Password
+router.put("/resetpassword/:customercontact", customerController.resetPassword);
 
 /* Wallet Route */
 // Create a new Wallet
