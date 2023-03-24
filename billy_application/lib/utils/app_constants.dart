@@ -1,7 +1,7 @@
 class AppConstants {
   static const String appName = "Billy App";
-  static const String baseURL = "http://192.168.10.155:4000/";
-  static const String imageURL = "http://192.168.10.155:4000";
+  static const String baseURL = "http://192.168.0.104:4000/";
+  static const String imageURL = "http://192.168.0.104:4000";
   static const String cuisinesAPI = "api/customer/customer/cuisines";
   static const String restaurantAPI = "api/customer/customer/restaurant";
   static const String itemAPI = "api/customer/customer/item";

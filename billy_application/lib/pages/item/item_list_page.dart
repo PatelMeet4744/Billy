@@ -5,7 +5,9 @@ import 'package:billy_application/controllers/restaurant_controller.dart';
 import 'package:billy_application/utils/app_constants.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
+import 'package:billy_application/widgets/app_icon.dart';
 import 'package:billy_application/widgets/big_text.dart';
+import 'package:billy_application/widgets/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -114,49 +116,189 @@ class ItemListPage extends StatelessWidget {
                                                 child: Row(
                                                   children: [
                                                     //image section
-                                                    Container(
-                                                      width:
-                                                          Dimensions.width120,
-                                                      height:
-                                                          Dimensions.width120,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                Dimensions
-                                                                    .radius20),
-                                                        color: Colors.white38,
-                                                        boxShadow: const [
-                                                          BoxShadow(
-                                                              color: Color(
-                                                                  0xFFe8e8e8),
-                                                              //blurRadius: 5.0,
-                                                              offset:
-                                                                  Offset(0, 5)),
-                                                          BoxShadow(
-                                                              color:
-                                                                  Colors.white,
-                                                              offset: Offset(
-                                                                  -5, 0)),
-                                                          BoxShadow(
-                                                              color:
-                                                                  Colors.white,
-                                                              offset:
-                                                                  Offset(5, 0)),
-                                                        ],
-                                                        image: DecorationImage(
-                                                          fit: BoxFit.fill,
-                                                          image: NetworkImage(
-                                                              AppConstants
-                                                                      .imageURL +
-                                                                  item
-                                                                      .itemList[
-                                                                          i]
-                                                                      .item![j]
-                                                                      .itemImage!),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        Get.bottomSheet(
+                                                          Container(
+                                                            color: Colors.white,
+                                                            height: Dimensions
+                                                                    .screenHeight /
+                                                                3,
+                                                            width: Dimensions
+                                                                .screenWidth,
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                SizedBox(
+                                                                  height: Dimensions
+                                                                      .height121,
+                                                                  child: Stack(
+                                                                    children: [
+                                                                      Image
+                                                                          .network(
+                                                                        AppConstants.imageURL +
+                                                                            item.itemList[i].item![j].itemImage!,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                        width: Dimensions
+                                                                            .screenWidth,
+                                                                      ),
+                                                                      Positioned(
+                                                                        top: 10,
+                                                                        right:
+                                                                            5,
+                                                                        child:
+                                                                            GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                          child:
+                                                                              const AppIcon(
+                                                                            icon:
+                                                                                Icons.clear,
+                                                                            iconColor:
+                                                                                Colors.white,
+                                                                            backgroundColor:
+                                                                                AppColors.mainColor,
+                                                                          ),
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: Dimensions
+                                                                      .height10,
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      left: 5.0,
+                                                                      right:
+                                                                          8.0),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      BigText(
+                                                                        text: item
+                                                                            .itemList[i]
+                                                                            .item![j]
+                                                                            .itemName!,
+                                                                        color: AppColors
+                                                                            .mainColor,
+                                                                      ),
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            (() {}),
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              Dimensions.width62_5,
+                                                                          height:
+                                                                              Dimensions.height40,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(Dimensions.height10),
+                                                                            color:
+                                                                                AppColors.mainColor,
+                                                                          ),
+                                                                          child:
+                                                                              Center(
+                                                                            child:
+                                                                                BigText(
+                                                                              text: "Add",
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: Dimensions
+                                                                      .height10,
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      left: 5.0,
+                                                                      right:
+                                                                          5.0),
+                                                                  child:
+                                                                      SmallText(
+                                                                    text: itemDescription(
+                                                                        item
+                                                                            .itemList[i]
+                                                                            .item![j]
+                                                                            .itemDescription!,
+                                                                        100),
+                                                                    size: Dimensions
+                                                                        .font16,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          elevation: 20.0,
+                                                          isDismissible: false,
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        width:
+                                                            Dimensions.width120,
+                                                        height:
+                                                            Dimensions.width120,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  Dimensions
+                                                                      .radius20),
+                                                          color: Colors.white38,
+                                                          boxShadow: const [
+                                                            BoxShadow(
+                                                                color: Color(
+                                                                    0xFFe8e8e8),
+                                                                //blurRadius: 5.0,
+                                                                offset: Offset(
+                                                                    0, 5)),
+                                                            BoxShadow(
+                                                                color: Colors
+                                                                    .white,
+                                                                offset: Offset(
+                                                                    -5, 0)),
+                                                            BoxShadow(
+                                                                color: Colors
+                                                                    .white,
+                                                                offset: Offset(
+                                                                    5, 0)),
+                                                          ],
+                                                          image:
+                                                              DecorationImage(
+                                                            fit: BoxFit.fill,
+                                                            image: NetworkImage(
+                                                                AppConstants
+                                                                        .imageURL +
+                                                                    item
+                                                                        .itemList[
+                                                                            i]
+                                                                        .item![
+                                                                            j]
+                                                                        .itemImage!),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-
                                                     //text container
                                                     Expanded(
                                                       child: Container(
@@ -231,34 +373,154 @@ class ItemListPage extends StatelessWidget {
                                                                   )
                                                                 ],
                                                               ),
+                                                              // SizedBox(
+                                                              //     height: Dimensions
+                                                              //         .height10),
+                                                              // Text(
+                                                              //   itemDescription(
+                                                              // item
+                                                              //     .itemList[
+                                                              //         i]
+                                                              //     .item![
+                                                              //         j]
+                                                              //     .itemDescription!,
+                                                              // 100),
+                                                              //   style:
+                                                              //       TextStyle(
+                                                              //     color: AppColors
+                                                              //         .textColor,
+                                                              //     fontFamily:
+                                                              //         'Roboto',
+                                                              //     fontSize:
+                                                              //         Dimensions
+                                                              //             .font12,
+                                                              //     height: 1.2,
+                                                              //     // fontWeight: FontWeight.w400,
+                                                              //   ),
+                                                              // ),
                                                               SizedBox(
                                                                   height: Dimensions
                                                                       .height10),
-                                                              Text(
-                                                                itemDescription(
-                                                                    item
-                                                                        .itemList[
-                                                                            i]
-                                                                        .item![
-                                                                            j]
-                                                                        .itemDescription!,
-                                                                    100),
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: AppColors
-                                                                      .textColor,
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  fontSize:
-                                                                      Dimensions
-                                                                          .font12,
-                                                                  height: 1.2,
-                                                                  // fontWeight: FontWeight.w400,
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  Get.bottomSheet(
+                                                                    Container(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      height:
+                                                                          Dimensions.screenHeight /
+                                                                              3,
+                                                                      width: Dimensions
+                                                                          .screenWidth,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            height:
+                                                                                Dimensions.height121,
+                                                                            child:
+                                                                                Stack(
+                                                                              children: [
+                                                                                Image.network(
+                                                                                  AppConstants.imageURL + item.itemList[i].item![j].itemImage!,
+                                                                                  fit: BoxFit.cover,
+                                                                                  width: Dimensions.screenWidth,
+                                                                                ),
+                                                                                Positioned(
+                                                                                  top: 10,
+                                                                                  right: 5,
+                                                                                  child: GestureDetector(
+                                                                                    onTap: () {
+                                                                                      Navigator.of(context).pop();
+                                                                                    },
+                                                                                    child: const AppIcon(
+                                                                                      icon: Icons.clear,
+                                                                                      iconColor: Colors.white,
+                                                                                      backgroundColor: AppColors.mainColor,
+                                                                                    ),
+                                                                                  ),
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                Dimensions.height10,
+                                                                          ),
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(left: 5.0, right: 8.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                              children: [
+                                                                                BigText(
+                                                                                  text: item.itemList[i].item![j].itemName!,
+                                                                                  color: AppColors.mainColor,
+                                                                                ),
+                                                                                GestureDetector(
+                                                                                  onTap: (() {}),
+                                                                                  child: Container(
+                                                                                    width: Dimensions.width62_5,
+                                                                                    height: Dimensions.height40,
+                                                                                    decoration: BoxDecoration(
+                                                                                      borderRadius: BorderRadius.circular(Dimensions.height10),
+                                                                                      color: AppColors.mainColor,
+                                                                                    ),
+                                                                                    child: Center(
+                                                                                      child: BigText(
+                                                                                        text: "Add",
+                                                                                        color: Colors.white,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                Dimensions.height10,
+                                                                          ),
+                                                                          SmallText(
+                                                                            text:
+                                                                                itemDescription(item.itemList[i].item![j].itemDescription!, 100),
+                                                                            size:
+                                                                                Dimensions.font16,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    elevation:
+                                                                        20.0,
+                                                                    isDismissible:
+                                                                        false,
+                                                                  );
+                                                                },
+                                                                child: RichText(
+                                                                  text:
+                                                                      TextSpan(
+                                                                    text:
+                                                                        "More Details...",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                              .grey[
+                                                                          500],
+                                                                      fontSize:
+                                                                          Dimensions
+                                                                              .font14,
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ),
                                                               SizedBox(
                                                                   height: Dimensions
-                                                                      .height10),
+                                                                      .height5),
                                                               Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
@@ -319,13 +581,38 @@ class ItemListPage extends StatelessWidget {
                                                                               right: Radius.circular(Dimensions.height40 / 2),
                                                                             ),
                                                                             color: AppColors.mainColor),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .add_shopping_cart_outlined,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      size: Dimensions
-                                                                          .font18,
+                                                                    child:
+                                                                        GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        Get.bottomSheet(
+                                                                          Container(
+                                                                            height:
+                                                                                Dimensions.screenHeight / 3,
+                                                                          ),
+                                                                          elevation:
+                                                                              20.0,
+                                                                          backgroundColor:
+                                                                              Colors.blueGrey[100],
+                                                                          shape:
+                                                                              RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.only(
+                                                                              topLeft: Radius.circular(Dimensions.radius15),
+                                                                              topRight: Radius.circular(Dimensions.radius15),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .add_shopping_cart_outlined,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        size: Dimensions
+                                                                            .font18,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ],
