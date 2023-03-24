@@ -252,7 +252,8 @@ class _EditProfileState extends State<EditProfile> {
                                     children: [
                                       OutlinedButton(
                                         onPressed: () {
-                                          Get.toNamed(RouteHelper.getInitial());
+                                          Get.offNamed(
+                                              RouteHelper.getInitial());
                                         },
                                         style: OutlinedButton.styleFrom(
                                           padding: EdgeInsets.symmetric(
@@ -309,8 +310,8 @@ class _EditProfileState extends State<EditProfile> {
                                   child: RichText(
                                     text: TextSpan(
                                       recognizer: TapGestureRecognizer()
-                                        ..onTap = () => Get.toNamed(
-                                            RouteHelper.getChangePasswordPage()),
+                                        ..onTap = () => Get.offNamed(RouteHelper
+                                            .getChangePasswordPage()),
                                       text: "Change Password",
                                       style: TextStyle(
                                         color: AppColors.mainColor,
