@@ -156,7 +156,7 @@ exports.updateBasicDetailsByPartner = (req, res, next) => {
             });
         }
     });
-}
+};
 
 // Retrieve a single Restaurant Document by Admin
 exports.findOneDocumentByAdmin = (req, res, next) => {
@@ -172,7 +172,7 @@ exports.findOneDocumentByAdmin = (req, res, next) => {
             });
         }
     });
-}
+};
 
 // Update Restaurant Document by Admin
 exports.udpdateDocumentByAdmin = (req, res, next) => {
@@ -214,7 +214,7 @@ exports.udpdateDocumentByAdmin = (req, res, next) => {
             });
         }
     });
-}
+};
 
 // Update a Restaurant status by the id in the request
 exports.updateStatus = (req, res, next) => {
@@ -230,7 +230,7 @@ exports.updateStatus = (req, res, next) => {
             });
         }
     });
-}
+};
 
 // Retrive All Restaurant By Customer
 exports.findAllRestaurant = (req, res, next) => {
@@ -250,15 +250,17 @@ exports.findAllRestaurant = (req, res, next) => {
             });
         }
     });
-}
+};
 
 exports.updatePassword = (req, res, next) => {
+    // return console.log(req.body)
     var model = {
         restaurantId: req.body.restaurantId,
         ownerPassword: req.body.ownerPassword,
         newpassword: req.body.newpassword,
         confirmPassword: req.body.confirmPassword
     };
+    // return console.log(model)
     restaurantService.updateRestaurantPassword(model, (error, results) => {
          if (error) {
             return next(error);
@@ -269,4 +271,45 @@ exports.updatePassword = (req, res, next) => {
             });
         }
     });
-}
+};
+
+exports.forgotPassword = (req, res, next) => {
+    // return console.log(req.body)
+    var model = {
+        restaurantId: req.body.restaurantId,
+        ownerEmailID: req.body.ownerEmailID
+    };
+    console.log(model)
+    // return console.log(model)
+    restaurantService.forgotPassword(model, (error, results) => {
+         if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+};
+
+exports.resetPassword = (req, res, next) => {
+    // return console.log(req.body)
+    var model = {
+        restaurantId: req.body.restaurantId,
+        restPasswordToken: req.body.restPasswordToken,
+        newpassword: req.body.newpassword,
+        confirmPassword: req.body.confirmPassword
+    };
+    // return console.log(model)
+    restaurantService.resetPassword(model, (error, results) => {
+         if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                message: "Success",
+                data: results,
+            });
+        }
+    });
+};

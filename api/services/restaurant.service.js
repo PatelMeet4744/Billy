@@ -2,6 +2,7 @@ const { restaurant } = require("../models/restaurant.model");
 const bcrypt = require('bcryptjs');
 const auth = require("../middleware/auth");
 const sendEmail = require("../middleware/sendEmail");
+const crypto = require("crypto");
 
 async function createRestaurant(params, callback) {
     if (!params.restaurantName || !params.restaurantAddress || !params.restaurantContact || !params.ownerName || !params.ownerContact || !params.ownerEmailID || !params.ownerPassword) {
@@ -97,16 +98,22 @@ async function attachDocumentRestaurant(params, callback) {
 }
 
 async function loginRestaurant({ ownerEmailID, ownerPassword }, callback) {
-    const restaurantModel = await restaurant.findOne({ ownerEmailID }, { restaurantName: 1, ownerName: 1, ownerPassword: 1 });
+    const restaurantModel = await restaurant.findOne({ ownerEmailID }, { restaurantName: 1, ownerName: 1, ownerPassword: 1, restaurantStatus: 1 });
     if (restaurantModel != null) {
-        if (bcrypt.compareSync(ownerPassword, restaurantModel.ownerPassword)) {
-            const token = auth.generateAccessToken(restaurantModel.toJSON());
-            let restaurant = { ...restaurantModel.toJSON() }
-            delete restaurant.ownerPassword;
-            return callback(null, { restaurant, token });
-        } else {
+        if (restaurantModel.restaurantStatus == true) {
+            if (bcrypt.compareSync(ownerPassword, restaurantModel.ownerPassword)) {
+                const token = auth.generateAccessToken(restaurantModel.toJSON());
+                let restaurant = { ...restaurantModel.toJSON() }
+                delete restaurant.ownerPassword;
+                return callback(null, { restaurant, token });
+            } else {
+                return callback({
+                    message: "Invalid Password"
+                });
+            }
+        }else{
             return callback({
-                message: "Invalid Password"
+                message: "The status is deactive"
             });
         }
     }
@@ -204,8 +211,8 @@ async function updateRestaurantStatus({ restaurantId, restaurantStatus }, callba
 
 async function getAllRestauranByCustomer(params, callback) {
     const restaurantName = params.restaurantName;
-    var condition = restaurantName ? { restaurantName: { $regex: new RegExp(restaurantName), $options: "i" }, restaurantStatus: true } : { restaurantStatus: true };
-
+    // var condition = restaurantName ? { restaurantName: { $regex: new RegExp(restaurantName), $options: "i" }, restaurantStatus: true } : { restaurantStatus: true };
+    var condition = restaurantName ? { restaurantName: { $regex: new RegExp(restaurantName), $options: "i" } } : {};
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
 
@@ -223,47 +230,125 @@ async function getAllRestauranByCustomer(params, callback) {
 }
 
 async function updateRestaurantPassword(params, callback) {
-    // return console.log("The Parma",params)
-    // restaurant.findById(restaurantId)
-
-    const restaurantModel = await restaurant.findById(params.restaurantId, { ownerPassword: 1});
+    const restaurantModel = await restaurant.findById(params.restaurantId, { ownerPassword: 1 });
     if (restaurantModel != null) {
         if (bcrypt.compareSync(params.ownerPassword, restaurantModel.ownerPassword)) {
-            if(params.newpassword == params.confirmPassword){
-                if(params.newpassword == params.ownerPassword){
+            if (params.newpassword == params.confirmPassword) {
+                if (params.newpassword == params.ownerPassword) {
                     return callback({
-                        message:"The old password and new password is same"
+                        message: "The old password and new password is same"
                     })
-                }else
-                {
-                const salt = await bcrypt.genSalt(10);
-                hashpassword = await bcrypt.hash(params.newpassword, salt);
-                restaurant.findByIdAndUpdate(params.restaurantId, { ownerPassword: hashpassword }, { useFindAndModify: false })
-                .then((response) => {
-                    return callback({
-                        message:"The Password Change Sucessfully"
-                    });
-                })
-                .catch((error) => {
-                    return callback(error);
-                });
-            }
-            }else{
+                } else {
+                    const salt = await bcrypt.genSalt(10);
+                    hashpassword = await bcrypt.hash(params.newpassword, salt);
+                    restaurant.findByIdAndUpdate(params.restaurantId, { ownerPassword: hashpassword }, { useFindAndModify: false })
+                        .then((response) => {
+                            return callback(null, { message: "The Password is change Sucssfully!" });
+                        })
+                        .catch((error) => {
+                            return callback(error);
+                        });
+                }
+            } else {
                 return callback({
                     message: "The new Passwords and confirm password are not Match"
                 });
             }
-        }else {
+        } else {
             return callback({
                 message: "The old Password was wrong"
             });
         }
-    }else {
+    } else {
         return callback({
             message: "The Email is not Found"
         });
     }
-}
+};
+
+// Forgot Password
+async function forgotPassword(params, callback) {
+    // return console.log(params.restaurantId)
+    const restaurantModel = await restaurant.findOne({ ownerEmailID: params.ownerEmailID })
+
+    if (!restaurantModel) {
+        return callback(null, { message: "The Restaurant Is not found with" });
+    }
+    let resetToken = crypto.randomBytes(20).toString("hex");
+    let email = params.ownerEmailID
+    // return console.log(resetToken)
+    // Hashing and adding resetPasswordToken to userSchema
+    // const salt = await bcrypt.genSalt(10);
+    // resetToken = await bcrypt.hash(resetToken, salt);
+    // const id = restaurantModel._id
+    const id = restaurantModel._id.toString().split('"');
+    // const ids = id.split('"');
+    // return console.log(id[0]);
+    // this.resetPasswordToken = crypto
+    //   .createHash("sha256")
+    //   .update(resetToken)
+    //   .digest("hex");
+
+    // this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+    // http://localhost:3001/Resturant/AttachDocument
+    const resetPasswordUrl = `http://localhost:3000/Partner/password/reset/${id[0]}/${resetToken}`;
+    // const resetPasswordUrl = `http://localhost:4000/api/restaurant/password/reset/${params.restaurantId}/${resetToken}`;
+    const subject = "Billy Password Recovery"
+    const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\n<br/>If you have not requested this email then, please ignore it.`;
+
+    // return console.log(emailid)
+
+    const option = "forgot"
+    try {
+        sendEmail.send(email, subject, message, option)
+        restaurant.findByIdAndUpdate(id[0], { restPasswordToken: resetToken }, { useFindAndModify: false })
+            .then((response) => {
+                if (!response) callback("Not Found Restaurant with ID " + restaurantId);
+                else return callback(null, { message: "The Email is send to your email id please check the Email..!" });
+            })
+            .catch((error) => {
+                return callback(error);
+            });
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+
+async function resetPassword(params, callback) {
+    const restaurantModel = await restaurant.findById(params.restaurantId, { restPasswordToken: 1 });
+    if (restaurantModel != null) {
+        if (params.newpassword == params.confirmPassword) {
+            if (params.restPasswordToken == restaurantModel.restPasswordToken) {
+                // return console.log(params.newpassword)
+                const salt = await bcrypt.genSalt(10);
+                hashpassword = await bcrypt.hash(params.newpassword, salt);
+                restaurant.findByIdAndUpdate(params.restaurantId, { ownerPassword: hashpassword, restPasswordToken: '' }, { useFindAndModify: false })
+                    .then((response) => {
+                        return callback(null, { message: "The Password reset Sucssfully!" });
+                    })
+                    .catch((error) => {
+                        return callback(error);
+                    });
+
+            } else {
+                return callback({
+                    message: "The Token was wrong"
+                });
+            }
+        } else {
+            return callback({
+                message: "The new Passwords and confirm password are not Match"
+            });
+        }
+
+    } else {
+        return callback({
+            message: "The Restaurant is not Found"
+        });
+    }
+};
 
 module.exports = {
     createRestaurant,
@@ -275,5 +360,7 @@ module.exports = {
     udpdateRestaurantDocumentByAdmin,
     updateRestaurantStatus,
     getAllRestauranByCustomer,
-    updateRestaurantPassword
+    updateRestaurantPassword,
+    forgotPassword,
+    resetPassword
 };

@@ -50,7 +50,11 @@ router.put("/restaurant/:restaurantId/:restaurantStatus", [authenticateToken], r
 // Retrieve all Restaurant
 router.get("/restaurant", [authenticateToken], restaurantController.findAllRestaurant);
 // Update Restaurant Password
-router.get("/changePassword", [authenticateToken], restaurantController.updatePassword);
+router.post("/changePassword", [authenticateToken], restaurantController.updatePassword);
+//Forgot Password
+router.post("/restaurant/forgotpassword/forgotPassword/forgotpassword", restaurantController.forgotPassword);
+//Reset Password
+router.post("/restaurant/password/reset", restaurantController.resetPassword);
 
 /* Cuisines Route */
 // Create a new Cuisines
@@ -62,7 +66,7 @@ router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.upda
 // Retrieve all Cuisines
 router.get("/cuisines", cuisinesController.findAll);
 // Delete a Cuisines with id
-router.delete("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.delete);
+router.delete("/cuisines/:cuisinesId/", [authenticateToken], cuisinesController.delete);
 // Update Cuisines Status
 router.put("/cuisines/:cuisinesId/:cuisinesStatus", [authenticateToken], cuisinesController.updateStatus);
 
