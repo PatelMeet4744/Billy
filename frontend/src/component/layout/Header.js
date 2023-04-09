@@ -4,13 +4,20 @@ import { Link, useNavigate } from 'react-router-dom';
 function Header(){
   
   const adminauth = sessionStorage.getItem('admin');
+  const partnerauth = sessionStorage.getItem('restaurant');
+
   let navigate = useNavigate();
   const logout = () => {
     sessionStorage.clear();
     if(adminauth)
     {
       navigate('/admin/login');
+    }else{
+      navigate('/partner/login')
     }
+}
+const Navigate = () => {
+  navigate("/partner/changepassword");
 }
   return(
     <>
@@ -30,14 +37,28 @@ function Header(){
       <ul className="navbar-nav navbar-nav-right">
         <li className="nav-item nav-profile dropdown">
           <a className="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-            <span className="nav-profile-name">{JSON.parse(adminauth).adminName}</span>
+            <span className="nav-profile-name">{
+              adminauth ? (JSON.parse(adminauth).adminName) : 
+              (JSON.parse(partnerauth).restaurantName)
+              }</span>
           </a>
           <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-            <div className="dropdown-divider" />
-            <a className="dropdown-item" onClick={logout}>
+            <div className="dropdown-divider" />{adminauth ? (
+              <a className="dropdown-item" onClick={logout}>
               <i className="mdi mdi-logout text-primary" />
               Logout
             </a>
+            ) : (
+              <div>
+              <a className="dropdown-item" onClick={logout}>
+              <i className="mdi mdi-logout text-primary" />
+              logout
+            </a>
+            <a className="dropdown-item" onClick={Navigate}>
+              <i className="mdi mdi-lock text-primary" />
+              Change Password
+            </a></div>
+            )}
           </div>
         </li>
         {/* <li className="nav-item nav-toggler-item-right d-lg-none">
