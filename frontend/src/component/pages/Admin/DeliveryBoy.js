@@ -32,10 +32,6 @@ const DeliveryBoy = () => {
           <a className="card-title" style={{textDecoration:'None'}} href='/admin/dashboard'>Dashbord/</a><a className="card-title" style={{ fontWeight: 'bold',color:'grey' }}>DeliveryBoy</a>
         </div>
       </div><br />
-    <Fragment>
-            {loading ? (
-              <Loader />
-            ) : (
       <div className="card">
         <div className="card-body">
           <div style={{ display: 'flex' }}>
