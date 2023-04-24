@@ -7,7 +7,9 @@ import PageNotFound from './component/layout/notfound/notfound';
 import AdminLogin from './component/pages/Login';
 import Home from "./component/pages/Home";
 import AdminMaster from "./component/AdminMaster";
+import PartnerMaster from './component/PartnerMaster';
 import PrivateComponent from "./component/PrivateComponent";
+import PartnerPrivateComponent from './component/PartnerPrivateComponent'
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
       <Route path="/Resturant/Registration" element={<Registration/>}></Route>
       <Route path="/Resturant/AttachDocument" element={<AttachDocument/>}></Route>
       <Route path="*" element={<PageNotFound/>}/>
-      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/login" element={<AdminLogin name="Admin" />} />
+
+      <Route path="/partner/login" element={<AdminLogin name=""/>} />
 
       <Route element={<PrivateComponent />}>
             <Route exact path="/admin/dashboard" element={<AdminMaster name="dashboard"/>} />
@@ -26,6 +30,10 @@ function App() {
             <Route exact path="/admin/cuisines" element={<AdminMaster name="cuisines"/>} />
             <Route exact path="/admin/customer" element={<AdminMaster name="customer"/>} />
             <Route exact path="/admin/question" element={<AdminMaster name="question"/>} />
+      </Route>
+
+      <Route element={<PartnerPrivateComponent />}>
+            <Route exact path="/Partner/dashboard" element={<PartnerMaster name="dashboard"/>} />
       </Route>
       </Routes>
       </Router> 

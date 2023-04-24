@@ -132,22 +132,37 @@ async function ExpiredCouponCode(callback) {
 
 async function SendCouponCode(params, callback) {
 
+    var html = "";
     couponCode.find()
         .then((response) => {
-            const sendcouponCodeValue = response.map(item => ({ couponcodeName: item.couponCodeName, couponcodeValue: item.couponCodeValue }));
+            // const sendcouponCodeValue = response.map(item =>
+            // (                    
+            //      html += `${item.couponCodeName}`                    
+                // couponcodeName: item.couponCodeName,
+                // couponcodeValue: item.couponCodeValue
+            // ));
+            // html += "</tr>"
             // var sendcouponCodeValue = [];
             // sendcouponCodeValue = response.map(item => item.couponcodeName, item.couponcodeValue);
             // return console.log("The Coupon code Send Value is ", sendcouponCodeValue);
             // setattachDocument({ ...attachDocument, cuisines: [setdddata.map(item => item.cuisinesId).join(', ')] })
 
+            // return console.log(html)
+
             const email = params.CustomerEmailId;
             const subject = "Coupon Code";
-            const html = "";
+            const htmls = '<table class="table"><thead style="background-color:orange;color: white;"><tr class="bg-info"><th width="30%">#srno</th><th width="30%">Coupon Code</th><th width="30%">Coupon Code value</th></tr></thead><tbody id="myTable">' + response.map((item,index ) =>
+                (                    
+                    //  `<td>${item.couponCodeName}</td>`    
+                     `<tr class="bg-info"><th width="30%">${index+1}</th><th width="30%">${item.couponCodeName}</th><th width="30%">${item.couponCodeValue}</th></tr>`             
+                    // couponcodeName: item.couponCodeName,
+                    // couponcodeValue: item.couponCodeValue
+                )) + '</tbody></table>';
             // console.log("Run Successfuuly")
             // sendEmail.send(email, subject, html);
-
+            const option = "couponcode"
             try {
-                sendEmail.send(email, subject, html);
+                sendEmail.send(email, subject, htmls,option);
                 callback("Email Send");
             }
             catch (e) {

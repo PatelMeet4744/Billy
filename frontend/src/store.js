@@ -10,6 +10,7 @@ import { getTouchReducer } from "./reducers/getTouchReducer";
 import { customerReducer } from "./reducers/customerReducer";
 import { questionReducer } from "./reducers/questionReducer";
 import { cuisinesReducer,deletecuisinesReducer } from "./reducers/cuisinesReducer";
+import { restaurantReducer,restaurantLoginReducer, ProfileReducer, forgotPasswordReducer } from "./reducers/restaurantReducer"
 
 const reducer = combineReducers({
     admin:adminReducer,
@@ -19,6 +20,9 @@ const reducer = combineReducers({
     question:questionReducer,
     cuisines:cuisinesReducer,
     deleteCuisines:deletecuisinesReducer,
+
+    
+    restaurantDetail:restaurantLoginReducer,
 });
 
 let initialState = {
