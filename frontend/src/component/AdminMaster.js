@@ -4,6 +4,7 @@ import Sidebar from './layout/Sidebar1';
 import Footer from './layout/Footer';
 import Dashbord from './pages/Admin/Dashbord';
 import DeliveryBoy from './pages/Admin/DeliveryBoy';
+import ManageDeliveryBoy from './pages/Admin/ManageDeliveryBoy';
 import GetTouch from './pages/Admin/GetTouch';
 import Customer from './pages/Admin/customer';
 import Question from './pages/Admin/Question';
@@ -19,6 +20,7 @@ const AdminMaster = (props) => {
     if (urlname === "deliveryBoy"){
         return <DeliveryBoy/>
     }
+    if (urlname === "managedeliveryBoy") return <ManageDeliveryBoy/>
     if (urlname === "getTocuh"){
         return <GetTouch/>
     }

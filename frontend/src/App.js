@@ -26,6 +26,8 @@ function App() {
       <Route element={<PrivateComponent />}>
             <Route exact path="/admin/dashboard" element={<AdminMaster name="dashboard"/>} />
             <Route exact path="/admin/deliveryBoy" element={<AdminMaster name="deliveryBoy"/>} />
+            <Route exact path="/admin/deliveryBoy/managedeliveryBoy" element={<AdminMaster name="managedeliveryBoy"/>} />
+            <Route exact path="/admin/deliveryBoy/managedeliveryBoy/:id" element={<AdminMaster name="managedeliveryBoy"/>} />
             <Route exact path="/admin/getTouch" element={<AdminMaster name="getTocuh"/>} />
             <Route exact path="/admin/cuisines" element={<AdminMaster name="cuisines"/>} />
             <Route exact path="/admin/customer" element={<AdminMaster name="customer"/>} />
