@@ -5,20 +5,28 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { legacy_createStore as createStore } from 'redux';
 
 import { adminReducer } from "./reducers/adminReducer";
-import { deliveryboyReducer } from "./reducers/deliveryBoyReducer";
+import { deliveryboyReducer,newDeliveryBoyReducer,deleteReducer, singledeliveryboyReducer,u } from "./reducers/deliveryBoyReducer";
 import { getTouchReducer } from "./reducers/getTouchReducer";
 import { customerReducer } from "./reducers/customerReducer";
 import { questionReducer } from "./reducers/questionReducer";
 import { cuisinesReducer,deletecuisinesReducer } from "./reducers/cuisinesReducer";
+import { restaurantReducer,restaurantLoginReducer, ProfileReducer, forgotPasswordReducer } from "./reducers/restaurantReducer"
 
 const reducer = combineReducers({
     admin:adminReducer,
-    deliveryboy:deliveryboyReducer,
     gettouch:getTouchReducer,
     customer:customerReducer,
     question:questionReducer,
     cuisines:cuisinesReducer,
     deleteCuisines:deletecuisinesReducer,
+
+    //Delivery Boy
+    deliveryboy:deliveryboyReducer,
+    newDeliveryBoy:newDeliveryBoyReducer,
+    deleteDeliveryBoy:deleteReducer,
+    singleDeliveryBoy:singledeliveryboyReducer,
+    
+    restaurantDetail:restaurantLoginReducer,
 });
 
 let initialState = {

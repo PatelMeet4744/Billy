@@ -90,7 +90,7 @@ router.get("/addon/:id", [authenticateToken], addonController.findOne);
 // Update Add-On
 router.put("/addon/:addonId", [authenticateToken], addonController.update);
 // Retrieve all Add-On
-router.get("/addon", [authenticateToken], addonController.findAll);
+router.get("/addon/restaurant/:restaurantid", [authenticateToken], addonController.findAll);
 // Delete a Add-On with id
 router.delete("/addon/:addonId", [authenticateToken], addonController.delete);
 // Update Add-On Status
@@ -106,7 +106,7 @@ router.get("/addextra/:id", [authenticateToken], addextraController.findOne);
 // Update Add-Extra
 router.put("/addextra/:addextraId", [authenticateToken], addextraController.update);
 // Retrieve all Add-Extra
-router.get("/addextra", [authenticateToken], addextraController.findAll);
+router.get("/addextra/restaurant/:restaurantid", [authenticateToken], addextraController.findAll);
 // Delete a Add-Extra with id
 router.delete("/addextra/:addextraId", [authenticateToken], addextraController.delete);
 // Update Add-Extra Status

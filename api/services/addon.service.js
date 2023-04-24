@@ -47,7 +47,8 @@ async function updateAddOn(params, callback) {
 
 async function getAddOn(params, callback) {
     const addonName = params.addonName;
-    var condition = addonName ? { addonName: { $regex: new RegExp(addonName), $options: "i" } } : {};
+    const restaurant = params.restaurant;
+    var condition = addonName ? { addonName: { $regex: new RegExp(addonName), $options: "i" }, restaurant: restaurant } : { restaurant: restaurant };
 
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;

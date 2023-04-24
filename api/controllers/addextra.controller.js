@@ -70,7 +70,8 @@ exports.findAll = (req, res, next) => {
     var model = {
         addextraName: req.query.addextraName,
         pageSize: req.query.pageSize,
-        page: req.query.page
+        page: req.query.page,
+        restaurant: req.params.restaurantid,
     };
 
     addExtraService.getAddExtra(model, (error, results) => {

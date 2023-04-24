@@ -47,7 +47,8 @@ async function updateAddExtra(params, callback) {
 
 async function getAddExtra(params, callback) {
     const addextraName = params.addextraName;
-    var condition = addextraName ? { addextraName: { $regex: new RegExp(addextraName), $options: "i" } } : {};
+    const restaurant = params.restaurant;
+    var condition = addextraName ? { addextraName: { $regex: new RegExp(addextraName), $options: "i" }, restaurant: restaurant } : { restaurant: restaurant };
 
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
