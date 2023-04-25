@@ -51,6 +51,10 @@ router.put("/restaurant/:restaurantId/:restaurantStatus", [authenticateToken], r
 router.get("/restaurant", [authenticateToken], restaurantController.findAllRestaurant);
 // Update Restaurant Password
 router.get("/changePassword", [authenticateToken], restaurantController.updatePassword);
+//Forgot Password
+router.post("/restaurant/forgotpassword/forgotPassword/forgotpassword", [authenticateToken], restaurantController.forgotPassword);
+//Reset Password
+router.post("/restaurant/password/reset", [authenticateToken], restaurantController.resetPassword);
 
 /* Cuisines Route */
 // Create a new Cuisines
