@@ -1,6 +1,7 @@
 import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
+import 'package:billy_application/controllers/restaurant_controller.dart';
 import 'package:billy_application/pages/onboard/content_model.dart';
 import 'package:billy_application/routes/route_helper.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _OnboardingState extends State<Onboarding> {
   Future<void> _loadResources() async {
     await Get.find<BannerController>().getBannerList();
     await Get.find<CuisinesController>().getCuisinesList();
+    await Get.find<RestaurantController>().getRestaurantList();
   }
 
   @override

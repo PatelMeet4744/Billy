@@ -90,7 +90,7 @@ router.get("/addon/:id", [authenticateToken], addonController.findOne);
 // Update Add-On
 router.put("/addon/:addonId", [authenticateToken], addonController.update);
 // Retrieve all Add-On
-router.get("/addon/restaurant/:restaurantid", addonController.findAll);
+router.get("/addon", [authenticateToken], addonController.findAll);
 // Delete a Add-On with id
 router.delete("/addon/:addonId", [authenticateToken], addonController.delete);
 // Update Add-On Status
@@ -106,7 +106,7 @@ router.get("/addextra/:id", [authenticateToken], addextraController.findOne);
 // Update Add-Extra
 router.put("/addextra/:addextraId", [authenticateToken], addextraController.update);
 // Retrieve all Add-Extra
-router.get("/addextra/restaurant/:restaurantid", addextraController.findAll);
+router.get("/addextra", [authenticateToken], addextraController.findAll);
 // Delete a Add-Extra with id
 router.delete("/addextra/:addextraId", [authenticateToken], addextraController.delete);
 // Update Add-Extra Status
@@ -305,12 +305,18 @@ router.get("/customer", [authenticateToken], customerController.findAll);
 router.delete("/customer/:customerId", [authenticateToken], customerController.delete);
 // Update Customer Status
 router.put("/customer/:customerId/:customerStatus", [authenticateToken], customerController.updateStatus);
-// Update Customer Password Update
-router.put("/customer/password/password/:customerId", customerController.PasswordUpdate);
+// Change Customer Password
+router.put("/customer/change/password/:customerId", customerController.changePassword);
 // Create OTP OR Generate OTP
 router.post("/createotp", customerController.createOTP);
 // Verify OTP
 router.post("/verifyotp", customerController.verifyOTP);
+// Login With SMS
+router.post("/loginwithsms", customerController.loginWithSMS);
+// Verify Customer
+router.get("/verifycustomer/:customercontact", customerController.verifyCustomer);
+// Reset Password
+router.put("/resetpassword/:customercontact", customerController.resetPassword);
 
 /* Wallet Route */
 // Create a new Wallet

@@ -1,4 +1,5 @@
 const { cuisines } = require("../models/cuisines.model");
+const { restaurant } = require("../models/restaurant.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createCuisines(params, callback) {
@@ -99,6 +100,10 @@ async function updateCuisinesStatus({ cuisinesId, cuisinesStatus }, callback) {
 
     cuisines.findByIdAndUpdate(cuisinesId, { cuisinesStatus: status }, { useFindAndModify: false })
         .then((response) => {
+            restaurant.updateMany({ cuisines: cuisinesId }, { $set: { restaurantStatus: status } }, { useFindAndModify: false })
+                .catch((error) => {
+                    return callback(error);
+                });
             if (!response) callback("Not Found Cuisines with ID " + cuisinesId);
             else callback(null, response);
         })

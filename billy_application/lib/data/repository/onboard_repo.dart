@@ -18,6 +18,6 @@ class OnboardRepo {
   }
 
   bool getOnboardState() {
-    return sharedPreferences.getBool(AppConstants.onboard) ?? false;
+    return sharedPreferences.getBool(AppConstants.onboard) ?? true;
   }
 }

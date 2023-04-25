@@ -1,6 +1,9 @@
 import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
+import 'package:billy_application/controllers/item_controller.dart';
+import 'package:billy_application/controllers/restaurant_controller.dart';
 import 'package:billy_application/routes/route_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -8,6 +11,7 @@ import 'package:billy_application/helper/dependencies.dart' as dep;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await dep.init();
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -38,17 +42,21 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetBuilder<BannerController>(builder: (_) {
       return GetBuilder<CuisinesController>(builder: (_) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Billy',
-          darkTheme: ThemeData(brightness: Brightness.dark),
-          theme: ThemeData(
-            primarySwatch: MaterialColor(0xfff6881f, color),
-          ),
-          // home: const SignInPage(),
-          initialRoute: RouteHelper.getSplashPage(),
-          getPages: RouteHelper.routes,
-        );
+        return GetBuilder<RestaurantController>(builder: (_) {
+          return GetBuilder<ItemController>(builder: (_) {
+            return GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Billy',
+              darkTheme: ThemeData(brightness: Brightness.dark),
+              theme: ThemeData(
+                primarySwatch: MaterialColor(0xfff6881f, color),
+              ),
+              // home: ItemListPage(),
+              initialRoute: RouteHelper.getSplashPage(),
+              getPages: RouteHelper.routes,
+            );
+          });
+        });
       });
     });
   }

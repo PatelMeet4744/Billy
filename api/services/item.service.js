@@ -1,6 +1,6 @@
 const { item } = require("../models/item.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
-
+const mongodb = require('mongodb');
 async function createItem(params, callback) {
     if (!params.restaurant || !params.category || !params.itemName || !params.itemDescription || !params.variant || !params.itemImage) {
         return callback({
@@ -33,14 +33,14 @@ async function createItem(params, callback) {
 }
 
 async function getItem(params, callback) {
-    const itemName = params.itemName;
-    var condition = itemName ? { itemName: { $regex: new RegExp(itemName), $options: "i" } } : {};
+    const restaurant = params.restaurant;
+    var condition = restaurant ? { restaurant: restaurant } : {};
 
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
 
     // item.find(condition, "").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra", select: "addextraName addextraPrice" } })
-    item.find(condition, "").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra" } }).populate("variant")
+    item.find(condition, "").populate("restaurant", "restaurantName restaurantAddress restaurantCity restaurantContact ownerName").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra" } }).populate("variant")
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
@@ -54,7 +54,7 @@ async function getItem(params, callback) {
 }
 
 async function getItemById({ itemId }, callback) {
-    item.findById(itemId).populate("category", "categoryName").populate("itemAddon").populate("itemAddExtra").populate("variant")
+    item.findById(itemId).populate("restaurant", "restaurantName restaurantAddress restaurantCity restaurantContact ownerName").populate("category", "categoryName").populate("itemAddon").populate("itemAddExtra").populate("variant")
         .then((response) => {
             if (!response) callback("Not Found Item with ID " + itemId);
             else callback(null, response);
@@ -130,6 +130,140 @@ async function updateItemApprovalStatus({ itemId, approvalStatus }, callback) {
         });
 }
 
+async function getItemByCategory(callback) {
+    item.aggregate([{
+        $lookup: {
+            from: "categories",
+            localField: "category",
+            foreignField: "_id",
+            as: "category"
+        }
+    }, {
+        $unwind: "$category"
+    }, {
+        $group: {
+            _id: "$category.categoryName",
+            total: { $sum: 1 },
+            item: {
+                $push: "$$ROOT"
+            }
+        }
+        ,
+    }])
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
+async function getItemByRestaurant(restaurantId, callback) {
+    const myId = new mongodb.ObjectID(restaurantId);
+    item.aggregate([
+        {
+            $match: { restaurant: myId, itemStatus: true, approvalStatus: 3 }
+        },
+        {
+            $lookup: {
+                from: "categories",
+                localField: "category",
+                foreignField: "_id",
+                as: "category"
+            }
+        },
+        {
+            $unwind: "$category"
+        },
+        {
+            $lookup: {
+                from: "variants",
+                localField: "variant",
+                foreignField: "_id",
+                as: "variant"
+            }
+        },
+        {
+            $lookup: {
+                from: "itemaddons",
+                let: { itemAddon: "$itemAddon" },
+                pipeline: [
+                    {
+                        $match: {
+                            $expr: { $eq: ['$_id', '$$itemAddon'] }
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "addons",
+                            localField: "addon",
+                            foreignField: "_id",
+                            as: "addon"
+                        }
+                    },
+                    {
+                        $unwind: {
+                            path: '$addon',
+                            preserveNullAndEmptyArrays: true
+                        }
+                    }
+                ],
+                as: "itemaddon"
+            }
+        },
+        {
+            $lookup: {
+                from: "itemaddextras",
+                let: { itemAddExtra: "$itemAddExtra" },
+                pipeline: [
+                    {
+                        $match: {
+                            $expr: { $eq: ['$_id', '$$itemAddExtra'] }
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "addextras",
+                            localField: "addextra",
+                            foreignField: "_id",
+                            as: "addextra"
+                        }
+                    },
+                    {
+                        $unwind: {
+                            path: '$addextra',
+                            preserveNullAndEmptyArrays: true
+                        }
+                    }
+                ],
+                as: "itemaddextra"
+            }
+        },
+        {
+            $project: {
+                itemAddExtra: 0,
+                itemAddon: 0,
+                __v: 0
+            }
+        },
+        {
+            $group: {
+                _id: "$category.categoryName",
+                total: { $sum: 1 },
+                item: {
+                    $push: "$$ROOT"
+                },
+            }
+        },
+    ])
+        .then((response) => {
+            return callback(null, response);
+        })
+        .catch((error) => {
+            return callback(error);
+        });
+}
+
 module.exports = {
     createItem,
     getItem,
@@ -137,5 +271,7 @@ module.exports = {
     updateItem,
     deleteItem,
     updateItemStatus,
-    updateItemApprovalStatus
+    updateItemApprovalStatus,
+    getItemByCategory,
+    getItemByRestaurant
 };

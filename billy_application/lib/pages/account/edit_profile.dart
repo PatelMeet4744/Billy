@@ -8,6 +8,7 @@ import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/app_form_helper.dart';
 import 'package:billy_application/widgets/app_progress_hub.dart';
 import 'package:billy_application/widgets/big_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:get/get.dart';
@@ -251,7 +252,8 @@ class _EditProfileState extends State<EditProfile> {
                                     children: [
                                       OutlinedButton(
                                         onPressed: () {
-                                          Get.toNamed(RouteHelper.getInitial());
+                                          Get.offNamed(
+                                              RouteHelper.getInitial());
                                         },
                                         style: OutlinedButton.styleFrom(
                                           padding: EdgeInsets.symmetric(
@@ -295,7 +297,29 @@ class _EditProfileState extends State<EditProfile> {
                                       ),
                                     ],
                                   ),
-                                )
+                                ),
+                                SizedBox(
+                                  height: Dimensions.height20,
+                                ),
+                                // Change Password
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: Dimensions.width20,
+                                    right: Dimensions.width15,
+                                  ),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () => Get.offNamed(RouteHelper
+                                            .getChangePasswordPage()),
+                                      text: "Change Password",
+                                      style: TextStyle(
+                                        color: AppColors.mainColor,
+                                        fontSize: Dimensions.font18,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/controllers/onboard_controller.dart';
+import 'package:billy_application/controllers/restaurant_controller.dart';
 import 'package:billy_application/routes/route_helper.dart';
 import 'package:billy_application/controllers/banner_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
@@ -24,6 +25,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Future<void> _loadResources() async {
     await Get.find<BannerController>().getBannerList();
     await Get.find<CuisinesController>().getCuisinesList();
+    await Get.find<RestaurantController>().getRestaurantList();
   }
 
   @override

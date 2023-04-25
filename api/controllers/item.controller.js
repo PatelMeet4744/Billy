@@ -40,9 +40,9 @@ exports.create = (req, res, next) => {
 // Retrieve all Item from the database.
 exports.findAll = (req, res, next) => {
     var model = {
-        itemName: req.query.itemName,
+        restaurant: req.query.restaurant,
         pageSize: req.query.pageSize,
-        page: req.query.page
+        page: req.query.page,
     };
 
     itemService.getItem(model, (error, results) => {
@@ -177,6 +177,32 @@ exports.updateApprovalStatus = (req, res, next) => {
         } else {
             return res.status(200).send({
                 message: "Success",
+                data: results,
+            });
+        }
+    });
+}
+
+exports.getItemByCategory = (req, res, next) => {
+    itemService.getItemByCategory((error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                status: true,
+                data: results,
+            });
+        }
+    });
+}
+
+exports.getItemByRestaurant = (req, res, next) => {
+    itemService.getItemByRestaurant(req.params.id, (error, results) => {
+        if (error) {
+            return next(error);
+        } else {
+            return res.status(200).send({
+                status: true,
                 data: results,
             });
         }
