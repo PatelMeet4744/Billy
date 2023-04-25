@@ -71,9 +71,9 @@ exports.findAll = (req, res, next) => {
         addonName: req.query.addonName,
         pageSize: req.query.pageSize,
         page: req.query.page,
-        restaurant: req.params.restaurantid,
+        restaurant: req.query.restaurant,
     };
-    
+
     addonService.getAddOn(model, (error, results) => {
         if (error) {
             return next(error);

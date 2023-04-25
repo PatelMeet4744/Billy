@@ -40,9 +40,9 @@ exports.create = (req, res, next) => {
 // Retrieve all Item from the database.
 exports.findAll = (req, res, next) => {
     var model = {
-        itemName: req.query.itemName,
+        restaurant: req.query.restaurant,
         pageSize: req.query.pageSize,
-        page: req.query.page
+        page: req.query.page,
     };
 
     itemService.getItem(model, (error, results) => {
