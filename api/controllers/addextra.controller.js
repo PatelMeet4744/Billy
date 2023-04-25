@@ -71,7 +71,7 @@ exports.findAll = (req, res, next) => {
         addextraName: req.query.addextraName,
         pageSize: req.query.pageSize,
         page: req.query.page,
-        restaurant: req.params.restaurantid,
+        restaurant: req.query.restaurant,
     };
 
     addExtraService.getAddExtra(model, (error, results) => {

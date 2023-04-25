@@ -56,7 +56,8 @@ exports.findAll = (req, res, next) => {
     var model = {
         categoryName: req.query.categoryName,
         pageSize: req.query.pageSize,
-        page: req.query.page
+        page: req.query.page,
+        restaurant: req.query.restaurant
     };
 
     categoryService.getCategory(model, (error, results) => {
