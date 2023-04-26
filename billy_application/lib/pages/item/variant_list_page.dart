@@ -128,7 +128,7 @@ class _VariantListPageState extends State<VariantListPage> {
                     color: AppColors.mainBlackColor,
                   ),
                   children: <TextSpan>[
-                    TextSpan(text: 'Purchase Price: '),
+                    const TextSpan(text: 'Purchase Price: '),
                     TextSpan(
                         text: "₹${variant![selected].variantPrice!}",
                         style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -157,6 +157,7 @@ class _VariantListPageState extends State<VariantListPage> {
                         color: AppColors.mainColor),
                     child: GestureDetector(
                       onTap: () {
+                        Navigator.of(context).pop();
                         // Item Addon List Page
                         Get.bottomSheet(
                           ItemAddonListPage(

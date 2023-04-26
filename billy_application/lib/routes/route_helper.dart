@@ -7,7 +7,6 @@ import 'package:billy_application/pages/auth/reset_password_page.dart';
 import 'package:billy_application/pages/auth/sign_in_page.dart';
 import 'package:billy_application/pages/auth/sign_up_page.dart';
 import 'package:billy_application/pages/home/home_page.dart';
-import 'package:billy_application/pages/item/item_addon_list_page.dart';
 import 'package:billy_application/pages/item/item_list_page.dart';
 import 'package:billy_application/pages/login/otp_verify_page.dart';
 import 'package:billy_application/pages/onboard/onboarding.dart';
