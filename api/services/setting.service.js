@@ -2,7 +2,7 @@ const { setting } = require("../models/setting.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createSetting(params, callback) {
-    if (!params.settingCartMinPrice || !params.settingCartMinPriceMessage || !params.settingDeliveryCharge || !params.settingGst) {
+    if (!params.settingCartMinPrice || !params.settingCartMinPriceMessage || !params.settingDeliveryCharge || !params.settingGst || !params.restaurant) {
         return callback({
             message: "Some Fields are Required"
         }, "");
@@ -20,7 +20,8 @@ async function createSetting(params, callback) {
 
 async function getSetting(params, callback) {
     const settingCartMinPrice = params.settingCartMinPrice;
-    var condition = settingCartMinPrice ? { settingCartMinPrice: { $regex: new RegExp(settingCartMinPrice), $options: "i" } } : {};
+    const restaurant = params.restaurant;
+    var condition = settingCartMinPrice ? { settingCartMinPrice: { $regex: new RegExp(settingCartMinPrice), $options: "i" }, restaurant: restaurant } : { restaurant: restaurant };
 
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
