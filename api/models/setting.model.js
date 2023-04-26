@@ -4,6 +4,10 @@ const setting = mongoose.model(
     "Setting",
     mongoose.Schema(
         {
+            restaurant: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Restaurant'
+            },
             settingCartMinPrice: {
                 type: Number,
                 require: true
