@@ -52,9 +52,10 @@ exports.findAll = (req, res, next) => {
     var model = {
         bannerName: req.query.bannerName,
         pageSize: req.query.pageSize,
-        page: req.query.page
+        page: req.query.page,
+        restaurant: req.query.restaurant
     };
-
+    
     bannerService.getBanner(model, (error, results) => {
         if (error) {
             return next(error);
