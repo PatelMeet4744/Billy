@@ -58,7 +58,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
         color: AppColors.mainBlackColor,
       ),
       children: <TextSpan>[
-        const TextSpan(text: 'Purchase Price: '),
+        const TextSpan(text: 'Order Price: '),
         TextSpan(
             text:
                 "₹${itemList[index].variant![selectedVariant].variantPrice.toString()} + ₹$itemAddonPrice = ₹$total",
@@ -205,7 +205,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BigText(
-                    text: "Step: 2/3",
+                    text: "Step: 2/4",
                     size: Dimensions.font16,
                     color: AppColors.mainBlackColor,
                   ),
@@ -220,8 +220,8 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
                         color: AppColors.mainColor),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
                         // Item Add Extra List Page
+                        Navigator.of(context).pop();
                         if (!isOptional) {
                           selectedList.add(selected);
                         }

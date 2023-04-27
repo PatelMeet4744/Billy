@@ -128,7 +128,7 @@ class _VariantListPageState extends State<VariantListPage> {
                     color: AppColors.mainBlackColor,
                   ),
                   children: <TextSpan>[
-                    const TextSpan(text: 'Purchase Price: '),
+                    const TextSpan(text: 'Order Price: '),
                     TextSpan(
                         text: "₹${variant![selected].variantPrice!}",
                         style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -141,7 +141,7 @@ class _VariantListPageState extends State<VariantListPage> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: BigText(
-                      text: "Step: 1/3",
+                      text: "Step: 1/4",
                       size: Dimensions.font16,
                       color: AppColors.mainBlackColor,
                     ),

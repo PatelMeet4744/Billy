@@ -1,6 +1,7 @@
 import 'package:billy_application/base/no_data_page.dart';
 import 'package:billy_application/controllers/item_controller.dart';
 import 'package:billy_application/models/item_model.dart';
+import 'package:billy_application/pages/item/item_qty_page.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/app_icon.dart';
@@ -30,6 +31,7 @@ class ItemAddExtraListPage extends StatefulWidget {
 class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
   int selected = 0;
   List<int> selectedList = [];
+  int forwardTotalPrice = 0;
 
   totalPurchasePrice(
       List<Item> itemList,
@@ -60,6 +62,7 @@ class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
           .toInt();
     }
     int total = previousTotalPrice + itemAddExtaPrice;
+    forwardTotalPrice = total;
     return RichText(
         text: TextSpan(
       style: TextStyle(
@@ -67,7 +70,7 @@ class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
         color: AppColors.mainBlackColor,
       ),
       children: <TextSpan>[
-        const TextSpan(text: 'Purchase Price: '),
+        const TextSpan(text: 'Order Price: '),
         TextSpan(
             text:
                 "₹${itemList[index].variant![selectedVariant].variantPrice.toString()} + ₹${(previousTotalPrice - itemList[index].variant![selectedVariant].variantPrice!.toInt()).toString()} + ₹$itemAddExtaPrice = ₹$total",
@@ -217,7 +220,7 @@ class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BigText(
-                    text: "Step: 3/3",
+                    text: "Step: 3/4",
                     size: Dimensions.font16,
                     color: AppColors.mainBlackColor,
                   ),
@@ -232,10 +235,34 @@ class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
                         color: AppColors.mainColor),
                     child: GestureDetector(
                       onTap: () {
+                        // Item Qty Page
                         Navigator.of(context).pop();
+                        if (!isOptional) {
+                          selectedList.add(selected);
+                        }
+                        Get.bottomSheet(
+                          ItemQtyPage(
+                            itemList: widget.itemList,
+                            index: widget.index,
+                            selectedVariant: widget.selectedVariant,
+                            selectedItemAddonList: widget.selectedItemAddonList,
+                            selectedItemAddExtraList: selectedList,
+                            previousTotalPrice: forwardTotalPrice,
+                          ),
+                          elevation: 20.0,
+                          isDismissible: false,
+                          backgroundColor: Colors.grey[100],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(Dimensions.radius15),
+                              topRight: Radius.circular(Dimensions.radius15),
+                            ),
+                          ),
+                        );
                       },
                       child: Icon(
-                        Icons.add_shopping_cart_outlined,
+                        // Icons.add_shopping_cart_outlined,
+                        Icons.navigate_next_rounded,
                         color: Colors.white,
                         size: Dimensions.font22,
                       ),

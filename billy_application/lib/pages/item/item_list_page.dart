@@ -309,8 +309,8 @@ class ItemListPage extends StatelessWidget {
                                                                     onRatingUpdate:
                                                                         (rating) {
                                                                       // ignore: avoid_print
-                                                                      print(
-                                                                          rating);
+                                                                      // print(
+                                                                      //     rating);
                                                                     },
                                                                   ),
                                                                   Container(
