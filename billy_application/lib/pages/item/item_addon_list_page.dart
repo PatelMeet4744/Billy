@@ -24,7 +24,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
   int selected = 0;
   List<int> selectedList = [];
   int forwardTotalPrice = 0;
-  totalPurchasePrice(List<Item> itemList, int index, int selectedVariant,
+  totalOrderPrice(List<Item> itemList, int index, int selectedVariant,
       List<int> selectedItemAddonList, int selectedItemAddon, bool isOptional) {
     int variantPrice = int.parse(
         itemList[index].variant![selectedVariant].variantPrice.toString());
@@ -194,7 +194,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
               SizedBox(height: Dimensions.height10),
               Padding(
                   padding: const EdgeInsets.only(left: 5.0),
-                  child: totalPurchasePrice(
+                  child: totalOrderPrice(
                       widget.itemList!,
                       widget.index!,
                       widget.selectedVariant!,
@@ -229,7 +229,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
                           ItemAddExtraListPage(
                             itemList: widget.itemList,
                             index: widget.index,
-                            selectedVariant: selected,
+                            selectedVariant: widget.selectedVariant,
                             selectedItemAddonList: selectedList,
                             previousTotalPrice: forwardTotalPrice,
                           ),

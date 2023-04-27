@@ -1,12 +1,18 @@
+import 'package:billy_application/controllers/auth_controller.dart';
+import 'package:billy_application/controllers/cart_controller.dart';
 import 'package:billy_application/data/repository/item_repo.dart';
 import 'package:billy_application/models/item_model.dart';
+import 'package:billy_application/models/temp_model.dart';
 import 'package:billy_application/utils/app_constants.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ItemController extends GetxController {
   late final ItemRepo itemRepo;
-
   ItemController({required this.itemRepo});
+
+  late CartController _cartController;
+  late AuthController _authController;
 
   List<Data> _itemList = [];
   List<Data> get itemList => _itemList;
@@ -32,11 +38,6 @@ class ItemController extends GetxController {
     } else {}
   }
 
-  void initQty() {
-    _qty = AppConstants.minQty;
-    _inCartItems = 0;
-  }
-
   void setQty(int quantity) {
     _qty = checkQty(quantity);
     update();
@@ -50,5 +51,35 @@ class ItemController extends GetxController {
     } else {
       return quantity;
     }
+  }
+
+  void initProduct(CartController cartController, AuthController authController,
+      String itemId) {
+    _qty = AppConstants.minQty;
+    _inCartItems = 0;
+    _cartController = cartController;
+    _authController = authController;
+    var exist = false;
+    exist = _cartController.existInCart(itemId);
+  }
+
+  void addItem(TempModel tempModel) {
+    if (tempModel.qty!.toInt() > 0) {
+      _cartController.addItem(tempModel, _authController);
+      _cartController.items.forEach((key, value) {
+        debugPrint("Cart Item[$key]:");
+        debugPrint("Customer: ${value.customer.toString()}");
+        debugPrint("Variant: ${value.variant.toString()}");
+        debugPrint("Addon: ${value.addon.toString()}");
+        debugPrint("Addextra: ${value.addextra.toString()}");
+        debugPrint("CartQty: ${value.cartQty.toString()}");
+        debugPrint("CartPrice: ${value.cartPrice.toString()}");
+        debugPrint("isExist: ${value.isExist.toString()}");
+      });
+    } else {
+      Get.snackbar(
+          "Item Count", "You should at least add an item in the cart!");
+    }
+    update();
   }
 }
