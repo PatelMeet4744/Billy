@@ -2,7 +2,7 @@ const { variant } = require("../models/variant.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createVariant(params, callback) {
-    if (!params.variantName || !params.variantuom || !params.variantPrice || !params.variantSalesPrice || !restaurant) {
+    if (!params.variantName || !params.variantuom || !params.variantPrice || !params.variantSalesPrice || !params.restaurant) {
         return callback({
             message: "Some Fields are Required"
         }, "");
