@@ -249,9 +249,7 @@ async function updateRestaurantPassword(params, callback) {
                     hashpassword = await bcrypt.hash(params.newpassword, salt);
                     restaurant.findByIdAndUpdate(params.restaurantId, { ownerPassword: hashpassword }, { useFindAndModify: false })
                         .then((response) => {
-                            return callback({
-                                message: "The Password Change Sucessfully"
-                            });
+                            return callback(null, response);
                         })
                         .catch((error) => {
                             return callback(error);
