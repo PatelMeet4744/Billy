@@ -37,7 +37,7 @@ Future<void> init() async {
   Get.lazyPut(() => OnboardRepo(sharedPreferences: Get.find()));
   Get.lazyPut(() => RestaurantRepo(apiClient: Get.find()));
   Get.lazyPut(() => ItemRepo(apiClient: Get.find()));
-  Get.lazyPut(() => CartRepo());
+  Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
 
   //controller
   Get.lazyPut(() => AuthController(authRepo: Get.find()));

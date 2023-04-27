@@ -3,7 +3,6 @@ import 'package:billy_application/controllers/cart_controller.dart';
 import 'package:billy_application/pages/account/account_page.dart';
 import 'package:billy_application/pages/home/main_food_page.dart';
 import 'package:billy_application/utils/colors.dart';
-import 'package:billy_application/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';

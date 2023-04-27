@@ -59,6 +59,7 @@ class ItemController extends GetxController {
     _inCartItems = 0;
     _cartController = cartController;
     _authController = authController;
+    // ignore: unused_local_variable
     var exist = false;
     exist = _cartController.existInCart(itemId);
   }
@@ -74,7 +75,6 @@ class ItemController extends GetxController {
         debugPrint("Addextra: ${value.addextra.toString()}");
         debugPrint("CartQty: ${value.cartQty.toString()}");
         debugPrint("CartPrice: ${value.cartPrice.toString()}");
-        debugPrint("isExist: ${value.isExist.toString()}");
       });
     } else {
       Get.snackbar(
