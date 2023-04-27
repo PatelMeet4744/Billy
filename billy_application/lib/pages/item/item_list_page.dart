@@ -135,7 +135,9 @@ class ItemListPage extends StatelessWidget {
                                                         showItemDetail(
                                                             context,
                                                             item.itemList[i]
-                                                                .item![j]);
+                                                                .item!,
+                                                            i,
+                                                            j);
                                                       },
                                                       child: Container(
                                                         width:
@@ -328,31 +330,11 @@ class ItemListPage extends StatelessWidget {
                                                                             color: AppColors.mainColor),
                                                                     child:
                                                                         GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        Get.bottomSheet(
-                                                                          VariantListPage(
-                                                                            itemList:
-                                                                                item.itemList[i].item!,
-                                                                            index:
-                                                                                j,
-                                                                          ),
-                                                                          elevation:
-                                                                              20.0,
-                                                                          isDismissible:
-                                                                              false,
-                                                                          backgroundColor:
-                                                                              Colors.grey[100],
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.only(
-                                                                              topLeft: Radius.circular(Dimensions.radius15),
-                                                                              topRight: Radius.circular(Dimensions.radius15),
-                                                                            ),
-                                                                          ),
-                                                                        );
-                                                                      },
+                                                                      onTap: () => showVariantPage(
+                                                                          context,
+                                                                          item.itemList[i]
+                                                                              .item!,
+                                                                          j),
                                                                       child:
                                                                           Icon(
                                                                         Icons
@@ -373,7 +355,9 @@ class ItemListPage extends StatelessWidget {
                                                                       item
                                                                           .itemList[
                                                                               i]
-                                                                          .item![j]);
+                                                                          .item!,
+                                                                      i,
+                                                                      j);
                                                                 },
                                                                 child: RichText(
                                                                   text:
@@ -422,7 +406,7 @@ class ItemListPage extends StatelessWidget {
     );
   }
 
-  showItemDetail(BuildContext context, item) {
+  showItemDetail(BuildContext context, item, int i, int j) {
     Get.bottomSheet(
       Container(
         color: Colors.white,
@@ -437,7 +421,7 @@ class ItemListPage extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.network(
-                    AppConstants.imageURL + item.itemImage!,
+                    AppConstants.imageURL + item[j].itemImage!,
                     fit: BoxFit.cover,
                     width: Dimensions.screenWidth,
                   ),
@@ -465,11 +449,11 @@ class ItemListPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BigText(
-                    text: item.itemName!,
+                    text: item[j].itemName!,
                     color: AppColors.mainColor,
                   ),
                   GestureDetector(
-                    onTap: (() {}),
+                    onTap: (() => showVariantPage(context, item, j)),
                     child: Container(
                       width: Dimensions.width62_5,
                       height: Dimensions.height40,
@@ -492,7 +476,7 @@ class ItemListPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 5.0),
               child: BigText(
-                text: itemVariantPriceRange(item.variant),
+                text: itemVariantPriceRange(item[j].variant),
                 color: AppColors.mainBlackColor,
                 size: Dimensions.font16,
               ),
@@ -501,7 +485,7 @@ class ItemListPage extends StatelessWidget {
               height: Dimensions.height10,
             ),
             SmallText(
-              text: itemDescription(item.itemDescription!, 100),
+              text: itemDescription(item[j].itemDescription!, 100),
               size: Dimensions.font16,
             ),
           ],
@@ -509,6 +493,24 @@ class ItemListPage extends StatelessWidget {
       ),
       elevation: 20.0,
       isDismissible: false,
+    );
+  }
+
+  showVariantPage(BuildContext context, item, int index) {
+    Get.bottomSheet(
+      VariantListPage(
+        itemList: item,
+        index: index,
+      ),
+      elevation: 20.0,
+      isDismissible: false,
+      backgroundColor: Colors.grey[100],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(Dimensions.radius15),
+          topRight: Radius.circular(Dimensions.radius15),
+        ),
+      ),
     );
   }
 }

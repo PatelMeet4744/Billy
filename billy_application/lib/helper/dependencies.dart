@@ -1,9 +1,11 @@
 import 'package:billy_application/controllers/auth_controller.dart';
+import 'package:billy_application/controllers/cart_controller.dart';
 import 'package:billy_application/controllers/customer_controller.dart';
 import 'package:billy_application/controllers/item_controller.dart';
 import 'package:billy_application/controllers/onboard_controller.dart';
 import 'package:billy_application/controllers/restaurant_controller.dart';
 import 'package:billy_application/data/repository/auth_repo.dart';
+import 'package:billy_application/data/repository/cart_repo.dart';
 import 'package:billy_application/data/repository/customer_repo.dart';
 import 'package:billy_application/data/repository/item_repo.dart';
 import 'package:billy_application/data/repository/onboard_repo.dart';
@@ -35,6 +37,7 @@ Future<void> init() async {
   Get.lazyPut(() => OnboardRepo(sharedPreferences: Get.find()));
   Get.lazyPut(() => RestaurantRepo(apiClient: Get.find()));
   Get.lazyPut(() => ItemRepo(apiClient: Get.find()));
+  Get.lazyPut(() => CartRepo());
 
   //controller
   Get.lazyPut(() => AuthController(authRepo: Get.find()));
@@ -44,4 +47,5 @@ Future<void> init() async {
   Get.lazyPut(() => OnboardController(onboardRepo: Get.find()));
   Get.lazyPut(() => RestaurantController(restaurantRepo: Get.find()));
   Get.lazyPut(() => ItemController(itemRepo: Get.find()));
+  Get.lazyPut(() => CartController(cartRepo: Get.find()));
 }

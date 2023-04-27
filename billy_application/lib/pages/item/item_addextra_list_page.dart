@@ -33,7 +33,7 @@ class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
   List<int> selectedList = [];
   int forwardTotalPrice = 0;
 
-  totalPurchasePrice(
+  totalOrderPrice(
       List<Item> itemList,
       int index,
       int selectedVariant,
@@ -41,7 +41,7 @@ class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
       List<int> selectedItemAddExtraList,
       int selectedItemAddExtra,
       bool isOptional) {
-    int itemAddExtaPrice = 0;
+     int itemAddExtaPrice = 0;
     if (isOptional) {
       if (selectedItemAddExtraList.isNotEmpty) {
         for (int element in selectedItemAddExtraList) {
@@ -208,7 +208,7 @@ class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
               SizedBox(height: Dimensions.height10),
               Padding(
                   padding: const EdgeInsets.only(left: 5.0),
-                  child: totalPurchasePrice(
+                  child: totalOrderPrice(
                       widget.itemList!,
                       widget.index!,
                       widget.selectedVariant!,

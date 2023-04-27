@@ -1,6 +1,9 @@
 import 'package:billy_application/base/no_data_page.dart';
+import 'package:billy_application/controllers/auth_controller.dart';
+import 'package:billy_application/controllers/cart_controller.dart';
 import 'package:billy_application/controllers/item_controller.dart';
 import 'package:billy_application/models/item_model.dart';
+import 'package:billy_application/models/temp_model.dart';
 import 'package:billy_application/utils/app_constants.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
@@ -33,6 +36,26 @@ class ItemQtyPage extends StatefulWidget {
 }
 
 class _ItemQtyPageState extends State<ItemQtyPage> {
+  int forwardTotalPrice = 0;
+
+  totalPurchasePrice(int qty, int previousTotalPrice) {
+    int total = qty * widget.previousTotalPrice!;
+    forwardTotalPrice = total;
+    return RichText(
+        text: TextSpan(
+      style: TextStyle(
+        fontSize: Dimensions.font14,
+        color: AppColors.mainBlackColor,
+      ),
+      children: <TextSpan>[
+        const TextSpan(text: 'Order Price: '),
+        TextSpan(
+            text: '₹$previousTotalPrice x $qty  = ₹$total',
+            style: const TextStyle(fontWeight: FontWeight.bold)),
+      ],
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -89,7 +112,11 @@ class _ItemQtyPageState extends State<ItemQtyPage> {
   }
 
   Widget itemQtyBottomSheet(BuildContext context, List<Addextra>? addextra) {
-    Get.find<ItemController>().initQty();
+    Get.find<ItemController>().initProduct(
+      Get.find<CartController>(),
+      Get.find<AuthController>(),
+      widget.itemList![widget.index!].sId!.toString(),
+    );
     return GetBuilder<ItemController>(builder: (item) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -127,8 +154,8 @@ class _ItemQtyPageState extends State<ItemQtyPage> {
                 SizedBox(height: Dimensions.height10),
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
-                  child: Text(
-                      'Order Price: ${item.qty} x ₹${widget.previousTotalPrice} = ₹${(item.qty * widget.previousTotalPrice!)}'),
+                  child:
+                      totalPurchasePrice(item.qty, widget.previousTotalPrice!),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,6 +177,16 @@ class _ItemQtyPageState extends State<ItemQtyPage> {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).pop();
+                          // add item into cart body model
+                          item.addItem(TempModel(
+                            widget.itemList!,
+                            widget.index!,
+                            widget.selectedVariant!,
+                            widget.selectedItemAddonList!,
+                            widget.selectedItemAddExtraList!,
+                            item.qty,
+                            forwardTotalPrice,
+                          ));
                         },
                         child: Icon(
                           Icons.add_shopping_cart_outlined,

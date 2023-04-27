@@ -11,13 +11,14 @@ exports.create = (req, res, next) => {
     };
 
     if (req.body.cartQty) model['cartQty'] = req.body.cartQty;
+    if (req.body.cartPrice) model['cartPrice'] = req.body.cartPrice;
 
     cartService.createCart(model, (error, results) => {
         if (error) {
             return next(error);
         } else {
             return res.status(200).send({
-                message: "Success",
+                status: true,
                 data: results,
             });
         }
@@ -36,7 +37,7 @@ exports.findAll = (req, res, next) => {
             return next(error);
         } else {
             return res.status(200).send({
-                message: "Success",
+                 status: true,
                 data: results
             });
         }
@@ -56,7 +57,7 @@ exports.findOneCustomize = (req, res, next) => {
             return next(error);
         } else {
             return res.status(200).send({
-                message: "Success",
+                 status: true,
                 data: results
             });
         }
@@ -69,6 +70,7 @@ exports.update = (req, res, next) => {
     var model = {
         cartId: req.params.cartId,
         cartQty: req.body.cartQty,
+        cartPrice: req.body.cartPrice,
         variant: req.body.variant,
         addon: req.body.addon,
         addextra: req.body.addextra,
@@ -80,7 +82,7 @@ exports.update = (req, res, next) => {
             return next(error);
         } else {
             return res.status(200).send({
-                message: "Success",
+                 status: true,
                 data: results,
             });
         }
@@ -96,7 +98,7 @@ exports.delete = (req, res, next) => {
             return next(error);
         } else {
             return res.status(200).send({
-                message: "Success",
+                 status: true,
                 data: results
             });
         }
