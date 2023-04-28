@@ -54,7 +54,7 @@ async function getItem(params, callback) {
 }
 
 async function getItemById({ itemId }, callback) {
-    item.findById(itemId).populate("restaurant", "restaurantName restaurantAddress restaurantCity restaurantContact ownerName").populate("category", "categoryName").populate("itemAddon").populate("itemAddExtra").populate("variant")
+    item.findById(itemId).populate("restaurant", "restaurantName restaurantAddress restaurantCity restaurantContact ownerName").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra" } }).populate("variant")
         .then((response) => {
             if (!response) callback("Not Found Item with ID " + itemId);
             else callback(null, response);
