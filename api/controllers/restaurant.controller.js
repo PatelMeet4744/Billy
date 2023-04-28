@@ -290,10 +290,10 @@ exports.forgotPassword = (req, res, next) => {
         restaurantId: req.body.restaurantId,
         ownerEmailID: req.body.ownerEmailID
     };
-    console.log(model)
+    // console.log(model)
     // return console.log(model)
     restaurantService.forgotPassword(model, (error, results) => {
-         if (error) {
+        if (error) {
             return next(error);
         } else {
             return res.status(200).send({
@@ -314,7 +314,7 @@ exports.resetPassword = (req, res, next) => {
     };
     // return console.log(model)
     restaurantService.resetPassword(model, (error, results) => {
-         if (error) {
+        if (error) {
             return next(error);
         } else {
             return res.status(200).send({
