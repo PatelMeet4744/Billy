@@ -1,4 +1,5 @@
 import 'package:billy_application/controllers/banner_controller.dart';
+import 'package:billy_application/controllers/cart_controller.dart';
 import 'package:billy_application/controllers/cuisines_controller.dart';
 import 'package:billy_application/controllers/item_controller.dart';
 import 'package:billy_application/controllers/restaurant_controller.dart';
@@ -8,8 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:billy_application/helper/dependencies.dart' as dep;
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await dep.init();
@@ -44,17 +49,19 @@ class _MyAppState extends State<MyApp> {
       return GetBuilder<CuisinesController>(builder: (_) {
         return GetBuilder<RestaurantController>(builder: (_) {
           return GetBuilder<ItemController>(builder: (_) {
-            return GetMaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Billy',
-              darkTheme: ThemeData(brightness: Brightness.dark),
-              theme: ThemeData(
-                primarySwatch: MaterialColor(0xfff6881f, color),
-              ),
-              // home: ItemListPage(),
-              initialRoute: RouteHelper.getSplashPage(),
-              getPages: RouteHelper.routes,
-            );
+            return GetBuilder<CartController>(builder: (_) {
+              return GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Billy',
+                darkTheme: ThemeData(brightness: Brightness.dark),
+                theme: ThemeData(
+                  primarySwatch: MaterialColor(0xfff6881f, color),
+                ),
+                // home: ItemListPage(),
+                initialRoute: RouteHelper.getSplashPage(),
+                getPages: RouteHelper.routes,
+              );
+            });
           });
         });
       });

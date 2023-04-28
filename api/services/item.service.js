@@ -201,15 +201,12 @@ async function getItemByRestaurant(restaurantId, callback) {
                             as: "addon"
                         }
                     },
-                    {
-                        $unwind: {
-                            path: '$addon',
-                            preserveNullAndEmptyArrays: true
-                        }
-                    }
                 ],
                 as: "itemaddon"
             }
+        },
+        {
+            $unwind: "$itemaddon"
         },
         {
             $lookup: {
@@ -229,15 +226,12 @@ async function getItemByRestaurant(restaurantId, callback) {
                             as: "addextra"
                         }
                     },
-                    {
-                        $unwind: {
-                            path: '$addextra',
-                            preserveNullAndEmptyArrays: true
-                        }
-                    }
                 ],
                 as: "itemaddextra"
             }
+        },
+        {
+            $unwind: "$itemaddextra"
         },
         {
             $project: {

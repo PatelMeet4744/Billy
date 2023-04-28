@@ -12,10 +12,6 @@ const cart = mongoose.model(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Item'
             },
-            cartQty: {
-                type: Number,
-                default: 1
-            },
             variant: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Variant'
@@ -32,6 +28,14 @@ const cart = mongoose.model(
                     ref: 'Addextra'
                 }
             ],
+            cartQty: {
+                type: Number,
+                default: 1
+            },
+            cartPrice: {
+                type: Number,
+                default: 0
+            },
         },
         {
             timestamps: true,

@@ -1,7 +1,7 @@
 import 'package:billy_application/base/no_data_page.dart';
 import 'package:billy_application/controllers/item_controller.dart';
 import 'package:billy_application/models/item_model.dart';
-import 'package:billy_application/pages/item/item_addextra_list_page.dart';
+import 'package:billy_application/pages/item/item_qty_page.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/app_icon.dart';
@@ -9,47 +9,59 @@ import 'package:billy_application/widgets/big_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ItemAddonListPage extends StatefulWidget {
+class ItemAddExtraListPage extends StatefulWidget {
   final List<Item>? itemList;
   final int? index;
   final int? selectedVariant;
-  const ItemAddonListPage(
-      {super.key, this.itemList, this.index, this.selectedVariant});
+  final List<int>? selectedItemAddonList;
+  final int? previousTotalPrice;
+  const ItemAddExtraListPage({
+    super.key,
+    this.itemList,
+    this.index,
+    this.selectedVariant,
+    this.selectedItemAddonList,
+    this.previousTotalPrice,
+  });
 
   @override
-  State<ItemAddonListPage> createState() => _ItemAddonListPageState();
+  State<ItemAddExtraListPage> createState() => _ItemAddExtraListPageState();
 }
 
-class _ItemAddonListPageState extends State<ItemAddonListPage> {
+class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
   int selected = 0;
   List<int> selectedList = [];
   int forwardTotalPrice = 0;
-  totalOrderPrice(List<Item> itemList, int index, int selectedVariant,
-      List<int> selectedItemAddonList, int selectedItemAddon, bool isOptional) {
-    int variantPrice = int.parse(
-        itemList[index].variant![selectedVariant].variantPrice.toString());
-    int itemAddonPrice = 0;
 
+  totalOrderPrice(
+      List<Item> itemList,
+      int index,
+      int selectedVariant,
+      int previousTotalPrice,
+      List<int> selectedItemAddExtraList,
+      int selectedItemAddExtra,
+      bool isOptional) {
+     int itemAddExtaPrice = 0;
     if (isOptional) {
-      if (selectedItemAddonList.isNotEmpty) {
-        for (int element in selectedItemAddonList) {
-          itemAddonPrice += itemList[index]
-              .itemaddon!
-              .addon![element]
-              .addonFinalPrice!
+      if (selectedItemAddExtraList.isNotEmpty) {
+        for (int element in selectedItemAddExtraList) {
+          itemAddExtaPrice += itemList[index]
+              .itemaddextra!
+              .addextra![element]
+              .addextraFinalPrice!
               .toInt();
         }
       } else {
-        itemAddonPrice = 0;
+        itemAddExtaPrice = 0;
       }
     } else {
-      itemAddonPrice = itemList[index]
-          .itemaddon!
-          .addon![selectedItemAddon]
-          .addonFinalPrice!
+      itemAddExtaPrice = itemList[index]
+          .itemaddextra!
+          .addextra![selectedItemAddExtra]
+          .addextraFinalPrice!
           .toInt();
     }
-    int total = variantPrice + itemAddonPrice;
+    int total = previousTotalPrice + itemAddExtaPrice;
     forwardTotalPrice = total;
     return RichText(
         text: TextSpan(
@@ -61,7 +73,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
         const TextSpan(text: 'Order Price: '),
         TextSpan(
             text:
-                "₹${itemList[index].variant![selectedVariant].variantPrice.toString()} + ₹$itemAddonPrice = ₹$total",
+                "₹${itemList[index].variant![selectedVariant].variantPrice.toString()} + ₹${(previousTotalPrice - itemList[index].variant![selectedVariant].variantPrice!.toInt()).toString()} + ₹$itemAddExtaPrice = ₹$total",
             style: const TextStyle(fontWeight: FontWeight.bold)),
       ],
     ));
@@ -101,7 +113,8 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
           Padding(
             padding: const EdgeInsets.only(left: 5.0),
             child: BigText(
-              text: widget.itemList![widget.index!].itemaddon!.title.toString(),
+              text: widget.itemList![widget.index!].itemaddextra!.title
+                  .toString(),
               size: Dimensions.font18,
             ),
           ),
@@ -111,9 +124,9 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
           Container(
             color: Colors.white,
             child: Container(
-              child: itemAddonBottomSheet(
+              child: itemAddExtraBottomSheet(
                 context,
-                widget.itemList![widget.index!].itemaddon!.addon!,
+                widget.itemList![widget.index!].itemaddextra!.addextra!,
               ),
             ),
           )
@@ -122,9 +135,10 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
     );
   }
 
-  Widget itemAddonBottomSheet(BuildContext context, List<Addon>? addon) {
+  Widget itemAddExtraBottomSheet(
+      BuildContext context, List<Addextra>? addextra) {
     bool isOptional = widget
-                .itemList![widget.index!].itemaddon!.customerSelection!
+                .itemList![widget.index!].itemaddextra!.customerSelection!
                 .toString()
                 .toLowerCase() ==
             "optional"
@@ -135,17 +149,17 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GetBuilder<ItemController>(builder: (item) {
-          return addon!.isNotEmpty
+          return addextra!.isNotEmpty
               ? item.isLoaded
                   ? ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: addon.length,
+                      itemCount: addextra.length,
                       itemBuilder: (context, i) {
                         if (isOptional) {
                           return CheckboxListTile(
                             title: Text(
-                                "${addon[i].addonName!}  (₹${addon[i].addonFinalPrice!})"),
+                                "${addextra[i].addextraName!}  (₹${addextra[i].addextraFinalPrice!})"),
                             value: selectedList.contains(i),
                             onChanged: (value) {
                               setState(() {
@@ -160,7 +174,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
                         } else {
                           return RadioListTile(
                             title: Text(
-                                "${addon[i].addonName!}  (₹${addon[i].addonFinalPrice!})"),
+                                "${addextra[i].addextraName!}  (₹${addextra[i].addextraFinalPrice!})"),
                             value: i,
                             groupValue: selected,
                             onChanged: ((value) {
@@ -198,6 +212,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
                       widget.itemList!,
                       widget.index!,
                       widget.selectedVariant!,
+                      widget.previousTotalPrice!,
                       selectedList,
                       selected,
                       isOptional)),
@@ -205,7 +220,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BigText(
-                    text: "Step: 2/4",
+                    text: "Step: 3/4",
                     size: Dimensions.font16,
                     color: AppColors.mainBlackColor,
                   ),
@@ -220,17 +235,18 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
                         color: AppColors.mainColor),
                     child: GestureDetector(
                       onTap: () {
-                        // Item Add Extra List Page
+                        // Item Qty Page
                         Navigator.of(context).pop();
                         if (!isOptional) {
                           selectedList.add(selected);
                         }
                         Get.bottomSheet(
-                          ItemAddExtraListPage(
+                          ItemQtyPage(
                             itemList: widget.itemList,
                             index: widget.index,
                             selectedVariant: widget.selectedVariant,
-                            selectedItemAddonList: selectedList,
+                            selectedItemAddonList: widget.selectedItemAddonList,
+                            selectedItemAddExtraList: selectedList,
                             previousTotalPrice: forwardTotalPrice,
                           ),
                           elevation: 20.0,
@@ -245,9 +261,10 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
                         );
                       },
                       child: Icon(
+                        // Icons.add_shopping_cart_outlined,
                         Icons.navigate_next_rounded,
                         color: Colors.white,
-                        size: Dimensions.font26,
+                        size: Dimensions.font22,
                       ),
                     ),
                   ),
