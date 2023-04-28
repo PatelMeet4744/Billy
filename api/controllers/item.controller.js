@@ -104,7 +104,8 @@ exports.update = (req, res, next) => {
                 itemAddon: req.body.itemAddon,
                 itemAddExtra: req.body.itemAddExtra,
                 variant: req.body.variant,
-                itemImage: itemImage
+                itemImage: itemImage,
+                approvalStatus:2
             };
 
             itemService.updateItem(model, (error, results) => {

@@ -50,11 +50,11 @@ router.put("/restaurant/:restaurantId/:restaurantStatus", [authenticateToken], r
 // Retrieve all Restaurant
 router.get("/restaurant", [authenticateToken], restaurantController.findAllRestaurant);
 // Update Restaurant Password
-router.get("/changePassword", [authenticateToken], restaurantController.updatePassword);
+router.post("/changePassword", [authenticateToken], restaurantController.updatePassword);
 //Forgot Password
-router.post("/restaurant/forgotpassword/forgotPassword/forgotpassword", [authenticateToken], restaurantController.forgotPassword);
+router.post("/restaurant/forgotpassword/forgotPassword/forgotpassword", restaurantController.forgotPassword);
 //Reset Password
-router.post("/restaurant/password/reset", [authenticateToken], restaurantController.resetPassword);
+router.post("/restaurant/password/reset", restaurantController.resetPassword);
 
 /* Cuisines Route */
 // Create a new Cuisines
@@ -66,7 +66,7 @@ router.put("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.upda
 // Retrieve all Cuisines
 router.get("/cuisines", cuisinesController.findAll);
 // Delete a Cuisines with id
-router.delete("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.delete);
+router.post("/cuisines/:cuisinesId", [authenticateToken], cuisinesController.delete);
 // Update Cuisines Status
 router.put("/cuisines/:cuisinesId/:cuisinesStatus", [authenticateToken], cuisinesController.updateStatus);
 
@@ -222,11 +222,11 @@ router.get("/banner", [authenticateToken], bannerController.findAll);
 // Update Banner Details
 router.put("/banner/:bannerId", [authenticateToken], bannerController.updateBannerDetails);
 // Delete a Banner with id
-router.delete("/banner/:bannerId", [authenticateToken], bannerController.delete);
+router.post("/banner/:bannerId", [authenticateToken], bannerController.delete);
 // Update Banner Status
 router.put("/banner/:bannerId/:bannerStatus", [authenticateToken], bannerController.updateStatus);
 // Update Banner Approval Status
-router.put("/banner/aprove/:bannerId/:approvalStatus", [authenticateToken], bannerController.updateApprovalStatus);
+router.put("/banner/approval/:bannerId/:approvalStatus", [authenticateToken], bannerController.updateApprovalStatus);
 
 /* Complain */
 // Create a new Complain
