@@ -3,14 +3,16 @@ import 'package:billy_application/data/repository/cart_repo.dart';
 import 'package:billy_application/models/cart_body_model.dart';
 import 'package:billy_application/models/temp_model.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class CartController extends GetxController {
   final CartRepo cartRepo;
   CartController({required this.cartRepo});
 
+  // ignore: prefer_final_fields
   Map<String, CartBodyModel> _items = {};
   Map<String, CartBodyModel> get items => _items;
+
+  List<CartBodyModel> storeItems = [];
 
   void addItem(TempModel tempModel, AuthController authController) {
     String itemId = tempModel.itemList![tempModel.index!].sId!.toString();
@@ -45,7 +47,6 @@ class CartController extends GetxController {
           addextra: addextra,
           cartQty: tempModel.qty!.toInt(),
           cartPrice: tempModel.totalPrice!.toInt(),
-          isExist: true,
         );
       });
     } else {
@@ -58,10 +59,11 @@ class CartController extends GetxController {
           addextra: addextra,
           cartQty: tempModel.qty!.toInt(),
           cartPrice: tempModel.totalPrice!.toInt(),
-          isExist: true,
         );
       });
     }
+    cartRepo.addToCartList(getItems);
+    update();
   }
 
   bool existInCart(String itemId) {
@@ -77,5 +79,19 @@ class CartController extends GetxController {
       totalQty += value.cartQty!.toInt();
     });
     return totalQty;
+  }
+
+  List<CartBodyModel> get getItems {
+    return _items.entries.map((e) {
+      return e.value;
+    }).toList();
+  }
+
+  List<CartBodyModel> getCartData() {
+    return storeItems;
+  }
+
+  set setCart(List<CartBodyModel> items) {
+    storeItems = items;
   }
 }
