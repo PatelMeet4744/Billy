@@ -972,7 +972,7 @@
             <div class="row grid_box">
                 <div class="col-12">
                     <div class="table-responsive">
-                        <p id="demo">{{MYDATA}}</p>
+                        <!-- <p id="demo">{{MYDATA}}</p> -->
                         <!-- <table class="table table-striped"> 
                             <tbody> 
                              <tr class="bg-info"> 
@@ -984,15 +984,16 @@
                             <tbody id="myTable"> 
                             </tbody> 
                            </table> -->
-                        <table class="table">
+                        <table class="table" style="background-color: orange;color: white;">
                             <thead>
                                 <tr class="bg-info">
-                                    <th width="15%">S.No #</th>
+                                    <!-- <th width="15%">S.No #</th> -->
                                     <th width="30%">Coupon Code</th>
-                                    <th width="30%">Coupon Code Value</th>
+                                    <!-- <th width="30%">Coupon Code Value</th> -->
                                 </tr>
                             </thead>
                             <tbody id="myTable">
+                                {{MYDATA}}
                             </tbody>
                         </table>
                         <script>

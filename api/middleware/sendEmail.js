@@ -16,8 +16,8 @@ var readHTMLFile = function (path, callback) {
     });
 };
 
-function send(email, subject, body) {
-    // return console.log(email);
+function send(email, subject, body, option) {
+    // return console.log(option);
     let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -31,11 +31,15 @@ function send(email, subject, body) {
         var template = handlebars.compile(html);
         var replacements = {
             MYDATA: body,
-            redirecturl: "http://localhost:3000/Resturant/AttachDocument",
+            redirecturl: `http://localhost:3001/Resturant/AttachDocument/${body}`,
             currentyear: year
         };
         var htmlToSend = template(replacements);
 
+        if(option == "couponcode"){
+            htmlToSend = body
+        }
+        // console.log(subject)
         //Send Bulk mail Code
         /*var maillist = ['19bmiit0015@gmail.com','19bmiit032@gmail.com','a.p.choksi420@gmail.com'];
             const mailOptions = {
@@ -45,7 +49,9 @@ function send(email, subject, body) {
             html: "Hello"
         };
         */
-
+        if(option == "forgot"){
+            htmlToSend = body
+        }
         const mailOptions = {
             from: '"Billy"<MAIL_CONFIG.AUTH_EMAIL>',
             to: email,

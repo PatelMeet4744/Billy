@@ -50,7 +50,8 @@ exports.update = (req, res, next) => {
         addonType: req.body.addonType,
         addonPrice: req.body.addonPrice,
         addonAdditionalPrice: req.body.addonAdditionalPrice,
-        addonFinalPrice: req.body.addonFinalPrice
+        addonFinalPrice: req.body.addonFinalPrice,
+        approvalStatus:2
     };
 
     addonService.updateAddOn(model, (error, results) => {
@@ -71,9 +72,9 @@ exports.findAll = (req, res, next) => {
         addonName: req.query.addonName,
         pageSize: req.query.pageSize,
         page: req.query.page,
-        restaurant: req.params.restaurantid,
+        restaurant: req.query.restaurant,
     };
-    
+
     addonService.getAddOn(model, (error, results) => {
         if (error) {
             return next(error);

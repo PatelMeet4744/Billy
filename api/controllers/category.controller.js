@@ -37,8 +37,9 @@ exports.update = (req, res, next) => {
 
     const categoryId = req.params.categoryId;
     const categoryName = req.body.categoryName;
+    const approvalStatus = 2;
     // return console.log({ categoryId, categoryName });
-    categoryService.updateCategory({ categoryId, categoryName }, (error, results) => {
+    categoryService.updateCategory({ categoryId, categoryName,approvalStatus }, (error, results) => {
         if (error) {
             return next(error);
         } else {
@@ -56,7 +57,8 @@ exports.findAll = (req, res, next) => {
     var model = {
         categoryName: req.query.categoryName,
         pageSize: req.query.pageSize,
-        page: req.query.page
+        page: req.query.page,
+        restaurant: req.query.restaurant
     };
 
     categoryService.getCategory(model, (error, results) => {

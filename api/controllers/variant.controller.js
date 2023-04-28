@@ -19,7 +19,8 @@ exports.findAll = (req, res, next) => {
     var model = {
         variantName: req.query.variantName,
         pageSize: req.query.pageSize,
-        page: req.query.page
+        page: req.query.page,
+        restaurant: req.query.restaurant
     };
 
     variantService.getVariant(model, (error, results) => {

@@ -2,7 +2,7 @@ const { variant } = require("../models/variant.model");
 const { MONGO_DB_CONFIG } = require('../config/app.config');
 
 async function createVariant(params, callback) {
-    if (!params.variantName || !params.variantuom || !params.variantPrice || !params.variantSalesPrice) {
+    if (!params.variantName || !params.variantuom || !params.variantPrice || !params.variantSalesPrice || !params.restaurant) {
         return callback({
             message: "Some Fields are Required"
         }, "");
@@ -20,7 +20,8 @@ async function createVariant(params, callback) {
 
 async function getVariant(params, callback) {
     const variantName = params.variantName;
-    var condition = variantName ? { variantName: { $regex: new RegExp(variantName), $options: "i" } } : {};
+    const restaurant = params.restaurant;
+    var condition = variantName ? { variantName: { $regex: new RegExp(variantName), $options: "i" }, restaurant: restaurant } : { restaurant: restaurant };
 
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;

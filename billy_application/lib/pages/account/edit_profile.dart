@@ -72,7 +72,7 @@ class _EditProfileState extends State<EditProfile> {
           color: Colors.white,
         ),
         leading: IconButton(
-          onPressed: () => Get.offNamed(RouteHelper.getInitial()),
+          onPressed: () => Get.back(),
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,
