@@ -73,7 +73,7 @@ class _ItemAddExtraListPageState extends State<ItemAddExtraListPage> {
         const TextSpan(text: 'Order Price: '),
         TextSpan(
             text:
-                "₹${itemList[index].variant![selectedVariant].variantPrice.toString()} + ₹${(previousTotalPrice - itemList[index].variant![selectedVariant].variantPrice!.toInt()).toString()} + ₹$itemAddExtaPrice = ₹$total",
+                "₹${itemList[index].variant![selectedVariant].variantSalesPrice.toString()} + ₹${(previousTotalPrice - itemList[index].variant![selectedVariant].variantSalesPrice!.toInt()).toString()} + ₹$itemAddExtaPrice = ₹$total",
             style: const TextStyle(fontWeight: FontWeight.bold)),
       ],
     ));

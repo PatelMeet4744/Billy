@@ -26,8 +26,8 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
   int forwardTotalPrice = 0;
   totalOrderPrice(List<Item> itemList, int index, int selectedVariant,
       List<int> selectedItemAddonList, int selectedItemAddon, bool isOptional) {
-    int variantPrice = int.parse(
-        itemList[index].variant![selectedVariant].variantPrice.toString());
+    int variantSalesPrice = int.parse(
+        itemList[index].variant![selectedVariant].variantSalesPrice.toString());
     int itemAddonPrice = 0;
 
     if (isOptional) {
@@ -49,7 +49,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
           .addonFinalPrice!
           .toInt();
     }
-    int total = variantPrice + itemAddonPrice;
+    int total = variantSalesPrice + itemAddonPrice;
     forwardTotalPrice = total;
     return RichText(
         text: TextSpan(
@@ -61,7 +61,7 @@ class _ItemAddonListPageState extends State<ItemAddonListPage> {
         const TextSpan(text: 'Order Price: '),
         TextSpan(
             text:
-                "₹${itemList[index].variant![selectedVariant].variantPrice.toString()} + ₹$itemAddonPrice = ₹$total",
+                "₹${itemList[index].variant![selectedVariant].variantSalesPrice.toString()} + ₹$itemAddonPrice = ₹$total",
             style: const TextStyle(fontWeight: FontWeight.bold)),
       ],
     ));
