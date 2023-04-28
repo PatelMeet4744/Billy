@@ -24,5 +24,6 @@ class AppConstants {
   static const String onboard = "ONBOARD";
   static const int minQty = 1;
   static const int maxQty = 10;
-  static const String cartList = "Cart-list";
+  // ignore: constant_identifier_names
+  static const String CART_LIST = "cart-list";
 }

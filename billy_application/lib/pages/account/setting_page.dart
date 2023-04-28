@@ -5,6 +5,7 @@ import 'package:billy_application/utils/dimensions.dart';
 import 'package:billy_application/widgets/big_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:line_icons/line_icons.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -33,21 +34,15 @@ class _SettingPageState extends State<SettingPage> {
           color: Colors.white,
         ),
         leading: IconButton(
-          onPressed: () => Get.offNamed(RouteHelper.getInitial()),
+          onPressed: () {
+            Get.back();
+            // Navigator.pop(context);
+          },
           icon: const Icon(
-            Icons.arrow_back,
+            LineIcons.home,
             color: Colors.white,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-            ),
-          ),
-        ],
       ),
       body: Container(
         padding: const EdgeInsets.all(10),

@@ -2,6 +2,7 @@ import 'package:billy_application/controllers/auth_controller.dart';
 import 'package:billy_application/data/repository/cart_repo.dart';
 import 'package:billy_application/models/cart_body_model.dart';
 import 'package:billy_application/models/temp_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -88,10 +89,22 @@ class CartController extends GetxController {
   }
 
   List<CartBodyModel> getCartData() {
+    setCart = cartRepo.getCartList();
     return storeItems;
   }
 
   set setCart(List<CartBodyModel> items) {
     storeItems = items;
+    debugPrint("Length of cart items ${storeItems.length.toString()}");
+    for (var i = 0; i < storeItems.length; i++) {
+      _items.putIfAbsent(storeItems[i].item!, () => storeItems[i]);
+    }
+    print("Cart Items ${storeItems}");
+  }
+
+  void clear() {
+    _items = {};
+    cartRepo.removeCart();
+    update();
   }
 }

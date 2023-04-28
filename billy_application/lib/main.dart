@@ -49,7 +49,8 @@ class _MyAppState extends State<MyApp> {
       return GetBuilder<CuisinesController>(builder: (_) {
         return GetBuilder<RestaurantController>(builder: (_) {
           return GetBuilder<ItemController>(builder: (_) {
-            return GetBuilder<CartController>(builder: (_) {
+            return GetBuilder<CartController>(builder: (cartController) {
+              cartController.getCartData();
               return GetMaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'Billy',

@@ -21,8 +21,8 @@ class CartBodyModel {
     customer = json['customer'];
     item = json['item'];
     variant = json['variant'];
-    addon = json['addon'].cast<String>();
-    addextra = json['addextra'].cast<String>();
+    addon = json['addon'];
+    addextra = json['addextra'];
     cartQty = json['cartQty'];
     cartPrice = json['cartPrice'];
   }

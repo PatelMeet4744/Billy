@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:billy_application/controllers/cart_controller.dart';
 import 'package:billy_application/pages/account/account_page.dart';
+import 'package:billy_application/pages/cart/cart_page.dart';
 import 'package:billy_application/pages/home/main_food_page.dart';
 import 'package:billy_application/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +26,13 @@ class _HomePageState extends State<HomePage> {
         'Likes',
       ),
     ),
-    const Center(
-      child: Text('Cart'),
-    ),
+    const CartPage(),
     const AccountPage(),
   ];
+  @override
+  void initState() {
+    _selectedIndex = 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                                   : AppColors.mainColor,
                               elevation: 0,
                             ),
-                            position: BadgePosition.topEnd(top: -12, end: -12),
+                            // position: BadgePosition.topEnd(top: -12, end: -12),
                             child: Icon(
                               LineIcons.shoppingCart,
                               color: _selectedIndex == 2 ? Colors.white : null,
