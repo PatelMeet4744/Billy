@@ -50,7 +50,8 @@ exports.update = (req, res, next) => {
         addonType: req.body.addonType,
         addonPrice: req.body.addonPrice,
         addonAdditionalPrice: req.body.addonAdditionalPrice,
-        addonFinalPrice: req.body.addonFinalPrice
+        addonFinalPrice: req.body.addonFinalPrice,
+        approvalStatus:2
     };
 
     addonService.updateAddOn(model, (error, results) => {

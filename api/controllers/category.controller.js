@@ -37,8 +37,9 @@ exports.update = (req, res, next) => {
 
     const categoryId = req.params.categoryId;
     const categoryName = req.body.categoryName;
+    const approvalStatus = 2;
     // return console.log({ categoryId, categoryName });
-    categoryService.updateCategory({ categoryId, categoryName }, (error, results) => {
+    categoryService.updateCategory({ categoryId, categoryName,approvalStatus }, (error, results) => {
         if (error) {
             return next(error);
         } else {

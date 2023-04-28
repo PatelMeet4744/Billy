@@ -30,14 +30,14 @@ async function getCategoryById({ categoryId }, callback) {
         });
 }
 
-async function updateCategory({ categoryId, categoryName }, callback) {
+async function updateCategory({ categoryId, categoryName,approvalStatus }, callback) {
     if (!categoryName) {
         return callback({
             message: "Category Name is Required!"
         }, "");
     }
     // return console.log(categoryName);
-    category.findByIdAndUpdate(categoryId, { categoryName }, { useFindAndModify: false })
+    category.findByIdAndUpdate(categoryId, { categoryName,approvalStatus }, { useFindAndModify: false })
         .then((response) => {
             if (!response) callback("Not Found Category with ID " + categoryId);
             else callback(null, response);
