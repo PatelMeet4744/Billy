@@ -130,7 +130,7 @@ class _VariantListPageState extends State<VariantListPage> {
                   children: <TextSpan>[
                     const TextSpan(text: 'Order Price: '),
                     TextSpan(
-                        text: "₹${variant![selected].variantPrice!}",
+                        text: "₹${variant![selected].variantSalesPrice!}",
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 )),
