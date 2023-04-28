@@ -4,6 +4,7 @@ const settingService = require("../services/setting.service");
 exports.create = (req, res, next) => {
 
     var model = {
+        restaurant: req.body.restaurant,
         settingCartMinPrice: req.body.settingCartMinPrice,
         settingCartMinPriceMessage: req.body.settingCartMinPriceMessage,
         settingDeliveryCharge: req.body.settingDeliveryCharge,
@@ -27,7 +28,8 @@ exports.findAll = (req, res, next) => {
     var model = {
         settingCartMinPrice: req.query.settingCartMinPrice,
         pageSize: req.query.pageSize,
-        page: req.query.page
+        page: req.query.page,
+        restaurant: req.query.restaurant
     };
 
     settingService.getSetting(model, (error, results) => {

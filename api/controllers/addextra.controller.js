@@ -50,7 +50,8 @@ exports.update = (req, res, next) => {
         addextraType: req.body.addextraType,
         addextraPrice: req.body.addextraPrice,
         addextraAdditionalPrice: req.body.addextraAdditionalPrice,
-        addextraFinalPrice: req.body.addextraFinalPrice
+        addextraFinalPrice: req.body.addextraFinalPrice,
+        approvalStatus:2
     };
     // return console.log(req.body);
     addExtraService.updateAddExtra(model, (error, results) => {
