@@ -16,6 +16,8 @@ class AppConstants {
   static const String resetPasswordAPI = "api/resetpassword";
   static const String changePasswordAPI = "api/customer/change/password";
   static const String bannerAPI = "api/customer/customer/banner";
+  static const String orderMasterAPI = "api/ordermaster";
+  static const String orderDetailAPI = "api/orderdetail";
   static const int pageSize = 10;
   static const String currency = "₹";
   static const String token = "TOKEN";

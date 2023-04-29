@@ -4,8 +4,8 @@ const MONGO_DB_CONFIG = {
 };
 
 const MAIL_CONFIG = {
-    AUTH_EMAIL:"Email Id",
-    AUTH_PASS:"password"
+    AUTH_EMAIL: "abhishekmeet032015@gmail.com",
+    AUTH_PASS: "nabtjkffcdpqweuj"
 }
 
 module.exports = { MONGO_DB_CONFIG, MAIL_CONFIG };

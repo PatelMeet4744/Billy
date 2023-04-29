@@ -90,7 +90,13 @@ class CartController extends GetxController {
 
   List<CartBodyModel> getCartData() {
     setCart = cartRepo.getCartList();
+    // var item = cartRepo.getCartList();
+    // item.forEach((element) => print("item: ${element.item}"));
     return storeItems;
+  }
+
+  List<CartBodyModel> orderData() {
+    return cartRepo.getCartList();
   }
 
   set setCart(List<CartBodyModel> items) {
@@ -99,7 +105,7 @@ class CartController extends GetxController {
     for (var i = 0; i < storeItems.length; i++) {
       _items.putIfAbsent(storeItems[i].item!, () => storeItems[i]);
     }
-    print("Cart Items ${storeItems}");
+    // print("Cart Items ${storeItems}");
   }
 
   void clear() {
