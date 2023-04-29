@@ -21,8 +21,8 @@ async function createOrderDetail(params, callback) {
         .map((element) => element.trim());
 
     const model = new orderDetail(orderDetailFields);
-    model.save().then((response) => {
-        return callback(null, response);
+    model.save().then(() => {
+        return callback(null, "Order Successfully!");
     })
         .catch((error) => {
             return callback(error);
@@ -32,7 +32,7 @@ async function createOrderDetail(params, callback) {
 async function getOrderDetail(params, callback) {
 
     orderDetail.aggregate([
-              {
+        {
             $lookup: {
                 from: "items",
                 let: { item: "$item" },
@@ -49,7 +49,7 @@ async function getOrderDetail(params, callback) {
                             foreignField: "_id",
                             as: "restaurant"
                         }
-                    }, 
+                    },
                     {
                         $lookup: {
                             from: "categories",
@@ -59,16 +59,16 @@ async function getOrderDetail(params, callback) {
                         }
                     },
                     {
-                        $project: {                           
-                            "category._id":1,
-                            "category.categoryName":1,
-                            "itemName":1,                           
-                            "itemType":1,                           
-                            "itemDescription":1, 
-                            "itemImage":1,            
-                            "restaurant._id":1,
-                            "restaurant.restaurantName":1,
-                            "restaurant.restaurantContact":1,
+                        $project: {
+                            "category._id": 1,
+                            "category.categoryName": 1,
+                            "itemName": 1,
+                            "itemType": 1,
+                            "itemDescription": 1,
+                            "itemImage": 1,
+                            "restaurant._id": 1,
+                            "restaurant.restaurantName": 1,
+                            "restaurant.restaurantContact": 1,
                         }
                     },
                     {
@@ -91,12 +91,12 @@ async function getOrderDetail(params, callback) {
                 foreignField: "_id",
                 as: "variant"
             }
-        },{
-            $project: {                           
-                "variant.variantStatus":0,
-                "variant.updatedAt":0,
-                "variant.createdAt":0,
-                "variant.__v":0
+        }, {
+            $project: {
+                "variant.variantStatus": 0,
+                "variant.updatedAt": 0,
+                "variant.createdAt": 0,
+                "variant.__v": 0
             }
         },
         {
@@ -111,13 +111,13 @@ async function getOrderDetail(params, callback) {
             }
         },
         {
-            $project: {                           
-                "addon.restaurant":0,
-                "addon.approvalStatus":0,
-                "addon.addonStatus":0,
-                "addon.updatedAt":0,
-                "addon.createdAt":0,
-                "addon.__v":0
+            $project: {
+                "addon.restaurant": 0,
+                "addon.approvalStatus": 0,
+                "addon.addonStatus": 0,
+                "addon.updatedAt": 0,
+                "addon.createdAt": 0,
+                "addon.__v": 0
             }
         },
         {
@@ -129,13 +129,13 @@ async function getOrderDetail(params, callback) {
             }
         },
         {
-            $project: {                           
-                "addextra.restaurant":0,
-                "addextra.approvalStatus":0,
-                "addextra.addextraStatus":0,
-                "addextra.updatedAt":0,
-                "addextra.createdAt":0,
-                "addextra.__v":0
+            $project: {
+                "addextra.restaurant": 0,
+                "addextra.approvalStatus": 0,
+                "addextra.addextraStatus": 0,
+                "addextra.updatedAt": 0,
+                "addextra.createdAt": 0,
+                "addextra.__v": 0
             }
         },
         {
@@ -155,21 +155,21 @@ async function getOrderDetail(params, callback) {
                             foreignField: "_id",
                             as: "customer"
                         }
-                    },     
+                    },
                     {
-                        $project: {                           
-                            "customer.customerPassword":0,
-                            "customer.billingAddress":0,
-                            "customer.customerOTP":0,
-                            "customer.customerHash":0,
-                            "customer.customerReferralcode":0,
-                            "customer.customerFromReferralcode":0,
-                            "customer.customerStatus":0,
-                            "customer.updatedAt":0,
-                            "customer.createdAt":0,
-                            "customer.__v":0
+                        $project: {
+                            "customer.customerPassword": 0,
+                            "customer.billingAddress": 0,
+                            "customer.customerOTP": 0,
+                            "customer.customerHash": 0,
+                            "customer.customerReferralcode": 0,
+                            "customer.customerFromReferralcode": 0,
+                            "customer.customerStatus": 0,
+                            "customer.updatedAt": 0,
+                            "customer.createdAt": 0,
+                            "customer.__v": 0
                         }
-                    },                
+                    },
                     {
                         $unwind: "$customer"
                     },
@@ -180,20 +180,23 @@ async function getOrderDetail(params, callback) {
                             foreignField: "_id",
                             as: "billingAddress"
                         }
-                    }, 
+                    },
                     {
-                        $project: {    
-                            "billingAddress.updatedAt":0,
-                            "billingAddress.createdAt":0,
-                            "billingAddress.__v":0
+                        $project: {
+                            "billingAddress.updatedAt": 0,
+                            "billingAddress.createdAt": 0,
+                            "billingAddress.__v": 0
                         }
-                    },                
+                    },
                     {
                         $unwind: "$billingAddress"
                     },
                 ],
                 as: "orderMaster"
             }
+        },
+        {
+            $unwind: "$orderMaster"
         },
     ])
         .then((response) => {
