@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
                   darkTheme: ThemeData(brightness: Brightness.dark),
                   theme: ThemeData(
                     primarySwatch: MaterialColor(0xfff6881f, color),
-                  ),
+                  ),  
                   // home: ItemListPage(),
                   initialRoute: RouteHelper.getSplashPage(),
                   getPages: RouteHelper.routes,
