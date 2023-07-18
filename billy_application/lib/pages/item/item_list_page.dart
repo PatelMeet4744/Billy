@@ -24,6 +24,24 @@ class ItemListPage extends StatelessWidget {
     await Get.find<ItemController>().getItemByRestaurant(restaurantId);
   }
 
+  String itemDescription(String description, double textHeight) {
+    if (description.length > textHeight) {
+      return description.substring(0, textHeight.toInt());
+    } else {
+      return description;
+    }
+  }
+
+  String itemVariantPriceRange(List<Variant>? variants) {
+    var minvariantPrice = variants!
+        .map((variant) => variant.variantSalesPrice)
+        .reduce((a, b) => a! < b! ? a : b);
+    var maxvariantPrice = variants
+        .map((variant) => variant.variantSalesPrice)
+        .reduce((a, b) => a! > b! ? a : b);
+    return "₹${minvariantPrice} - ₹${maxvariantPrice}";
+  }
+
   @override
   Widget build(BuildContext context) {
     bool userLoggedIn = Get.find<AuthController>().userLoggedIn();
@@ -43,24 +61,6 @@ class ItemListPage extends StatelessWidget {
         color = Colors.blue;
       }
       return color;
-    }
-
-    String itemDescription(String description, double textHeight) {
-      if (description.length > textHeight) {
-        return description.substring(0, textHeight.toInt());
-      } else {
-        return description;
-      }
-    }
-
-    String itemVariantPriceRange(List<Variant>? variants) {
-      var minvariantPrice = variants!
-          .map((variant) => variant.variantSalesPrice)
-          .reduce((a, b) => a! < b! ? a : b);
-      var maxvariantPrice = variants
-          .map((variant) => variant.variantSalesPrice)
-          .reduce((a, b) => a! > b! ? a : b);
-      return "₹${minvariantPrice} - ₹${maxvariantPrice}";
     }
 
     return Scaffold(
@@ -132,157 +132,12 @@ class ItemListPage extends StatelessWidget {
                                                     //image section
                                                     GestureDetector(
                                                       onTap: () {
-                                                        Get.bottomSheet(
-                                                          Container(
-                                                            color: Colors.white,
-                                                            height: Dimensions
-                                                                    .screenHeight /
-                                                                3,
-                                                            width: Dimensions
-                                                                .screenWidth,
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  height: Dimensions
-                                                                      .height121,
-                                                                  child: Stack(
-                                                                    children: [
-                                                                      Image
-                                                                          .network(
-                                                                        AppConstants.imageURL +
-                                                                            item.itemList[i].item![j].itemImage!,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                        width: Dimensions
-                                                                            .screenWidth,
-                                                                      ),
-                                                                      Positioned(
-                                                                        top: 10,
-                                                                        right:
-                                                                            5,
-                                                                        child:
-                                                                            GestureDetector(
-                                                                          onTap: () =>
-                                                                              Navigator.of(context).pop(),
-                                                                          child:
-                                                                              const AppIcon(
-                                                                            icon:
-                                                                                Icons.clear,
-                                                                            iconColor:
-                                                                                Colors.white,
-                                                                            backgroundColor:
-                                                                                AppColors.mainColor,
-                                                                          ),
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: Dimensions
-                                                                      .height10,
-                                                                ),
-                                                                Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      left: 5.0,
-                                                                      right:
-                                                                          8.0),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      BigText(
-                                                                        text: item
-                                                                            .itemList[i]
-                                                                            .item![j]
-                                                                            .itemName!,
-                                                                        color: AppColors
-                                                                            .mainColor,
-                                                                      ),
-                                                                      GestureDetector(
-                                                                        onTap:
-                                                                            (() {}),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              Dimensions.width62_5,
-                                                                          height:
-                                                                              Dimensions.height40,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(Dimensions.height10),
-                                                                            color:
-                                                                                AppColors.mainColor,
-                                                                          ),
-                                                                          child:
-                                                                              Center(
-                                                                            child:
-                                                                                BigText(
-                                                                              text: "Add",
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      left:
-                                                                          5.0),
-                                                                  child:
-                                                                      BigText(
-                                                                    text: itemVariantPriceRange(item
-                                                                        .itemList[
-                                                                            i]
-                                                                        .item![
-                                                                            j]
-                                                                        .variant),
-                                                                    color: AppColors
-                                                                        .mainBlackColor,
-                                                                    size: Dimensions
-                                                                        .font16,
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: Dimensions
-                                                                      .height10,
-                                                                ),
-                                                                Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      left: 5.0,
-                                                                      right:
-                                                                          5.0),
-                                                                  child:
-                                                                      SmallText(
-                                                                    text: itemDescription(
-                                                                        item
-                                                                            .itemList[i]
-                                                                            .item![j]
-                                                                            .itemDescription!,
-                                                                        100),
-                                                                    size: Dimensions
-                                                                        .font16,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          elevation: 20.0,
-                                                          isDismissible: false,
-                                                        );
+                                                        showItemDetail(
+                                                            context,
+                                                            item.itemList[i]
+                                                                .item!,
+                                                            i,
+                                                            j);
                                                       },
                                                       child: Container(
                                                         width:
@@ -456,8 +311,8 @@ class ItemListPage extends StatelessWidget {
                                                                     onRatingUpdate:
                                                                         (rating) {
                                                                       // ignore: avoid_print
-                                                                      print(
-                                                                          rating);
+                                                                      // print(
+                                                                      //     rating);
                                                                     },
                                                                   ),
                                                                   Container(
@@ -475,73 +330,11 @@ class ItemListPage extends StatelessWidget {
                                                                             color: AppColors.mainColor),
                                                                     child:
                                                                         GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        Get.bottomSheet(
-                                                                          SizedBox(
-                                                                            height:
-                                                                                Dimensions.screenHeight / 2,
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.start,
-                                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                                              children: [
-                                                                                ListTile(
-                                                                                  title: BigText(
-                                                                                    text: item.itemList[i].item![j].itemName!,
-                                                                                    color: AppColors.mainColor,
-                                                                                  ),
-                                                                                  trailing: GestureDetector(
-                                                                                    onTap: () => Navigator.of(context).pop(),
-                                                                                    child: const AppIcon(
-                                                                                      icon: Icons.clear,
-                                                                                      iconColor: Colors.white,
-                                                                                      backgroundColor: AppColors.mainColor,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                                Divider(
-                                                                                  color: Colors.grey[110],
-                                                                                  thickness: 2.0,
-                                                                                  indent: 5.0,
-                                                                                  endIndent: 5.0,
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  height: Dimensions.height10,
-                                                                                ),
-                                                                                Padding(
-                                                                                  padding: const EdgeInsets.only(left: 5.0),
-                                                                                  child: BigText(
-                                                                                    text: item.itemList[i].item![j].variant![0].variantuom!,
-                                                                                    size: Dimensions.font18,
-                                                                                  ),
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  height: Dimensions.height10,
-                                                                                ),
-                                                                                Container(
-                                                                                  color: Colors.white,
-                                                                                  child: VariantListPage(i: i, j: j),
-                                                                                )
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          elevation:
-                                                                              20.0,
-                                                                          isDismissible:
-                                                                              false,
-                                                                          backgroundColor:
-                                                                              Colors.grey[100],
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.only(
-                                                                              topLeft: Radius.circular(Dimensions.radius15),
-                                                                              topRight: Radius.circular(Dimensions.radius15),
-                                                                            ),
-                                                                          ),
-                                                                        );
-                                                                      },
+                                                                      onTap: () => showVariantPage(
+                                                                          context,
+                                                                          item.itemList[i]
+                                                                              .item!,
+                                                                          j),
                                                                       child:
                                                                           Icon(
                                                                         Icons
@@ -557,111 +350,14 @@ class ItemListPage extends StatelessWidget {
                                                               ),
                                                               GestureDetector(
                                                                 onTap: () {
-                                                                  Get.bottomSheet(
-                                                                    Container(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      height:
-                                                                          Dimensions.screenHeight /
-                                                                              3,
-                                                                      width: Dimensions
-                                                                          .screenWidth,
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          SizedBox(
-                                                                            height:
-                                                                                Dimensions.height121,
-                                                                            child:
-                                                                                Stack(
-                                                                              children: [
-                                                                                Image.network(
-                                                                                  AppConstants.imageURL + item.itemList[i].item![j].itemImage!,
-                                                                                  fit: BoxFit.cover,
-                                                                                  width: Dimensions.screenWidth,
-                                                                                ),
-                                                                                Positioned(
-                                                                                  top: 10,
-                                                                                  right: 5,
-                                                                                  child: GestureDetector(
-                                                                                    onTap: () => Navigator.of(context).pop(),
-                                                                                    child: const AppIcon(
-                                                                                      icon: Icons.clear,
-                                                                                      iconColor: Colors.white,
-                                                                                      backgroundColor: AppColors.mainColor,
-                                                                                    ),
-                                                                                  ),
-                                                                                )
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                Dimensions.height10,
-                                                                          ),
-                                                                          Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(left: 5.0, right: 8.0),
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: [
-                                                                                BigText(
-                                                                                  text: item.itemList[i].item![j].itemName!,
-                                                                                  color: AppColors.mainColor,
-                                                                                ),
-                                                                                GestureDetector(
-                                                                                  onTap: (() {}),
-                                                                                  child: Container(
-                                                                                    width: Dimensions.width62_5,
-                                                                                    height: Dimensions.height40,
-                                                                                    decoration: BoxDecoration(
-                                                                                      borderRadius: BorderRadius.circular(Dimensions.height10),
-                                                                                      color: AppColors.mainColor,
-                                                                                    ),
-                                                                                    child: Center(
-                                                                                      child: BigText(
-                                                                                        text: "Add",
-                                                                                        color: Colors.white,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(left: 5.0),
-                                                                            child:
-                                                                                BigText(
-                                                                              text: itemVariantPriceRange(item.itemList[i].item![j].variant),
-                                                                              color: AppColors.mainBlackColor,
-                                                                              size: Dimensions.font16,
-                                                                            ),
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                Dimensions.height10,
-                                                                          ),
-                                                                          SmallText(
-                                                                            text:
-                                                                                itemDescription(item.itemList[i].item![j].itemDescription!, 100),
-                                                                            size:
-                                                                                Dimensions.font16,
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    elevation:
-                                                                        20.0,
-                                                                    isDismissible:
-                                                                        false,
-                                                                  );
+                                                                  showItemDetail(
+                                                                      context,
+                                                                      item
+                                                                          .itemList[
+                                                                              i]
+                                                                          .item!,
+                                                                      i,
+                                                                      j);
                                                                 },
                                                                 child: RichText(
                                                                   text:
@@ -705,6 +401,114 @@ class ItemListPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  showItemDetail(BuildContext context, item, int i, int j) {
+    Get.bottomSheet(
+      Container(
+        color: Colors.white,
+        height: Dimensions.screenHeight / 3,
+        width: Dimensions.screenWidth,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: Dimensions.height121,
+              child: Stack(
+                children: [
+                  Image.network(
+                    AppConstants.imageURL + item[j].itemImage!,
+                    fit: BoxFit.cover,
+                    width: Dimensions.screenWidth,
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 5,
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: const AppIcon(
+                        icon: Icons.clear,
+                        iconColor: Colors.white,
+                        backgroundColor: AppColors.mainColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: Dimensions.height10,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0, right: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BigText(
+                    text: item[j].itemName!,
+                    color: AppColors.mainColor,
+                  ),
+                  GestureDetector(
+                    onTap: (() => showVariantPage(context, item, j)),
+                    child: Container(
+                      width: Dimensions.width62_5,
+                      height: Dimensions.height40,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.height10),
+                        color: AppColors.mainColor,
+                      ),
+                      child: Center(
+                        child: BigText(
+                          text: "Add",
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: BigText(
+                text: itemVariantPriceRange(item[j].variant),
+                color: AppColors.mainBlackColor,
+                size: Dimensions.font16,
+              ),
+            ),
+            SizedBox(
+              height: Dimensions.height10,
+            ),
+            SmallText(
+              text: itemDescription(item[j].itemDescription!, 100),
+              size: Dimensions.font16,
+            ),
+          ],
+        ),
+      ),
+      elevation: 20.0,
+      isDismissible: false,
+    );
+  }
+
+  showVariantPage(BuildContext context, item, int index) {
+    Get.bottomSheet(
+      VariantListPage(
+        itemList: item,
+        index: index,
+      ),
+      elevation: 20.0,
+      isDismissible: false,
+      backgroundColor: Colors.grey[100],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(Dimensions.radius15),
+          topRight: Radius.circular(Dimensions.radius15),
         ),
       ),
     );

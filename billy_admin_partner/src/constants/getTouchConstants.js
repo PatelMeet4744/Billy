@@ -1,0 +1,5 @@
+export const All_GETTOUCH_REQUEST = "All_GETTOUCH_REQUEST";
+export const All_GETTOUCH_SUCCESS = "All_GETTOUCH_SUCCESS";
+export const All_GETTOUCH_FAIL = "All_GETTOUCH_FAIL";
+
+export const CLEAR_ERRORS = "CLEAR_ERRORS";

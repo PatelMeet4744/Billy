@@ -16,10 +16,16 @@ class AppConstants {
   static const String resetPasswordAPI = "api/resetpassword";
   static const String changePasswordAPI = "api/customer/change/password";
   static const String bannerAPI = "api/customer/customer/banner";
+  static const String orderMasterAPI = "api/ordermaster";
+  static const String orderDetailAPI = "api/orderdetail";
   static const int pageSize = 10;
   static const String currency = "₹";
   static const String token = "TOKEN";
   static const String customerName = "CUSTOMERNAME";
   static const String customerId = "CUSTOMERID";
   static const String onboard = "ONBOARD";
+  static const int minQty = 1;
+  static const int maxQty = 10;
+  // ignore: constant_identifier_names
+  static const String CART_LIST = "cart-list";
 }

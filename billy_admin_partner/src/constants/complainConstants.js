@@ -1,0 +1,5 @@
+export const All_COMPLAIN_REQUEST = "All_COMPLAIN_REQUEST";
+export const All_COMPLAIN_SUCCESS = "All_COMPLAIN_SUCCESS";
+export const All_COMPLAIN_FAIL = "All_COMPLAIN_FAIL";
+
+export const CLEAR_ERRORS = "CLEAR_ERRORS";

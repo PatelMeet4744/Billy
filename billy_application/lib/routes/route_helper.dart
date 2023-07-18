@@ -7,9 +7,7 @@ import 'package:billy_application/pages/auth/reset_password_page.dart';
 import 'package:billy_application/pages/auth/sign_in_page.dart';
 import 'package:billy_application/pages/auth/sign_up_page.dart';
 import 'package:billy_application/pages/home/home_page.dart';
-import 'package:billy_application/pages/item/item_addon_list_page.dart';
 import 'package:billy_application/pages/item/item_list_page.dart';
-import 'package:billy_application/pages/item/variant_list_page.dart';
 import 'package:billy_application/pages/login/otp_verify_page.dart';
 import 'package:billy_application/pages/onboard/onboarding.dart';
 import 'package:billy_application/pages/restaurant/restaurant_list_page.dart';
@@ -29,8 +27,6 @@ class RouteHelper {
   static const String changePasswordPage = "/change-password-page";
   static const String restaurantListPage = "/restaurant-list-page";
   static const String itemListPage = "/item-list-page";
-  static const String variantListPage = "/variant-list-page";
-  static const String itemaddonListPage = "/item-addon-list-page";
 
   static String getSplashPage() => splashPage;
   static String getOnboardPage() => onboardPage;
@@ -53,8 +49,6 @@ class RouteHelper {
   static String getRestaurantListPage(int pageId) =>
       '$restaurantListPage?pageId=$pageId';
   static String getItemListPage(int pageId) => '$itemListPage?pageId=$pageId';
-  static String getVariantListPage(int i, int j) => '$itemListPage?i=$i&j$j';
-  static String getItemAddonListPage() => itemaddonListPage;
 
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashPage()),
@@ -155,25 +149,6 @@ class RouteHelper {
         var pageId = Get.parameters['pageId'];
         return ItemListPage(pageId: int.parse(pageId!));
       },
-      transition: Transition.rightToLeft,
-    ),
-    GetPage(
-      name: variantListPage,
-      page: () {
-        var i = Get.parameters['i'];
-        var j = Get.parameters['j'];
-
-        // ignore: avoid_print
-        print("Get Parameter i $i");
-        // ignore: avoid_print
-        print("Get Parameter j $j");
-        return VariantListPage(i: int.parse(i!), j: int.parse(j!));
-      },
-      transition: Transition.rightToLeft,
-    ),
-    GetPage(
-      name: itemaddonListPage,
-      page: () => ItemAddonListPage(),
       transition: Transition.rightToLeft,
     ),
   ];

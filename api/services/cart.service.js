@@ -14,6 +14,7 @@ async function createCart(params, callback) {
     cartFields.customer = customer;
     cartFields.item = item;
     if (params.cartQty) cartFields.cartQty = params.cartQty;
+    if (params.cartPrice) cartFields.cartPrice = params.cartPrice;
     cartFields.variant = variant;
     cartFields.addon = addon.split(',')
         .map((element) => element.trim());
@@ -33,7 +34,8 @@ async function getCart(params, callback) {
 
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
-    cart.find({}, { "variant": 0, "addon": 0, "addextra": 0 }).populate("customer", "customerName customerEmailID customerContact").populate({ path: "item", select: "itemName itemType itemDescription itemImage itemStatus", populate: { path: "restaurant category", select: "restaurantName restaurantAddress restaurantCity restaurantContact ownerName categoryName" } })
+    // cart.find({}).populate("customer", "customerName customerEmailID customerContact").populate({ path: "item", select: "itemName itemType itemDescription itemImage itemStatus", populate: { path: "restaurant category", select: "restaurantName restaurantAddress restaurantCity restaurantContact ownerName categoryName" } })
+    cart.find({})
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
@@ -76,17 +78,18 @@ async function deleteCart({ cartId }, callback) {
 }
 
 async function updateCart(params, callback) {
-    if (!params.cartQty || !params.variant || !params.addon || !params.addextra) {
+    if (!params.cartQty || !params.cartPrice || !params.variant || !params.addon || !params.addextra) {
         return callback({
             message: "Some Fields are Required!"
         }, "");
     }
     const cartId = params.cartId;
 
-    const { cartQty, variant, addon, addextra } = params;
+    const { cartQty, cartPrice, variant, addon, addextra } = params;
     // Build Item Added-On object
     const cartFields = {};
     cartFields.cartQty = cartQty;
+    cartFields.cartPrice = cartPrice;
     cartFields.variant = variant;
     cartFields.addon = addon.split(',')
         .map((element) => element.trim());

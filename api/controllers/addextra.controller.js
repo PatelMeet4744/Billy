@@ -50,7 +50,8 @@ exports.update = (req, res, next) => {
         addextraType: req.body.addextraType,
         addextraPrice: req.body.addextraPrice,
         addextraAdditionalPrice: req.body.addextraAdditionalPrice,
-        addextraFinalPrice: req.body.addextraFinalPrice
+        addextraFinalPrice: req.body.addextraFinalPrice,
+        approvalStatus:2
     };
     // return console.log(req.body);
     addExtraService.updateAddExtra(model, (error, results) => {
@@ -71,7 +72,7 @@ exports.findAll = (req, res, next) => {
         addextraName: req.query.addextraName,
         pageSize: req.query.pageSize,
         page: req.query.page,
-        restaurant: req.params.restaurantid,
+        restaurant: req.query.restaurant,
     };
 
     addExtraService.getAddExtra(model, (error, results) => {

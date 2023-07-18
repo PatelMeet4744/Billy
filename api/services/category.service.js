@@ -30,14 +30,14 @@ async function getCategoryById({ categoryId }, callback) {
         });
 }
 
-async function updateCategory({ categoryId, categoryName }, callback) {
+async function updateCategory({ categoryId, categoryName,approvalStatus }, callback) {
     if (!categoryName) {
         return callback({
             message: "Category Name is Required!"
         }, "");
     }
     // return console.log(categoryName);
-    category.findByIdAndUpdate(categoryId, { categoryName }, { useFindAndModify: false })
+    category.findByIdAndUpdate(categoryId, { categoryName,approvalStatus }, { useFindAndModify: false })
         .then((response) => {
             if (!response) callback("Not Found Category with ID " + categoryId);
             else callback(null, response);
@@ -49,7 +49,8 @@ async function updateCategory({ categoryId, categoryName }, callback) {
 
 async function getCategory(params, callback) {
     const categoryName = params.categoryName;
-    var condition = categoryName ? { categoryName: { $regex: new RegExp(categoryName), $options: "i" } } : {};
+    const restaurant = params.restaurant;
+    var condition = categoryName ? { categoryName: { $regex: new RegExp(categoryName), $options: "i" }, restaurant: restaurant } : { restaurant: restaurant };
 
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;

@@ -37,8 +37,9 @@ async function getBannerById({ bannerId }, callback) {
 //Get All Banners
 async function getBanner(params, callback) {
     const bannerName = params.bannerName;
-    var condition = bannerName ? { bannerName: { $regex: new RegExp(bannerName), $options: "i" } } : {};
-
+    const restaurant = params.restaurant;
+    var condition = restaurant ? { restaurant: restaurant } : {};
+    
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
 

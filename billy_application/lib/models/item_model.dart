@@ -68,8 +68,8 @@ class Item {
   int? approvalStatus;
   String? createdAt;
   String? updatedAt;
-  List<Itemaddon>? itemaddon;
-  List<Itemaddextra>? itemaddextra;
+  Itemaddon? itemaddon;
+  Itemaddextra? itemaddextra;
 
   Item(
       {this.sId,
@@ -102,24 +102,16 @@ class Item {
       json['variant'].forEach((v) {
         variant!.add(Variant.fromJson(v));
       });
-      // Sort variant by variantSalesPrice
-      // variant!.sort(((a, b) => a.variantSalesPrice!.compareTo(b.variantSalesPrice!)));
     }
     approvalStatus = json['approvalStatus'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    if (json['itemaddon'] != null) {
-      itemaddon = <Itemaddon>[];
-      json['itemaddon'].forEach((v) {
-        itemaddon!.add(Itemaddon.fromJson(v));
-      });
-    }
-    if (json['itemaddextra'] != null) {
-      itemaddextra = <Itemaddextra>[];
-      json['itemaddextra'].forEach((v) {
-        itemaddextra!.add(Itemaddextra.fromJson(v));
-      });
-    }
+    itemaddon = json['itemaddon'] != null
+        ? Itemaddon.fromJson(json['itemaddon'])
+        : null;
+    itemaddextra = json['itemaddextra'] != null
+        ? Itemaddextra.fromJson(json['itemaddextra'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -141,10 +133,10 @@ class Item {
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     if (itemaddon != null) {
-      data['itemaddon'] = itemaddon!.map((v) => v.toJson()).toList();
+      data['itemaddon'] = itemaddon!.toJson();
     }
     if (itemaddextra != null) {
-      data['itemaddextra'] = itemaddextra!.map((v) => v.toJson()).toList();
+      data['itemaddextra'] = itemaddextra!.toJson();
     }
     return data;
   }
@@ -205,6 +197,7 @@ class Variant {
   String? createdAt;
   String? updatedAt;
   int? iV;
+  String? restaurant;
 
   Variant(
       {this.sId,
@@ -215,7 +208,8 @@ class Variant {
       this.variantStatus,
       this.createdAt,
       this.updatedAt,
-      this.iV});
+      this.iV,
+      this.restaurant});
 
   Variant.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -227,6 +221,7 @@ class Variant {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
+    restaurant = json['restaurant'];
   }
 
   Map<String, dynamic> toJson() {
@@ -240,6 +235,7 @@ class Variant {
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     data['__v'] = iV;
+    data['restaurant'] = restaurant;
     return data;
   }
 }
@@ -248,7 +244,7 @@ class Itemaddon {
   String? sId;
   String? title;
   String? customerSelection;
-  Addon? addon;
+  List<Addon>? addon;
   String? createdAt;
   String? updatedAt;
   int? iV;
@@ -266,7 +262,12 @@ class Itemaddon {
     sId = json['_id'];
     title = json['title'];
     customerSelection = json['customerSelection'];
-    addon = json['addon'] != null ? Addon.fromJson(json['addon']) : null;
+    if (json['addon'] != null) {
+      addon = <Addon>[];
+      json['addon'].forEach((v) {
+        addon!.add(Addon.fromJson(v));
+      });
+    }
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -278,7 +279,7 @@ class Itemaddon {
     data['title'] = title;
     data['customerSelection'] = customerSelection;
     if (addon != null) {
-      data['addon'] = addon!.toJson();
+      data['addon'] = addon!.map((v) => v.toJson()).toList();
     }
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
@@ -352,7 +353,7 @@ class Itemaddextra {
   String? sId;
   String? title;
   String? customerSelection;
-  Addextra? addextra;
+  List<Addextra>? addextra;
   String? createdAt;
   String? updatedAt;
   int? iV;
@@ -370,8 +371,12 @@ class Itemaddextra {
     sId = json['_id'];
     title = json['title'];
     customerSelection = json['customerSelection'];
-    addextra =
-        json['addextra'] != null ? Addextra.fromJson(json['addextra']) : null;
+    if (json['addextra'] != null) {
+      addextra = <Addextra>[];
+      json['addextra'].forEach((v) {
+        addextra!.add(Addextra.fromJson(v));
+      });
+    }
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -383,7 +388,7 @@ class Itemaddextra {
     data['title'] = title;
     data['customerSelection'] = customerSelection;
     if (addextra != null) {
-      data['addextra'] = addextra!.toJson();
+      data['addextra'] = addextra!.map((v) => v.toJson()).toList();
     }
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;

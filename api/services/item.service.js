@@ -33,14 +33,14 @@ async function createItem(params, callback) {
 }
 
 async function getItem(params, callback) {
-    const itemName = params.itemName;
-    var condition = itemName ? { itemName: { $regex: new RegExp(itemName), $options: "i" } } : {};
+    const restaurant = params.restaurant;
+    var condition = restaurant ? { restaurant: restaurant } : {};
 
     let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
     let page = (Math.abs(params.page) || 1) - 1;
 
     // item.find(condition, "").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra", select: "addextraName addextraPrice" } })
-    item.find(condition, "").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra" } }).populate("variant")
+    item.find(condition, "").populate("restaurant", "restaurantName restaurantAddress restaurantCity restaurantContact ownerName").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra" } }).populate("variant")
         .limit(perPage)
         .skip(perPage * page)
         .then((response) => {
@@ -54,7 +54,7 @@ async function getItem(params, callback) {
 }
 
 async function getItemById({ itemId }, callback) {
-    item.findById(itemId).populate("category", "categoryName").populate("itemAddon").populate("itemAddExtra").populate("variant")
+    item.findById(itemId).populate("restaurant", "restaurantName restaurantAddress restaurantCity restaurantContact ownerName").populate("category", "categoryName").populate({ path: "itemAddon", populate: { path: "addon" } }).populate({ path: "itemAddExtra", populate: { path: "addextra" } }).populate("variant")
         .then((response) => {
             if (!response) callback("Not Found Item with ID " + itemId);
             else callback(null, response);
@@ -201,15 +201,12 @@ async function getItemByRestaurant(restaurantId, callback) {
                             as: "addon"
                         }
                     },
-                    {
-                        $unwind: {
-                            path: '$addon',
-                            preserveNullAndEmptyArrays: true
-                        }
-                    }
                 ],
                 as: "itemaddon"
             }
+        },
+        {
+            $unwind: "$itemaddon"
         },
         {
             $lookup: {
@@ -229,15 +226,12 @@ async function getItemByRestaurant(restaurantId, callback) {
                             as: "addextra"
                         }
                     },
-                    {
-                        $unwind: {
-                            path: '$addextra',
-                            preserveNullAndEmptyArrays: true
-                        }
-                    }
                 ],
                 as: "itemaddextra"
             }
+        },
+        {
+            $unwind: "$itemaddextra"
         },
         {
             $project: {
